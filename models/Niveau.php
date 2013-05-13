@@ -11,6 +11,12 @@
 				ORDER BY libelle_niveau ASC
 				'
 			);
-		}		
+		}
+
+    function getLevel($id) {
+			return $this->find(array(
+				'conditions' => 'id='.$id
+			));
+		}
 	}
 ?>
