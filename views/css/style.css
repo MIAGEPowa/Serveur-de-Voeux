@@ -1,0 +1,598 @@
+body {
+	padding: 0;
+	margin: 0;
+	font-family: 'Open Sans', sans-serif;
+	font-size: 14px;
+	font-weight: 300;
+	color: black;
+	background: url(../img/body.png) repeat;
+}
+.span-link {
+	color: #009FE0 !important;
+	text-decoration: none;
+	cursor: pointer;
+}
+.span-link:hover {
+	color: #009FE0 !important;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+/************** 
+	HEADER
+***************/
+#header {
+	width: 100%;
+	height: 50px;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background: #009FE0;
+	background-image: linear-gradient(to bottom, #009FE0, #018ec8);
+}
+#header h1 {
+	width: 350px;
+	font-size: 18px;
+	font-weight: 400;
+	color: white;
+	padding: 12px;
+	float: left;
+}
+#header h1 a, #header h1 a:link, #header h1 a:focus, #header h1 a:active, #header h1 a:visited {
+	color: white;
+	text-decoration: none;
+}
+#header h1 a:hover {
+	color: #016e9b;
+	text-decoration: none;
+}
+#userAccount {
+	float: right;
+	overflow: hidden;
+}
+#userAccount > a {
+	width: 40px;
+	height: 40px;
+	display: inline-block;
+	float: left;
+	margin: 5px 5px 0 0;
+}
+#userAccount img {
+	width: 38px;
+	height: 38px;
+	border: 1px white solid;
+}
+#userAccount div {
+	margin: 6px 0 0 0;
+	padding: 0 12px;
+}
+#userAccount div a, #userAccount div a:link, #userAccount div a:active, #userAccount div a:focus, #userAccount div a:visited {
+	color: white;
+	text-decoration: none;
+}
+#userAccount div a:hover {
+	color: white;
+	text-decoration: underline;
+}
+
+/************** 
+	OVERLAY
+***************/
+#overlay {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 1;
+	background: rgba(0, 0, 0, 0.5);
+}
+#overlay .overlayBlock {
+	width: 500px;
+	height: 80px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -40px 0 0 -250px;
+	border-radius: 4px;
+	border: 1px #d9d9d9 solid;
+	background: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+}
+#overlay span.overlayTtile {
+	display: block;
+	margin: 5px;
+	padding: 5px;
+	border-radius: 4px;
+}
+#overlaySuccess span.overlayTtile {
+	border: 1px #419641 solid;
+	background: linear-gradient(to bottom, #62C462, #51A351);
+}
+#overlayError span.overlayTtile {
+	border: 1px #aa2922 solid;
+	background: linear-gradient(to bottom, #EE5F5B, #BD362F);
+}
+#overlay .overlayIcon {
+	display: inline-block;
+	float: left;
+	margin-right: 7px;
+}
+#overlay p {
+	padding: 5px 10px;
+}
+#overlay span.overlayClose {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	cursor: pointer;
+}
+
+/*********** 
+	MAIN
+************/
+#main {
+	width: 100%;
+	overflow: hidden;
+	margin-top: 50px;
+}
+
+/********** 
+	COL
+***********/
+#col {
+	width: 215px;
+	overflow: hidden;
+	float: left;
+}
+#col ul {
+	width: 215px;
+	list-style: none;
+	margin-top: 25px;
+	position: fixed;
+}
+#col ul li {
+	background: white;
+	margin: 5px 0;
+	border-top: 2px #d9d9d9 solid;
+	border-bottom: 2px #d9d9d9 solid;
+	background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+}
+#col ul li.active, #col ul li:hover {
+	background: #009FE0;
+	background-image: linear-gradient(to bottom, #009FE0, #018ec8);
+	color: white;
+	border-right: 4px #0082b7 solid;
+}
+#col ul li a {
+	height: 20px;
+	line-height: 20px;
+	display: block;
+	padding: 8px 15px;
+}
+#col ul li a span {
+	display: inline-block;
+	margin: 1px 7px 0 0;
+	float: left;
+}
+#col ul li a, #col ul li a:link, #col ul li a:active, #col ul li a:focus, #col ul li a:visited {
+	color: black;
+	text-decoration: none;
+}
+#col ul li a:hover {
+	color: black;
+	text-decoration: none;
+}
+#col ul li.active a, #col ul li.active a:link, #col ul li.active a:active, #col ul li.active a:visited, #col ul li.active a:focus {
+	color: white;
+	text-decoration: none;
+}
+
+/*** SUB MENU ***/
+#col ul.sub-menu {
+	width: 215px;
+	list-style: none;
+	margin: 0;
+	position: relative;
+}
+#col ul.sub-menu li {
+	margin-left: 20px;
+}
+
+/************** 
+	CONTENT
+***************/
+#content {
+	overflow: hidden;
+	background: white;
+	margin-left: 215px;
+}
+#contentTitle {
+	padding: 15px 25px;
+}
+#contentTitle h2 {
+	font-size: 24px;
+	font-weight: 400;
+	color: #009FE0;
+}
+
+/*** TEXT **/
+.text h2 {
+	font-size: 16px;
+	font-weight: 400;
+	background: white;
+	border: 1px #d9d9d9 solid;
+	border-radius: 4px;
+	background-image: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+	padding: 5px 8px;
+}
+.text h3 {
+	padding: 5px 8px;
+	font-size: 15px;
+	font-weight: 400;
+	padding: 0 8px;
+	margin: 10px 0 0 0;
+}
+.text p, ul {
+	line-height: 22px;
+}
+.text a, .text a:link, .text a:active, .text a:focus, .text a:visited {
+	color: #009FE0;
+	text-decoration: none;
+}
+.text a:hover {
+	color: #009FE0;
+	text-decoration: underline;
+}
+
+/*** TEXT FULL, TWO, THREE, FOUR ***/
+.text-full, .text-two, .text-two-large, .text-three, .text-four {
+	padding: 0 25px;
+	margin-bottom: 15px;
+	overflow: hidden;
+}
+.text-full p, .text-two p, .text-two-large p, .text-three p, .text-four p {
+	padding: 10px 8px;
+}
+.text-full ul, .text-two ul, .text-two-large ul, .text-three ul, .text-four ul {
+	padding: 10px 35px;
+}
+
+/*** TEXT TWO ***/
+.text-two-item {
+	width: 49%;
+	display: block;
+	float: right;
+}
+.text-two-item-first {
+	float: left;
+}
+
+/*** TEXT TWO LARGE ***/
+.text-two-large-item {
+	width: 65%;
+	display: block;
+	float: right;
+}
+.text-two-large-item-first {
+	width: 33%;
+	float: left;
+}
+
+/*** TEXT THREE ***/
+.text-three-item {
+	width: 32%;
+	display: block;
+	float: left;
+	margin-right: 2%;
+}
+.text-three-item-last {
+	margin: 0;
+	float: right;
+}
+
+/*** TEXT FOUR ***/
+.text-four-item {
+	width: 24%;
+	display: block;
+	float: left;
+	margin-right: 1.33%
+}
+.text-four-item-last {
+	margin: 0;
+	float: right;
+}
+
+/*** FORM ***/
+.text form {
+	padding: 10px 8px;
+}
+.text legend {
+	height: 20px;
+	line-height: 20px;
+	border: 1px #D9D9D9 solid;
+	border-radius: 4px;
+	background: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+	padding: 5px 8px;
+}
+.text legend.button-slide {
+	cursor: pointer;
+}
+.text legend.button-slide:hover {
+	background: linear-gradient(to bottom, #F2F2F2, #F2F2F2);
+}
+.text legend span {
+	display: inline-block;
+	margin: 1px 7px 0 0;
+	vertical-align: top;
+}
+.text fieldset {
+	background: #fafafa;
+	border: 1px #D9D9D9 solid;
+	border-radius: 4px;
+	padding: 0 15px 15px 15px;
+}
+.text label {
+	width: 150px;
+	display: inline-block;
+	margin-right: 15px;
+}
+.text label.label-top {
+	vertical-align: top;
+}
+.text input[type="text"], .text input[type="password"], .text select {
+	height: 22px;
+	background: white;
+	border: 1px #D9D9D9 solid;
+	border-radius: 4px;
+	padding: 1px 2px;
+}
+.text input[type="file"] {
+	height: 22px;
+	padding: 1px 2px;
+}
+.text input[type="checkbox"], .text input[type="radio"] {
+	margin: 5px 5px 5px 0;
+}
+.text input.input-little {
+	width: 50px;
+	text-align: right;
+}
+.text input.input-medium {
+	width: 135px;
+}
+.text input.input-large {
+	width: 225px;
+}
+.text input:focus {
+	border-color: rgba(82, 168, 236, 0.8);
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
+	outline: none;
+}
+.text form span.form-description {
+	display: block;
+	font-size: 12px;
+	margin: 4px 0 0 170px;
+	color: #696969;
+}
+.text form textarea {
+	width: 65%;
+	height: 200px;
+}
+.text select {
+	padding: 1px 5px 1px 2px;
+}
+.text .form-item {
+	margin-top: 20px;
+}
+.text .form-right-block {
+	display: inline-block;
+}
+
+/*** BUTTONS & INPUT SUBMIT ***/
+input[type="submit"].input-submit {
+	border-radius: 4px;
+	padding: 5px 8px;
+	margin-left: 165px;
+	font-size: 12px;
+	color: white;
+	cursor: pointer;
+}
+input[type="submit"].input-submit-blue, .button-blue {
+	border: 1px #037bac solid;
+	background: linear-gradient(to bottom, #009FE0, #018EC8);
+}
+input[type="submit"].input-submit-blue:hover, .button-blue:hover {
+	background: linear-gradient(to bottom, #018EC8, #009FE0);
+}
+input[type="submit"].input-submit-green, .button-green {
+	border: 1px #419641 solid;
+	background: linear-gradient(to bottom, #62C462, #51A351);
+}
+input[type="submit"].input-submit-green:hover, .button-green:hover {
+	background: linear-gradient(to bottom, #51A351, #62C462);
+}
+input[type="submit"].input-submit-red, .button-red {
+	border: 1px #aa2922 solid;
+	background: linear-gradient(to bottom, #EE5F5B, #BD362F);
+}
+input[type="submit"].input-submit-red:hover, .button-red:hover {
+	background: linear-gradient(to bottom, #BD362F, #EE5F5B);
+}
+input[type="submit"].input-submit-orange, .button-orange {
+	border: 1px #df8b13 solid;
+	background: linear-gradient(to bottom, #FBB450, #F89406);
+}
+input[type="submit"].input-submit-orange:hover, .button-orange:hover {
+	background: linear-gradient(to bottom, #F89406, #FBB450);
+}
+.button-grey {
+	color: black !important;
+	border: 1px #b8b8b8 solid;
+	background: linear-gradient(to bottom, #FFFFFF, #E6E6E6);
+}
+.button-grey:hover {
+	background: linear-gradient(to bottom, #E6E6E6, #FFFFFF);
+}
+
+/*** TABLE ***/
+.text table {
+	width: 99%;
+    border-spacing: 0;
+	margin: 10px auto;
+}
+.text table thead{
+	text-align: left;
+}
+.text table thead tr th {
+	background: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+	border-top: 1px #D9D9D9 solid;
+	border-bottom: 1px #D9D9D9 solid;
+	padding: 5px 8px;
+	font-weight: 400;
+	font-size: 15px;
+}
+.text table thead:first-child tr th:first-child {
+	border-left: 1px #D9D9D9 solid;
+	border-radius: 4px 0 0 4px;
+}
+.text table thead:first-child tr th:last-child {
+	border-right: 1px #D9D9D9 solid;
+	border-radius: 0 4px 4px 0;
+}
+.text table tbody tr td {
+	padding: 8px;
+	border-bottom: 1px #D9D9D9 solid;
+}
+.text table tbody tr:nth-child(odd){
+	background: #fafafa;
+}
+.text table tbody tr.tr-error {
+	background: #ff908c;
+}
+.text table tbody tr.tr-warning {
+	background: #ffc36e;
+}
+.text table tbody tr.tr-success {
+	background: #9de69d;
+}
+
+/************************ 
+	AUTHENTIFICATION
+*************************/
+.authentification {
+	width: 550px;
+	overflow: auto;
+	margin: -135px 0 0 -275px;
+	background: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
+	border-radius: 4px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.authentification h2 {
+	margin-top: 15px;
+}
+.authentification input[type=submit] {
+	border-radius: 4px;
+	padding: 5px 8px;
+	font-size: 12px;
+	color: white;
+	cursor: pointer;
+	display: block;
+	margin: 25px auto 0 auto;
+}
+
+/****************** 
+	BREADCRUMB
+*******************/
+#breadcrumb {
+	height: 21px;
+	line-height: 21px;
+	background: #F2F2F2;
+	border-top: 1px #d9d9d9 solid;
+	border-bottom: 1px #d9d9d9 solid;
+	padding: 8px 25px;
+	margin-bottom: 25px;
+}
+#breadcrumb .delimiter {
+	margin: 0 8px;
+}
+
+/*************** 
+	BUTTONS
+****************/
+.buttons {
+	border-radius: 4px;
+	padding: 5px 8px;
+	font-size: 12px;
+	color: white;
+	cursor: pointer;
+	margin-right: 8px;
+}
+
+/************ 
+	ICONES
+*************/
+span.icon-home {
+	width: 17px;
+	height: 16px;
+	background: url(../img/sprite.png) 0 0;
+}
+#col li.active span.icon-home {
+	background: url(../img/sprite.png) 0 16px;
+}
+span.icon-book {
+	width: 15px;
+	height: 16px;
+	background: url(../img/sprite.png) -17px 0;
+}
+#col li.active span.icon-book {
+	background: url(../img/sprite.png) -17px 16px;
+}
+span.icon-user {
+	width: 17px;
+	height: 16px;
+	background: url(../img/sprite.png) -32px 0;
+}
+span.icon-heart {
+	width: 17px;
+	height: 16px;
+	background: url(../img/heart.png);
+}
+span.icon-ok {
+	width: 17px;
+	height: 17px;
+	background: url(../img/ok.png);
+}
+span.icon-information {
+	width: 17px;
+	height: 17px;
+	background: url(../img/information.png);
+}
+span.icon-error {
+	width: 17px;
+	height: 17px;
+	background: url(../img/error.png);
+}
+span.icon-close {
+	width: 12px;
+	height: 12px;
+	background: url(../img/close.png);
+}
+.text legend span.icon-arrow {
+	width: 17px;
+	height: 7px;
+	margin: -2px 0 0 10px;
+	vertical-align: middle;
+	background: url(../img/arrow.png);
+}
+
+/* RESET */
+span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	background: none repeat scroll 0 0 transparent;
+	border: 0 none;
+	margin: 0;
+	outline: 0 none;
+	padding: 0;
+}
