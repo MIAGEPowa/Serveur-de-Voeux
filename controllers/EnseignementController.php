@@ -41,6 +41,7 @@
 											"keyword" => $keyword[0] );
 					$this->Keyword->save($dataKeyword);
 				}
+				$d['v_success'] = "L'enseignement a bien été créé";
 			}
 			
 			// Liste des enseignements
@@ -48,6 +49,11 @@
 			
 			$this->set($d);
 			$this->render('index');
+		}
+		
+		function delete($id) {
+			$this->Enseignement->deleteEnseignement($id);
+			redirection("enseignement", "index");
 		}
 	}
 ?>

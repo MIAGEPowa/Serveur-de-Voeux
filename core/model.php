@@ -94,15 +94,23 @@ class Model{
      * Permet de faire une requête complexe
      * @param $sql Requête a effectué
      * */
-        public function query($sql){
-            $req = mysql_query($sql) or die(mysql_error()."<br/> => ".$sql);
-            $d = array();
-            while($data = mysql_fetch_assoc($req)){
-                $d[] = $data;
-            }
-            return $d; 
-        }
+	public function query($sql){
+		$req = mysql_query($sql) or die(mysql_error()."<br/> => ".$sql);
+		$d = array();
+		while($data = mysql_fetch_assoc($req)){
+			$d[] = $data;
+		}
+		return $d; 
+	}
     
+	/**
+     * Permet de faire une requête complexe
+     * @param $sql Requête a effectué
+     * */
+	public function deleteQuery($sql){
+		$req = mysql_query($sql) or die(mysql_error()."<br/> => ".$sql);
+	}
+	
     /**
      * Permet de charger un model
      * @param $name Nom du model à charger

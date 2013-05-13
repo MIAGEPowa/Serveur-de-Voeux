@@ -17,6 +17,8 @@
 			header("Location: ".WEBROOT);
 		else
 			header("Location: ".WEBROOT.$model."/".$action."/");
+		
+		exit;
 	}
 	
 	/**

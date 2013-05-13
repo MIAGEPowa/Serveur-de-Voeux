@@ -530,6 +530,9 @@ input[type="submit"].input-submit-orange:hover, .button-orange:hover {
 	cursor: pointer;
 	margin-right: 8px;
 }
+a.buttons-link:hover {
+	text-decoration: none;
+}
 
 /************ 
 	ICONES

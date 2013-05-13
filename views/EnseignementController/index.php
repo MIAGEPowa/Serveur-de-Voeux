@@ -81,7 +81,7 @@
 					</thead>
 					<tbody>
 						<?php
-						// on parcours le tableau des enseignements
+						// On parcours le tableau des enseignements
 						foreach($arrayEnseignements as $enseignement) {
 							$etat = '';
 							if($enseignement['etat'] == 0) {$etat = 'Créé';}
@@ -95,7 +95,7 @@
 								<td><?php echo $_SESSION['v_prenom'].' '. $_SESSION['v_nom']; ?></td>
 								<td><?php echo $etat; ?></td>
 								<td>
-									<span class="buttons button-orange">Modifier</span><span class="buttons button-red">Supprimer</span>
+									<span class="buttons button-green">Visualiser</span><span class="buttons button-orange">Modifier</span><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
 								</td>
 							</tr>
 						
