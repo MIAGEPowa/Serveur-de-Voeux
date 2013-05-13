@@ -26,9 +26,17 @@
 			<h1><a href="<?php echo WEBROOT; ?>" title="Projet SMED">Projet SMED</a></h1>
 			<?php 
 				if($_SESSION['v_connected']) {
+					if(file_exists(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.png'))
+						$photo = $_SESSION['v_id_utilisateur'].'.png';
+					else if(file_exists(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.jpg'))
+						$photo = $_SESSION['v_id_utilisateur'].'.jpg';
+					else if(file_exists(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.gif'))
+						$photo = $_SESSION['v_id_utilisateur'].'.gif';
+					else
+						$photo = 'default.jpg';
 				?>
 					<div id="userAccount">
-						<a href="<?php echo WEBROOT.'utilisateur/moncompte'; ?>" title="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>"><img src="<?php echo IMG_DIR.'utilisateurs/kevin.jpg'; ?>" alt="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>" title="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>" /></a>
+						<a href="<?php echo WEBROOT.'utilisateur/moncompte'; ?>" title="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>"><img src="<?php echo WEBROOT.'files/avatar/'.$photo; ?>" alt="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>" title="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>" /></a>
 						<div>
 							<a href="<?php echo WEBROOT.'utilisateur/moncompte'; ?>" title="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>">Bonjour, <?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?></a>
 						</div>
@@ -47,4 +55,3 @@
 		
 	</body>
 </html>
-

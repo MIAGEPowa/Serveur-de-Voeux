@@ -15,38 +15,65 @@
 			if($_POST['utilisateur_form_moncompte']) {
 				if(isset($_POST['email']) && !empty($_POST['email'])) {
 					
-					// On change le mot de passe que si l'utilisateur a insérer des données dans le input password
-					if(isset($_POST['password']) && !empty($_POST['password']))
-						$changeMDP = 1;
-					else
-						$changeMDP = 0;
-						
-					if($changeMDP)
-						$this->Utilisateur->editUtilisateur($_SESSION['v_id_utilisateur'], $_POST['password'], $_POST['email'], $_POST['biographie'], $_POST['badge']);
-					else
-						$this->Utilisateur->editUtilisateur($_SESSION['v_id_utilisateur'], null, $_POST['email'], $_POST['biographie'], $_POST['badge']);
+					$importPhoto = 1;
+					$importCV = 1;
+					$size_max = 1000000;
 					
+					// Importation de la photo
 					if($_FILES['photo']['tmp_name']) {
-						
-						$size_max = 100000;
 						$extensions = array('.png', '.gif', '.jpg');
 						$extension = strrchr($_FILES['photo']['name'], '.');
 						if(filesize($_FILES['photo']['tmp_name']) > $size_max || !in_array($extension, $extensions)) {
 							$d['v_errors'] = 'Oops ! La photo que vous cherchez à importer est trop lourde ou le format n\'est pas accepté.';
 						} else {
-							if(move_uploaded_file($_FILES['photo']['tmp_name'], ROOT.'views/img/utilisateurs/'.$_SESSION['v_id_utilisateur'].$extension)) {
-								$d['v_success'] = 'La photo a correctement été importé.';
+							
+							// On supprime la photo de l'utilisateur s'il en possède déjà une 
+							if(file_exists(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.png'))
+								unlink(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.png');
+							if(file_exists(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.jpg'))
+								unlink(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.jpg');
+							if(file_exists(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.gif'))
+								unlink(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.gif');
+							
+							if(move_uploaded_file($_FILES['photo']['tmp_name'], ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].$extension)) {
+								$importPhoto = 1;
 							} else {
-								$d['v_errors'] = 'Oops ! La photo n\'a pas été importé correctement.';
+								$importPhoto = 0;
+								$d['v_errors'] = 'Oops ! La photo n\'a pas été importée correctement.';
 							}
 						}
-						
 					}
 					
-					// Si cv ou photo != null alors les importer
+					// Importation du CV
+					if($_FILES['cv']['tmp_name']) {
+						$extensions = array('.pdf');
+						$extension = strrchr($_FILES['cv']['name'], '.');
+						if(filesize($_FILES['cv']['tmp_name']) > $size_max || !in_array($extension, $extensions)) {
+							$d['v_errors'] = 'Oops ! Le CV que vous cherchez à importer est trop lourde ou le format n\'est pas accepté.';
+						} else {
+							
+							// On supprime le cv de l'utilisateur s'il en possède déjà un 
+							if(file_exists(ROOT.'files/cv/'.$_SESSION['v_id_utilisateur'].'.pdf'))
+								unlink(ROOT.'files/cv/'.$_SESSION['v_id_utilisateur'].'.pdf');
+							
+							if(move_uploaded_file($_FILES['cv']['tmp_name'], ROOT.'files/cv/'.$_SESSION['v_id_utilisateur'].$extension)) {
+								$importCV = 1;
+							} else {
+								$importCV = 0;
+								$d['v_errors'] = 'Oops ! Le CV n\'a pas été importé correctement.';
+							}
+						}
+					}
 					
-					$d['v_success'] .= '<br />Les informations de votre compte ont bien été mis à jour.';
-					
+					if($importPhoto && $importCV) {
+						// On change le mot de passe que si l'utilisateur a insérer des données dans le input password
+						if(isset($_POST['password']) && !empty($_POST['password']))
+							$this->Utilisateur->editUtilisateur($_SESSION['v_id_utilisateur'], $_POST['password'], $_POST['email'], $_POST['biographie'], $_POST['badge']);
+						else
+							$this->Utilisateur->editUtilisateur($_SESSION['v_id_utilisateur'], null, $_POST['email'], $_POST['biographie'], $_POST['badge']);
+						$d['v_success'] = 'Les informations de votre compte ont bien été mises à jour.';	
+					}
+				
 				} else {
 					$d['v_errors'] = 'Oops ! Le champ email est obligatoire.';
 				}
