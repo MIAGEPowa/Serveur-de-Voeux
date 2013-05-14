@@ -16,7 +16,7 @@
 		<div class="text text-full">
 			<form id="form-create-level" action="#" method="post">
 				<fieldset>
-					<legend class="button-slide"><span class="icon-heart"></span>Ajouter un niveau<span class="icon-arrow"></span></legend>
+					<legend class="button-slide"><span class="icon-podium"></span>Ajouter un niveau<span class="icon-arrow"></span></legend>
 					<div style="display:none">
 						<div class="form-item">
 							<label for="intitule">Intitulé *</label>

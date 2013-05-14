@@ -16,7 +16,7 @@
 		<div class="text text-full">
 			<form id="form-update-level" action="<?php echo WEBROOT.'niveau/index';?>" method="post">
 				<fieldset>
-					<legend ><span class="icon-heart"></span>Modifier un niveau</legend>
+					<legend ><span class="icon-podium"></span>Modifier un niveau</legend>
 					<div>
           
             <input type="hidden" id="idLevel" name="idLevel" value="<?php echo $info_level[0]['id'];?>"/>

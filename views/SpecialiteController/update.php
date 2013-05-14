@@ -16,7 +16,7 @@
 		<div class="text text-full">
 			<form id="form-update-speciality" action="<?php echo WEBROOT.'specialite/index';?>" method="post">
 				<fieldset>
-					<legend ><span class="icon-heart"></span>Modifier une spécialité</legend>
+					<legend ><span class="icon-star"></span>Modifier une spécialité</legend>
 					<div>
           
             <input type="hidden" id="idSpeciality" name="idSpeciality" value="<?php echo $info_speciality[0]['id'];?>"/>

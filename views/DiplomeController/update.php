@@ -16,7 +16,7 @@
 		<div class="text text-full">
 			<form id="form-update-degree" action="<?php echo WEBROOT.'diplome/index';?>" method="post">
 				<fieldset>
-					<legend ><span class="icon-heart"></span>Modifier un diplôme</legend>
+					<legend ><span class="icon-cup"></span>Modifier un diplôme</legend>
 					<div>
           
             <input type="hidden" id="idDegree" name="idDegree" value="<?php echo $info_degree[0]['id'];?>"/>

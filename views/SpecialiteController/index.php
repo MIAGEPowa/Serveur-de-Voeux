@@ -16,7 +16,7 @@
 		<div class="text text-full">
 			<form id="form-create-speciality" action="#" method="post">
 				<fieldset>
-					<legend class="button-slide"><span class="icon-heart"></span>Ajouter une spécialité<span class="icon-arrow"></span></legend>
+					<legend class="button-slide"><span class="icon-star"></span>Ajouter une spécialité<span class="icon-arrow"></span></legend>
 					<div style="display:none">
 						<div class="form-item">
 							<label for="intitule">Intitulé *</label>
