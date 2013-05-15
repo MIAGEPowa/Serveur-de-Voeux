@@ -51,6 +51,15 @@
 			}
 		}
 		
+		// Modifie les délégations de l'utilisateur
+		function updateDelegationsUtilisateur($id, $description, $heures) {
+			return $this->save(array(
+				'id' => $id,
+				'description_delegation' => $description,
+				'nbr_h_delegation' => (int)($heures)
+			));
+		}
+		
 		// Reset le mot de passe d'un utilisateur
 		function resetMotdepasse($id, $email, $nom, $prenom) {
 			$mdp = stringGen(12);

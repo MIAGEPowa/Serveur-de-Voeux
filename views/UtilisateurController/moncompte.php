@@ -10,7 +10,7 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="" title="">Mon compte</a>
+			<a href="" title="Mon compte">Mon compte</a>
 		</div>
 		
 		<div class="text text-full">
