@@ -550,7 +550,7 @@ span.icon-home {
 	background: url(../img/sprite.png) 0 0;
 }
 #col li.active span.icon-home {
-	background: url(../img/sprite.png) 0 16px;
+	background: url(../img/sprite.png) 0 -16px;
 }
 span.icon-book {
 	width: 15px;
@@ -558,7 +558,7 @@ span.icon-book {
 	background: url(../img/sprite.png) -17px 0;
 }
 #col li.active span.icon-book {
-	background: url(../img/sprite.png) -17px 16px;
+	background: url(../img/sprite.png) -17px -16px;
 }
 span.icon-user {
 	width: 17px;
@@ -596,6 +596,70 @@ span.icon-close {
 	margin: -2px 0 0 10px;
 	vertical-align: middle;
 	background: url(../img/arrow.png);
+}
+span.icon-star {
+	width: 17px;
+	height: 16px;
+	background: url(../img/sprite.png) -64px 0;
+}
+#col li.active span.icon-star {
+	background: url(../img/sprite.png) -64px -16px;
+}
+span.icon-cup {
+	width: 15px;
+	height: 16px;
+	background: url(../img/sprite.png) -21px -32px;
+}
+#col li.active span.icon-cup {
+	background: url(../img/sprite.png) -21px -48px;
+}
+span.icon-podium {
+	width: 21px;
+	height: 16px;
+	background: url(../img/sprite.png) 0 -32px;
+}
+#col li.active span.icon-podium {
+	background: url(../img/sprite.png) 0 -48px;
+}
+span.icon-annuaire {
+	width: 15px;
+	height: 16px;
+	background: url(../img/sprite.png) -49px 0;
+}
+#col li.active span.icon-annuaire {
+	background: url(../img/sprite.png) -49px -16px;
+}
+span.icon-utilisateurs {
+	width: 25px;
+	height: 16px;
+	background: url(../img/sprite.png) -36px -32px;
+}
+#col li.active span.icon-utilisateurs {
+	background: url(../img/sprite.png) -36px -48px;
+}
+span.icon-add-utilisateur {
+	width: 20px;
+	height: 16px;
+	background: url(../img/sprite.png) -61px -32px;
+}
+#col li.active span.icon-add-utilisateur {
+	background: url(../img/sprite.png) -61px -48px;
+}
+span.icon-import-utilisateur {
+	width: 16px;
+	height: 16px;
+	background: url(../img/sprite.png) -81px -32px;
+}
+#col li.active span.icon-import-utilisateur {
+	background: url(../img/sprite.png) -81px -48px;
+}
+span.icon-delegations {
+	width: 19px;
+	height: 16px;
+	background: url(../img/sprite.png) -96px 0;
+}
+#col li.active span.icon-delegations {
+	background: url(../img/sprite.png) -96px -16px;
 }
 
 /* RESET */

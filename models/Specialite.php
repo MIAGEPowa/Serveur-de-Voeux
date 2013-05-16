@@ -1,7 +1,7 @@
 <?php
-	class Diplome extends Model {
+	class Specialite extends Model {
 
-		var $table = 'smed_diplome';
+		var $table = 'smed_specialite';
 		
 		function getAll() {
 			return $this->find(array(
@@ -9,7 +9,7 @@
 			));
 		}
     
-    function getDegree($id) {
+    function getSpeciality($id) {
 			return $this->find(array(
 				'conditions' => 'id='.$id
 			));

@@ -116,5 +116,48 @@
 			$this->set($d);
 			$this->render('moncompte');
 		}
+		
+		function delegations() {
+			$d['v_titreHTML'] = 'Délégations';
+			$d['v_menuActive'] = 'delegations';
+			
+			// Traitement du formulaire des délégations
+			if($_POST['utilisateur_form_delegations']) {
+				if(isset($_POST['description_delegations']) && !empty($_POST['description_delegations']) && isset($_POST['h_delegations']) && !empty($_POST['h_delegations'])) {
+					
+					if(is_numeric($_POST['h_delegations'])) {
+						$this->Utilisateur->updateDelegationsUtilisateur($_SESSION['v_id_utilisateur'], $_POST['description_delegations'], $_POST['h_delegations']);
+						$d['v_success'] = 'Vos délégations ont bien été mises à jour.';
+					} else {
+						$d['v_errors'] = 'Oops ! La somme de vos heures de délégations doit être une valeur entière.';
+					}
+					
+				} else {
+					$d['v_errors'] = 'Oops ! Les deux champs sont obligatoires.';
+				}
+			}
+			
+			$u = $this->Utilisateur->getUtilisateur($_SESSION['v_id_utilisateur']);
+			foreach($u as $utilisateur) {
+				$d['nbr_h_delegation'] = $utilisateur['nbr_h_delegation'];
+				$d['description_delegation'] = $utilisateur['description_delegation'];
+			}
+		
+			$this->set($d);
+			$this->render('delegations');
+		}
+		
+		function importer() {
+			$d['v_titreHTML'] = 'Importer des utilisateurs';
+			$d['v_menuActive'] = 'utilisateursImporter';
+		
+			// Traitement du formulaire des délégations
+			if($_POST['utilisateur_form_importer']) {
+				die(1);
+			}
+		
+			$this->set($d);
+			$this->render('importer');
+		}
 	}
 ?>

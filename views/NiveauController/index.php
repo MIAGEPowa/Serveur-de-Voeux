@@ -10,13 +10,13 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="./" title="">Niveaux</a><span class="delimiter">></span>Ajout / Liste des niveaux
+			<a href="<?php echo WEBROOT.'niveau/index';?>" title="">Niveaux</a><span class="delimiter">></span>Ajout / Liste des niveaux
 		</div>
 		
 		<div class="text text-full">
 			<form id="form-create-level" action="#" method="post">
 				<fieldset>
-					<legend class="button-slide"><span class="icon-heart"></span>Ajouter un niveau<span class="icon-arrow"></span></legend>
+					<legend class="button-slide"><span class="icon-podium"></span>Ajouter un niveau<span class="icon-arrow"></span></legend>
 					<div style="display:none">
 						<div class="form-item">
 							<label for="intitule">Intitulé *</label>
@@ -46,7 +46,7 @@
           <thead>
             <tr>
                 <th width="12%">#</th>
-                <th width="34%">Niveau</th>
+                <th width="34%">Intitulé</th>
                 <th width="34%">Diplôme</th>
                 <th width="20%">Actions</th>
             </tr>
@@ -57,8 +57,7 @@
                       <td><?php echo $l['id_niveau'];?></td>
                       <td><?php echo $l['libelle_niveau'];?></td>
                       <td><?php echo $l['libelle_diplome'];?></td>
-                      <td><span class="buttons button-orange"><a href="<?php echo WEBROOT.'niveau/update/'.$l['id_niveau']; ?>">Modifier</a></span>
-                      <span class="buttons button-red"><a href="<?php echo WEBROOT.'niveau/delete/'.$l['id_niveau']; ?>">Supprimer</a></span></td> 
+                      <td><a class="buttons-link" href="<?php echo WEBROOT.'niveau/update/'.$l['id_niveau']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT.'niveau/delete/'.$l['id_niveau']; ?>"><span class="buttons button-red">Supprimer</span></a></td> 
                   </tr>
               <?php } ?>
           </tbody>

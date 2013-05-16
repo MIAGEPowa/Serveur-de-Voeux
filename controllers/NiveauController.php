@@ -21,9 +21,9 @@
 				$this->Niveau->save($dataNiveau);
 				
         if(isset($_POST['idLevel']) && !empty($_POST['idLevel']))
-          $d['v_success'] = "Niveau mis à jour";
+          $d['v_success'] = "Le niveau a bien été mis à jour";
         else
-          $d['v_success'] = "Niveau ajouté";
+          $d['v_success'] = "Le niveau a bien été créé";
 			}
 			
       $d['levels'] = $this->Niveau->getAll();
@@ -35,17 +35,19 @@
     
     function update($id) {
       $this->Niveau->id = $id;
+      
       $d['v_titreHTML'] = 'Niveaux';
 			$d['v_menuActive'] = 'niveaux';
       $d['info_level'] = $this->Niveau->getLevel($id);
       $d['degrees'] = $this->Diplome->getAll();
-      echo "!!!!!!"; echo ($d['info_level'][0]['libelle']);
+
       $this->set($d);
 			$this->render('update');
     }
     
     function delete($id) {
-    
+      $this->Niveau->del($id);
+			redirection("niveau", "index");
     }
 	}
 ?>
