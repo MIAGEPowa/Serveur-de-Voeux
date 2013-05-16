@@ -57,3 +57,18 @@ function openOverlaySuccess(msg) {
 	$('#overlay').css('display','block');
 	$('#overlaySuccess').css('display','block');
 }
+
+// Enleve les espaces devant et derrière la string
+function trim(myString) {
+	return myString.replace(/^\s+/g,'').replace(/\s+$/g,'')
+} 
+
+// Enleve les espaces devant et derrière la string et met tout en minuscules
+function trimAndLowCase(myString) {
+	return (myString.replace(/^\s+/g,'').replace(/\s+$/g,'')).toLowerCase()
+} 
+
+function validateEmail(email) { 
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\.+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+} 

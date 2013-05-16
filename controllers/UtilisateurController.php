@@ -2,10 +2,10 @@
 	class UtilisateurController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Utilisateur');
+		var $models = array('Utilisateur','Keyword');
 		
 		// Variables pour les vues
-		var $v_JS = array('jquery-1.9.1.min', 'tools');
+		var $v_JS = array('jquery-1.9.1.min', 'tools', 'monCompte');
 
 		function moncompte() {
 			// Titre
@@ -74,11 +74,35 @@
 						$d['v_success'] = 'Les informations de votre compte ont bien été mises à jour.';	
 					}
 				
+					for($i=0; $i<count($_POST['todelete-keyword']); $i++) {
+						$keyword = $_POST['todelete-keyword'];
+						$dataKeyword = array(	"id_utilisateur" => 0,
+												"id_enseignement" => $idEnseignement,
+												"pre_requis" => $prerequis,
+												"competences_acquises" => $competences,
+												"keyword" => $keyword[0] );
+						$this->Keyword->save($dataKeyword);
+					}
+					
 				} else {
 					$d['v_errors'] = 'Oops ! Le champ email est obligatoire.';
 				}
+				
+				// Keywords
+				for($i=0; $i<count($_POST['keywordToDelete']); $i++) {
+					$this->Keyword->del($_POST['keywordToDelete'][$i]);
+				}
+				for($i=0; $i<count($_POST['keywordToAdd']); $i++) {
+					$dataKeyword = array(	"id_utilisateur" => $_SESSION['v_id_utilisateur'],
+											"id_enseignement" => 0,
+											"pre_requis" => 0,
+											"competences_acquises" => 0,
+											"keyword" => $_POST['keywordToAdd'][$i] );
+					$this->Keyword->save($dataKeyword);
+				}
 			}
 			
+			// informations sur l'utilisateur
 			$u = $this->Utilisateur->getUtilisateur($_SESSION['v_id_utilisateur']);
 			foreach($u as $utilisateur) {
 				$d['email'] = $utilisateur['email'];
@@ -86,9 +110,11 @@
 				$d['badge'] = $utilisateur['badge'];
 			}
 			
+			// Les keywords
+			$d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_utilisateur = '.$_SESSION['v_id_utilisateur']));
+			
 			$this->set($d);
 			$this->render('moncompte');
 		}
-
 	}
 ?>

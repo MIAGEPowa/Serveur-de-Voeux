@@ -95,7 +95,7 @@
 								<td><?php echo $_SESSION['v_prenom'].' '. $_SESSION['v_nom']; ?></td>
 								<td><?php echo $etat; ?></td>
 								<td>
-									<span class="buttons button-green">Visualiser</span><span class="buttons button-orange">Modifier</span><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
+									<span class="buttons button-green">Visualiser</span><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/update/<?php echo $enseignement['id']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
 								</td>
 							</tr>
 						

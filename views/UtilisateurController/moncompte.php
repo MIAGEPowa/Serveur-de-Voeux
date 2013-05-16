@@ -18,12 +18,12 @@
 			<a href="<?php echo WEBROOT.'authentification/deconnexion/'; ?>" title="Se déconnecter"><span class="buttons button-red" style="float: right;">Se déconnecter</span></a>
 			<div class="clear"></div>
 			
-			<form action="" method="POST" enctype="multipart/form-data">
+			<form id="form-update-profile" action="" method="POST" enctype="multipart/form-data">
 				 <fieldset>
 					<legend><span class="icon-user"></span>Modifier les informations de mon compte</legend>
 					<div class="form-item">
 						<label for="email">Email*</label>
-						<input type="text" name="email" value="<?php echo $email; ?>" class="input-large" />
+						<input id="email" type="text" name="email" value="<?php echo $email; ?>" class="input-large" />
 					</div>
 					<span class="form-description">Vous pouvez modifier votre email via ce champ. Attention cela modifiera votre login de connexion.</span>
 					
@@ -41,9 +41,57 @@
 					
 					<div class="form-item">
 						<label for="badge">Badge</label>
-						<input type="text" name="badge" value="<?php echo $badge; ?>" class="input-large" />
+						<input type="text" name="badge" value="<?php echo $badge; ?>" class="input-medium" />
 					</div>
 					<span class="form-description">Renseignez ce champ uniquement si vous possédez un badge d'accès aux salles informatiques.</span>
+					
+					<div class="form-item">
+						<label for="keyword">Ajouter un mot clé</label>
+						<input type="text" id="keyword" name="keyword" value="" class="input-medium" />
+						<span id="add-keyword" class="buttons button-blue">Ajouter</span>
+					</div>
+					<span class="form-description">Ce mot clé s'ajoutera à la liste de vos mots clés. Il faudra enregistrer pour prendre en compte vos modifications.</span>
+					
+					<div id="list-keywords" class="form-item">
+						<label for="keyword">Liste des mots clés</label>
+						<?php
+						// s'il existe des keywords
+						if(count($arrayKeywords) != 0) {
+						?>
+							<table class='form-table'>
+								<thead>
+									<tr>
+										<th width="22%">Intitulé</th>
+										<th width="22%">Actions</th>
+										<th width="22%"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									// On parcours le tableau des enseignements
+									foreach($arrayKeywords as $keyword) {
+									?>
+										<tr>
+											<td class="value-keyword" data-id-key="<?php echo $keyword['id'] ?>"><?php echo $keyword['keyword']; ?></td>
+											<td>
+												<a class="buttons-link" onclick="deleteRow($(this))"><span class="buttons button-red">Supprimer</span></a>
+											</td>
+											<td></td>
+										</tr>
+									<?php 
+									} 
+									?>
+								</tbody>
+							</table>
+							<span style="display:none">Aucun mot clé...</span>
+						<?php 
+						} else {
+						?>
+							<span>Aucun mot clé...</span>
+						<?php
+						}
+						?>
+					</div>
 					
 					<div class="form-item">
 						<label for="cv">CV</label>

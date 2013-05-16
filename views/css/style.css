@@ -18,7 +18,7 @@ body {
 	cursor: pointer;
 }
 .clear {
-	clear: both;
+clear: both;
 }
 
 /************** 
@@ -92,11 +92,11 @@ body {
 }
 #overlay .overlayBlock {
 	width: 500px;
-	height: 100px;
+	height: 80px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -50px 0 0 -250px;
+	margin: -40px 0 0 -250px;
 	border-radius: 4px;
 	border: 1px #d9d9d9 solid;
 	background: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
@@ -118,7 +118,7 @@ body {
 #overlay .overlayIcon {
 	display: inline-block;
 	float: left;
-	margin: 1px 7px 0 0;
+	margin-right: 7px;
 }
 #overlay p {
 	padding: 5px 10px;
@@ -442,6 +442,10 @@ input[type="submit"].input-submit-orange:hover, .button-orange:hover {
 	width: 99%;
     border-spacing: 0;
 	margin: 10px auto;
+}
+.text table.form-table {
+	width: 70%;
+	display: inline-table;
 }
 .text table thead{
 	text-align: left;
