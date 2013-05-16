@@ -10,7 +10,7 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="./" title="">Enseignements</a><span class="delimiter">></span>Ajout / Liste des enseignements
+			<a href="./" title="">Enseignements</a>
 		</div>
 		
 		<div class="text text-full">

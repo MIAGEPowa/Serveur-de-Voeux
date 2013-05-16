@@ -10,13 +10,13 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="./" title="">Enseignements</a><span class="delimiter">></span>Ajout / Liste des enseignements
+			<a href="./" title="">Enseignements</a><span class="delimiter">></span>Modification d'un enseignement
 		</div>
 		
 		<div class="text text-full">
-			<form id="form-create-teaching" action="#" method="post">
+			<form id="form-update-teaching" action="#" method="post">
 				<fieldset>
-					<legend><span class="icon-book"></span>Ajouter un enseignement</legend>
+					<legend><span class="icon-book"></span>Modifier un enseignement</legend>
 					<div>
 						<div class="form-item">
 							<label for="intitule">Intitulé *</label>
@@ -51,7 +51,8 @@
 								<thead>
 									<tr>
 										<th width="22%">Intitulé</th>
-										<th width="22%">Actions</th>
+										<th width="22%">Type</th>
+										<th width="22%">Action</th>
 										<th width="22%"></th>
 									</tr>
 								</thead>
@@ -59,9 +60,13 @@
 									<?php
 									// On parcours le tableau des enseignements
 									foreach($arrayKeywords as $keyword) {
+										$type = '';
+										if($keyword['pre_requis'] == 1) {$type = 'Pré-requis';}
+										else{$type = 'Compétences acquises';}
 									?>
 										<tr>
 											<td class="value-keyword" data-id-key="<?php echo $keyword['id'] ?>"><?php echo $keyword['keyword']; ?></td>
+											<td><?php echo $type; ?></td>
 											<td>
 												<a class="buttons-link" onclick="deleteRow($(this))"><span class="buttons button-red">Supprimer</span></a>
 											</td>

@@ -89,9 +89,11 @@
 				}
 				
 				// Keywords
+				// Suppressions
 				for($i=0; $i<count($_POST['keywordToDelete']); $i++) {
 					$this->Keyword->del($_POST['keywordToDelete'][$i]);
 				}
+				// Ajouts
 				for($i=0; $i<count($_POST['keywordToAdd']); $i++) {
 					$dataKeyword = array(	"id_utilisateur" => $_SESSION['v_id_utilisateur'],
 											"id_enseignement" => 0,

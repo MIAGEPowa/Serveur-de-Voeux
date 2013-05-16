@@ -57,34 +57,36 @@
 			
 			if(isset($_POST) && count($_POST) != 0) {
 				// enseignement
-				$dataEnseignement = array(	"libelle" => $_POST['intitule'],
-											"description" => $_POST['description'],
-											"auteur" => $_SESSION['v_id_utilisateur'],
-											"etat" => 0 );
+				$dataEnseignement = array(	"id" => $id,
+											"libelle" => $_POST['intitule'],
+											"description" => $_POST['description'] );
 				$this->Enseignement->save($dataEnseignement);
-				
-				// keywords
-				$idEnseignement = $this->Enseignement->id;
-				
-				for($i=0; $i<count($_POST['keyword']); $i++) {
-					
-					// $_POST['keyword'][$i] sous la forme "keyword,typeKeyword"
+
+				// Keywords
+				// Suppressions
+				for($i=0; $i<count($_POST['keywordToDelete']); $i++) {
+					$this->Keyword->del($_POST['keywordToDelete'][$i]);
+				}
+				// Ajouts
+				for($i=0; $i<count($_POST['keywordToAdd']); $i++) {
+					// $_POST['keywordToAdd'][$i] sous la forme "keyword,typeKeyword"
 					// Exemple : "XML,1" (1 = prérequis, 2 = compétence acquise)
-					$keyword = explode(",", $_POST['keyword'][$i]);
+					$keywordToAdd = explode(",", $_POST['keywordToAdd'][$i]);
 					$prerequis = 0;
 					$competences = 0;
 					
-					if($keyword[1] == 1) {$prerequis = 1;}
-					else if($keyword[1] == 2) {$competences = 1;}
+					if($keywordToAdd[1] == 1) {$prerequis = 1;}
+					else if($keywordToAdd[1] == 2) {$competences = 1;}
 					
 					$dataKeyword = array(	"id_utilisateur" => 0,
-											"id_enseignement" => $idEnseignement,
+											"id_enseignement" => $id,
 											"pre_requis" => $prerequis,
 											"competences_acquises" => $competences,
-											"keyword" => $keyword[0] );
+											"keyword" => $keywordToAdd[0] );
 					$this->Keyword->save($dataKeyword);
 				}
-				$d['v_success'] = "L'enseignement a bien été créé";
+				
+				$d['v_success'] = "L'enseignement a bien été modifié";
 			}
 			
 			// Liste des enseignements
