@@ -18,9 +18,11 @@ body {
 	cursor: pointer;
 }
 .clear {
-clear: both;
+  clear: both;
 }
-
+.blue {
+  color: #009FE0;
+}
 /************** 
 	HEADER
 ***************/
@@ -482,7 +484,9 @@ input[type="submit"].input-submit-orange:hover, .button-orange:hover {
 .text table tbody tr.tr-success {
 	background: #9de69d;
 }
-
+.text table.table-white tbody tr td {
+  background: white;
+}
 /************************ 
 	AUTHENTIFICATION
 *************************/

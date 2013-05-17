@@ -43,7 +43,7 @@
 			}
 			
 			// Liste des enseignements
-			$d['arrayEnseignements'] = $this->Enseignement->find();
+			$d['arrayEnseignements'] = $this->Enseignement->getAll();
 			
 			$this->set($d);
 			$this->render('index');

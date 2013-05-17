@@ -2,7 +2,7 @@
 	class AnnuaireController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Utilisateur');
+		var $models = array('Utilisateur', 'Keyword', 'Enseignement');
 		
 		// Variables pour les vues
 		var $v_JS = array();
@@ -53,6 +53,20 @@
 			// Envoi le contenu du fichier
 			readfile($filename);
 		}
+    
+    function visualiser($id) {
+    
+      // Titre
+			$d['v_titreHTML'] = 'Annuaire';
+			$d['v_menuActive'] = 'annuaire';
+      
+      $d['utilisateur'] = $this->Utilisateur->getUtilisateur($id);
+      $d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_utilisateur = '.$id));
+      $d['arrayDegrees'] = $this->Enseignement->find(array('conditions' => 'auteur = '.$id));
+      
+      $this->set($d);
+			$this->render('visualiser');
+    }
 
 	}
 ?>
