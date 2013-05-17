@@ -6,11 +6,11 @@
 	<div id="content">
 	
 		<div id="contentTitle">
-			<h2>Enseignements</h2>
+			<h2>Modification d'un enseignement</h2>
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="./" title="">Enseignements</a><span class="delimiter">></span>Modification d'un enseignement
+			<a href="<?php echo WEBROOT.'enseignement/index'; ?>" title="">Enseignements</a><span class="delimiter">></span>Modification d'un enseignement
 		</div>
 		
 		<div class="text text-full">

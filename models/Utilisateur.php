@@ -79,5 +79,28 @@
 				'password' => md5(SECRET_KEY.$mdp)
 			));
 		}
+		
+		// Alerte par mail l'utilisateur de sa création dans la base
+		function mailAjout($id, $email, $nom, $prenom) {
+			$mdp = stringGen(12);
+			
+			// On envoie le mail à l'utilisateur avec le mot de passe
+			require_once(ROOT.'tools/swift-mailer/swift_required.php');
+			$transport = Swift_MailTransport::newInstance();
+			$mailer = Swift_Mailer::newInstance($transport);
+			$message = Swift_Message::newInstance('Création de votre compte')
+				->setFrom(array(EMAIL_ADMIN => EMAIL_LABEL))
+				->setTo(array($email => $prenom.' '.$nom))
+				->setBody('Bonjour '.$prenom.' '.$nom.', <br /><br />Votre compte vient d\'être créé sur l\'application "Serveur de voeux" !<br />'.
+						  'Votre compte : <strong>'.$email.'</strong><br />'.
+						  'Votre mot de passe : <strong>'.$mdp.'</strong><br /><br />'.
+						  'Vous pourrez modifier votre mot de passe dans la configuration de votre compte', 'text/html');
+			$mailer->send($message);
+			
+			return $this->save(array(
+				'id' => $id,
+				'password' => md5(SECRET_KEY.$mdp)
+			));
+		}
 	}
 ?>

@@ -51,7 +51,7 @@
 		
 		function update($id) {
 			// Titre
-			$d['v_titreHTML'] = 'Enseignements';
+			$d['v_titreHTML'] = 'Modifier un enseignement';
 			$d['v_menuActive'] = 'enseignements';
 			$this->v_JS = array('jquery-1.9.1.min', 'tools', 'enseignementUpdate');
 			

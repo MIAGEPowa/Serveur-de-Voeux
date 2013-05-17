@@ -14,6 +14,6 @@
 			<li <?php if($v_menuActive == 'utilisateursAdd') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/add'; ?>" title="Ajouter un utilisateur"><span class="icon-add-utilisateur"></span>Ajouter</a></li>
 			<li <?php if($v_menuActive == 'utilisateursImporter') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/importer'; ?>" title="Importer des utilisateurs"><span class="icon-import-utilisateur"></span>Importer</a></li>
 		</ul>
-		<li <?php if($v_menuActive == 'delegations') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/delegations'; ?>" title="Gérer ses délégations"><span class="icon-delegations"></span>Délégatons</a></li>
+		<li <?php if($v_menuActive == 'delegations') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/delegations'; ?>" title="Gérer ses délégations"><span class="icon-delegations"></span>Délégations</a></li>
 	</ul>
 </div>

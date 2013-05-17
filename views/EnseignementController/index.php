@@ -10,7 +10,7 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="./" title="">Enseignements</a>
+			<a href="<?php echo WEBROOT.'enseignement/index'; ?>" title="">Enseignements</a>
 		</div>
 		
 		<div class="text text-full">

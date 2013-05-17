@@ -10,7 +10,7 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="<?php echo WEBROOT.'utilisateurs/gestion'; ?>" title="Utilisateurs">Utilisateurs</a><span class="delimiter">> </span>Importer des utilisateurs
+			<a href="<?php echo WEBROOT.'utilisateur/gestion'; ?>" title="Utilisateurs">Utilisateurs</a><span class="delimiter">> </span>Importer des utilisateurs
 		</div>
 		
 		<div class="text text-full">

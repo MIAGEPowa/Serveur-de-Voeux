@@ -119,6 +119,44 @@
 			$this->render('moncompte');
 		}
 		
+		function add() {
+			$d['v_titreHTML'] = 'Ajouter un utilisateur';
+			$d['v_menuActive'] = 'utilisateursAdd';
+			$this->v_JS = array('jquery-1.9.1.min', 'tools', 'utilisateurAdd');
+			
+			if($_POST['utilisateur_form_add']) {
+				// on enregistre l'utilisateur
+				$dataUtilisateur = array(	"nom" => strtoupper($_POST['nom']),
+											"prenom" => ucfirst(strtolower($_POST['prenom'])),
+											"email" => $_POST['email'],
+											"civilite" => $_POST['civilite'],
+											"actif" => 1 );
+				$this->Utilisateur->save($dataUtilisateur);
+				
+				// on lui envoie un mail
+				$utilisateur = $this->Utilisateur->getUtilisateurByEmail($_POST['email']);
+					if($utilisateur) {
+						foreach($utilisateur as $u) {
+							$utilisateur_id = $u['id'];
+							$utilisateur_email = $u['email'];
+							$utilisateur_nom = $u['nom'];
+							$utilisateur_prenom = $u['prenom'];
+						}
+						
+						$this->Utilisateur->mailAjout($utilisateur_id, $utilisateur_email, $utilisateur_nom, $utilisateur_prenom);
+						$d['v_success'] = 'Le compte a bien été créé et un mail a été envoyé !';
+						
+						// print_r($utilisateur);
+						// die(1);
+					} else {
+						$d['v_errors'] = 'Oops ! L\'email ne correspond à aucun compte.';
+					}
+			}
+			
+			$this->set($d);
+			$this->render('add');
+		}
+		
 		function delegations() {
 			$d['v_titreHTML'] = 'Délégations';
 			$d['v_menuActive'] = 'delegations';

@@ -16,7 +16,7 @@
 		<div class="text text-full">
 			
 			<!-- Exporter l'annuaire -->
-			<a href="<?php echo WEBROOT.'annuaire/exporter'; ?>" title="Exporter de l'annuaire" target="_blank"><span class="buttons button-green" style="float: right;">Exporter</span></a>
+			<a href="<?php echo WEBROOT.'annuaire/exporter'; ?>" title="Exporter de l'annuaire" target="_blank"><span class="buttons button-blue" style="float: right;">Exporter</span></a>
 			<div class="clear"></div>
 			
 			<table>
