@@ -25,8 +25,11 @@
 					<span class="form-description">Une fois l'utilisateur enregistré, un mail lui sera envoyé afin de le prévenir. Ce mail contiendra aussi un mot de passe avec lequel il pourra se connecter.</span>
 					
 					<div class="form-item">
-						<label for="prenom">Prenom *</label>
-						<input id="prenom" type="text" name="prenom" class="input-large" />
+						<label for="civilite">Civilité</label>						
+						<select id="civilite" name="civilite">
+							<option value="1">M</option>
+							<option value="0">Mme</option>
+						</select>
 					</div>
 					
 					<div class="form-item">
@@ -35,11 +38,13 @@
 					</div>
 					
 					<div class="form-item">
-						<label for="civilite">Civilité</label>						
-						<select id="civilite" name="civilite">
-							<option value="1">M</option>
-							<option value="0">Mme</option>
-						</select>
+						<label for="prenom">Prenom *</label>
+						<input id="prenom" type="text" name="prenom" class="input-large" />
+					</div>
+					
+					<div class="form-item">
+						<label for="badge">Badge</label>
+						<input id="badge" type="text" name="badge" class="input-large" />
 					</div>
 					
 					<div class="form-item">
