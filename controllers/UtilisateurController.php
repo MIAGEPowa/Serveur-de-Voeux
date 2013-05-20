@@ -231,5 +231,21 @@
 			$this->set($d);
 			$this->render('importer');
 		}
+    
+    function gestion() {
+      $d['v_titreHTML'] = 'Gestion des utilisateurs';
+			$d['v_menuActive'] = 'utilisateurs';
+      
+      // On récupère tous les utilisateurs
+			$d['utilisateurs'] = $this->Utilisateur->find(array('order' => 'actif ASC'));
+      
+      $this->set($d);
+			$this->render('gestion');
+    }
+    
+    function updateEtat($id, $etat) {
+      $this->Utilisateur->save(array('id' => $id, 'actif' => $etat));
+      redirection("utilisateur", "gestion");
+    }
 	}
 ?>
