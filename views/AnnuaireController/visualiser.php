@@ -73,19 +73,6 @@
             ?>
         </div>
         
-        <!--<div class="form-item">
-          <label class="blue">CV</label>-->
-          <?php
-					/*if(file_exists(ROOT.'files/cv/'.$utilisateur[0]['id'].'.pdf')) {
-            echo '<a href="'.WEBROOT.'files/cv/'.$utilisateur[0]['id'].'.pdf" title="CV" target="_blank">';
-            echo '<span class="buttons button-blue">Télécharger CV</span>';
-            echo '</a>';
-          }
-          else
-            echo '</span>';*/
-          ?>
-				<!--</div> -->
-        
         <div class="form-item">
           <label class="blue">Délégations</label>
           <?php 

@@ -106,5 +106,18 @@
 			$this->Enseignement->deleteEnseignement($id);
 			redirection("enseignement", "index");
 		}
+    
+    function view($id) {
+      // Titre
+			$d['v_titreHTML'] = 'Enseignements';
+			$d['v_menuActive'] = 'enseignements';
+      $this->v_JS = array('jquery-1.9.1.min', 'tools', 'enseignement');
+      
+      $d['enseignement'] = $this->Enseignement->getEnseignementView($id);
+      $d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_enseignement = '.$id));
+      
+      $this->set($d);
+			$this->render('view');
+    }
 	}
 ?>
