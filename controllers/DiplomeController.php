@@ -5,7 +5,7 @@
 		var $models = array('Diplome');
 		
 		// Variables pour les vues
-		var $v_JS = array('jquery-1.9.1.min', 'tools', 'diplome');
+		var $v_JS = array('diplome');
 
 		function index() {
 			// Titre
@@ -31,20 +31,20 @@
 			$this->render('index');
 		}
     
-    function update($id) {
-      $this->Diplome->id = $id;
-      
-      $d['v_titreHTML'] = 'Diplômes';
-			$d['v_menuActive'] = 'diplomes';
-      $d['info_degree'] = $this->Diplome->getDegree($id);
+		function update($id) {
+		  $this->Diplome->id = $id;
+		  
+		  $d['v_titreHTML'] = 'Diplômes';
+				$d['v_menuActive'] = 'diplomes';
+		  $d['info_degree'] = $this->Diplome->getDegree($id);
 
-      $this->set($d);
-			$this->render('update');
-    }
-    
-    function delete($id) {
-      $this->Diplome->del($id);
-			redirection("diplome", "index");
-    }
+		  $this->set($d);
+				$this->render('update');
+		}
+		
+		function delete($id) {
+		  $this->Diplome->del($id);
+				redirection("diplome", "index");
+		}
 	}
 ?>

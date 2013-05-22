@@ -6,6 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="<?php echo CSS_DIR; ?>style.css" type="text/css" />
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 	</head>
 	
 	<body>
@@ -49,9 +50,38 @@
 		<?php echo $content_for_layout; ?>
 		
 		<!-- JavaScript -->
-		<?php foreach($this->v_JS as $js): ?>
-		<script src="<?php echo JS_DIR.$js; ?>.js" type="text/javascript" defer="defer"></script>
-		<?php endforeach; ?>
+		<script src="<?php echo JS_DIR.'jquery-1.9.1.min'; ?>.js" type="text/javascript"></script>
+		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<?php 
+		if($this->v_JS) {
+		foreach($this->v_JS as $js): 
+		?>
+			<script src="<?php echo JS_DIR.$js; ?>.js" type="text/javascript" defer="defer"></script>
+		<?php 
+		endforeach; 
+		}?>
+		<script src="<?php echo JS_DIR.'tools'; ?>.js" type="text/javascript" defer="defer"></script>
+		
+		<script>
+		$(function() {
+			$( ".date" ).datepicker({
+				buttonImageOnly: true,
+				changeMonth: false,
+				changeYear: false,
+				dateFormat: 'dd/mm/yy',
+				nextText: 'Suivant',
+				prevText: 'Précédent',
+				showOtherMonths: true,
+				firstDay: 1,
+				weekHeader: 'Sem.',
+				showAnim: 'fadeIn',
+				dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+				dayNamesMin: ['Di', 'Lu', 'Ma', 'Me', 'Je', 'Ve', 'Sa'],
+				monthNames: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+				monthNamesShort: ['Jan','Fév','Mar','Avr','Mai','Jui','Juil','Aoû','Sep','Oct','Nov','Déc']
+			});
+		});
+		</script>
 		
 	</body>
 </html>

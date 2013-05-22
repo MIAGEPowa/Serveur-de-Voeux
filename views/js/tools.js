@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	
-  //
-	// Déroule le formulaire d'ajout
+	//
+	// ------------- Déroule le formulaire d'ajout
 	//
 	$(".button-slide").click(function() {
 		if($(this).next().css('display') == 'none') {
@@ -44,6 +44,47 @@ $(document).ready(function() {
 		div.fadeOut("normal");
 	});
 	
+	//
+	// ------------- Gestion de l'ouverture des sous menus
+	//
+	
+	$('#col .sub-menu').hide();
+	$('#col .sub-menu').each( function() {
+		$(this).prev().find('a').append('<span class="icon-arrow"></span>');
+		if($(this).find('li').hasClass('active')) {
+			$(this).show();
+		}
+	});
+	// si hover sur un super menu
+	$('#col > ul > li').mouseenter(
+		function() {
+			if($(this).next().is('.sub-menu') && $(this).next().css('display') == 'none') {
+				$('#col .sub-menu').slideUp('medium');
+				$(this).next().slideDown('medium');
+			}
+		}
+	);
+	// si click sur la flèche d'un super menu
+	$('#col > ul > li .icon-arrow').click( function() {
+		// acces au sous menu
+		if($(this).parent().parent().next().css('display') == 'none') {
+			$(this).parent().parent().next().slideDown('medium');
+		}
+		else {
+			$(this).parent().parent().next().slideUp('medium');
+		}
+		// pour annuler le href
+		return false;
+	});
+	
+	//
+	// ------------- Pour les champs décimal, remplace les "," par des "."
+	//
+	
+	$('.decimal').keyup( function(e) {
+		$(this).val($(this).val().replace(",","."));
+	});
+	
 });
 
 function openOverlayError(msg) {
@@ -61,14 +102,15 @@ function openOverlaySuccess(msg) {
 // Enleve les espaces devant et derrière la string
 function trim(myString) {
 	return myString.replace(/^\s+/g,'').replace(/\s+$/g,'')
-} 
+}
 
 // Enleve les espaces devant et derrière la string et met tout en minuscules
 function trimAndLowCase(myString) {
 	return (myString.replace(/^\s+/g,'').replace(/\s+$/g,'')).toLowerCase()
-} 
+}
 
+// vérifie si la string passée en param a bien la forme d'une adresse mail
 function validateEmail(email) { 
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\.+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
-} 
+}

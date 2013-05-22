@@ -22,7 +22,7 @@
 							<label for="niveau">Niveau</label>
 							<select id="niveau" name="niveau">							
 								<?php
-								// On parcours le tableau des enseignements
+								// On parcours le tableau des niveaux
 								foreach($arrayNiveaux as $niveau) {
 									?>
 									<option value="<?php echo $niveau['id']; ?>"><?php echo $niveau['libelle']; ?></option>
@@ -36,7 +36,7 @@
 							<label for="specialite">Specialité</label>
 							<select id="specialite" name="specialite">							
 								<?php
-								// On parcours le tableau des enseignements
+								// On parcours le tableau des spécialités
 								foreach($arraySpecialites as $specialite) {
 									?>
 									<option value="<?php echo $specialite['id']; ?>"><?php echo $specialite['libelle']; ?></option>

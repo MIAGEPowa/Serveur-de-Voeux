@@ -5,7 +5,7 @@
 		var $models = array('Utilisateur','Keyword');
 		
 		// Variables pour les vues
-		var $v_JS = array('jquery-1.9.1.min', 'tools', 'monCompte');
+		var $v_JS = array('monCompte');
 
 		function moncompte() {
 			// Titre
@@ -122,7 +122,7 @@
 		function add() {
 			$d['v_titreHTML'] = 'Ajouter un utilisateur';
 			$d['v_menuActive'] = 'utilisateursAdd';
-			$this->v_JS = array('jquery-1.9.1.min', 'tools', 'utilisateurAdd');
+			$this->v_JS = array('utilisateurAdd');
 			
 			if($_POST['utilisateur_form_add']) {
 				// on enregistre l'utilisateur

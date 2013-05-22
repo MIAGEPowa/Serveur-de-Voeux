@@ -366,6 +366,9 @@ clear: both;
 .text input.input-large {
 	width: 225px;
 }
+.text input.date {
+	width: 65px;
+}
 .text input:focus {
 	border-color: rgba(82, 168, 236, 0.8);
 	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(82, 168, 236, 0.6);
@@ -595,6 +598,13 @@ span.icon-close {
 	height: 7px;
 	margin: -2px 0 0 10px;
 	vertical-align: middle;
+	background: url(../img/arrow.png);
+}
+ #col span.icon-arrow {
+	width: 17px;
+	height: 7px;
+	margin: 7px -12px 0 0;
+	float: right;
 	background: url(../img/arrow.png);
 }
 span.icon-star {

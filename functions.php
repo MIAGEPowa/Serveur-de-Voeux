@@ -33,4 +33,15 @@
 		return $passwd;
 	}
 	
+	/**
+	* Transforme une date de la forme "DD/MM/AAAA" en "AAAA-MM-DD"
+	*
+	* @param string $date Date à transformer
+	*/
+	function transformDate($date) { 
+		$date = explode("/", $date);
+		$dateTime = date('Y-m-d', mktime(0, 0, 0, $date[1], $date[0], $date[2]));
+		return $dateTime;
+	}
+	
 ?>

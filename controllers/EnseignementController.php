@@ -8,7 +8,7 @@
 			// Titre
 			$d['v_titreHTML'] = 'Enseignements';
 			$d['v_menuActive'] = 'enseignements';
-			$this->v_JS = array('jquery-1.9.1.min', 'tools', 'enseignement');
+			$this->v_JS = array('enseignement');
 			
 			if(isset($_POST) && count($_POST) != 0) {
 				// enseignement
@@ -53,7 +53,7 @@
 			// Titre
 			$d['v_titreHTML'] = 'Modifier un enseignement';
 			$d['v_menuActive'] = 'enseignements';
-			$this->v_JS = array('jquery-1.9.1.min', 'tools', 'enseignementUpdate');
+			$this->v_JS = array('enseignementUpdate');
 			
 			if(isset($_POST) && count($_POST) != 0) {
 				// enseignement
@@ -89,7 +89,7 @@
 				$d['v_success'] = "L'enseignement a bien été modifié";
 			}
 			
-			// Liste des enseignements
+			// L'enseignement à modifier
 			$d['enseignement'] = $this->Enseignement->find(array(
 									'conditions' => 'id = ' . $id
 								));
