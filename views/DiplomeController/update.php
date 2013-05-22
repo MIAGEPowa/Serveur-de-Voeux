@@ -19,11 +19,11 @@
 					<legend ><span class="icon-cup"></span>Modifier un diplôme</legend>
 					<div>
           
-            <input type="hidden" id="idDegree" name="idDegree" value="<?php echo $info_degree[0]['id'];?>"/>
+            <input type="hidden" id="idDiplome" name="idDiplome" value="<?php echo $diplome[0]['id'];?>"/>
             
 						<div class="form-item">
 							<label for="intitule">Intitulé *</label>
-							<input type="text" id="intitule" name="intitule" value="<?php echo $info_degree[0]['libelle'];?>" class="input-large" />
+							<input type="text" id="intitule" name="intitule" value="<?php echo $diplome[0]['libelle'];?>" class="input-large" />
 						</div>
 
 						<div class="form-item">

@@ -26,7 +26,7 @@
 						<div class="form-item">
 							<label for="description">Diplôme *</label>
 							<select id="diplome" name="diplome">
-                <?php foreach ($degrees as $d): ?>
+                <?php foreach ($diplomes as $d): ?>
                   <option value="<?php echo $d['id'];?>"><?php echo $d['libelle'];?></option>
                   <?php endforeach; ?>
               </select>
@@ -52,12 +52,12 @@
             </tr>
           </thead>
           <tbody>
-              <?php foreach ($levels as $l) { ?>
+              <?php foreach ($niveaux as $n) { ?>
                   <tr>
-                      <td><?php echo $l['id_niveau'];?></td>
-                      <td><?php echo $l['libelle_niveau'];?></td>
-                      <td><?php echo $l['libelle_diplome'];?></td>
-                      <td><a class="buttons-link" href="<?php echo WEBROOT.'niveau/update/'.$l['id_niveau']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT.'niveau/delete/'.$l['id_niveau']; ?>"><span class="buttons button-red">Supprimer</span></a></td> 
+                      <td><?php echo $n['id_niveau'];?></td>
+                      <td><?php echo $n['libelle_niveau'];?></td>
+                      <td><?php echo $n['libelle_diplome'];?></td>
+                      <td><a class="buttons-link" href="<?php echo WEBROOT.'niveau/update/'.$n['id_niveau']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT.'niveau/delete/'.$n['id_niveau']; ?>"><span class="buttons button-red">Supprimer</span></a></td> 
                   </tr>
               <?php } ?>
           </tbody>

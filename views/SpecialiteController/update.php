@@ -19,11 +19,11 @@
 					<legend ><span class="icon-star"></span>Modifier une spécialité</legend>
 					<div>
           
-            <input type="hidden" id="idSpeciality" name="idSpeciality" value="<?php echo $info_speciality[0]['id'];?>"/>
+            <input type="hidden" id="idSpecialite" name="idSpecialite" value="<?php echo $specialite[0]['id'];?>"/>
             
 						<div class="form-item">
 							<label for="intitule">Intitulé *</label>
-							<input type="text" id="intitule" name="intitule" value="<?php echo $info_speciality[0]['libelle'];?>" class="input-large" />
+							<input type="text" id="intitule" name="intitule" value="<?php echo $specialite[0]['libelle'];?>" class="input-large" />
 						</div>
 
 						<div class="form-item">

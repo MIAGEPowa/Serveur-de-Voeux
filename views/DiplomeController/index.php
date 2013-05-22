@@ -47,7 +47,7 @@
 
 				<tbody>
 			
-				  <?php foreach ($degrees as $d) { ?>
+				  <?php foreach ($diplomes as $d) { ?>
 		
 				      <tr>
 				          <td><?php echo $d['id'];?></td>

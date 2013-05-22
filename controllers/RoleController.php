@@ -43,7 +43,7 @@
 								$this->Role->addRole($_POST['e_libelle'], 0, 1, (int)($_POST['e_quota_heures']), 2, 0, 0);
 								$d['v_success'] = 'Rôle ajouté avec succès';
 							} else {
-								$d['v_errors'] = 'Oops ! Ce rôle a déjà été crée.';
+								$d['v_errors'] = 'Oops ! Ce rôle a déjà été créé.';
 							}
 
 						} else {

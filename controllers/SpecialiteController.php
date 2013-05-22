@@ -14,15 +14,21 @@
 
 			if(isset($_POST) && count($_POST) != 0) {
 				
-				$dataSpecialite = array('id' => $_POST['idSpeciality'],
+				$dataSpecialite = array('id' => $_POST['idSpecialite'],
                                 'libelle' => $_POST['intitule']);
 				
-				$this->Specialite->save($dataSpecialite);
-				
-				if(isset($_POST['idSpeciality']) && !empty($_POST['idSpeciality']))
-				  $d['v_success'] = "La spécialité a bien été mise à jour";
-				else
-				  $d['v_success'] = "La spécialité a bien été créée";
+        $checkSpecialite = $this->Specialite->checkSpecialiteLibelle($_POST['intitule']);
+        
+				if ((!$checkSpecialite) || (!empty($_POST['idSpecialite']))) {
+          $this->Specialite->save($dataSpecialite);
+          
+          if(isset($_POST['idSpecialite']) && !empty($_POST['idSpecialite']))
+            $d['v_success'] = "La spécialité a bien été mise à jour";
+          else
+            $d['v_success'] = "La spécialité a bien été créée";
+        } else {
+          $d['v_errors'] = 'Oops ! Cette spécialité a déjà été créée.';
+        }
 			}
 			
 			$d['specialities'] = $this->Specialite->getAll();
@@ -36,7 +42,7 @@
 		  
 		  $d['v_titreHTML'] = 'Spécialités';
 				$d['v_menuActive'] = 'specialites';
-		  $d['info_speciality'] = $this->Specialite->getSpeciality($id);
+		  $d['specialite'] = $this->Specialite->getSpecialite($id);
 
 		  $this->set($d);
 				$this->render('update');

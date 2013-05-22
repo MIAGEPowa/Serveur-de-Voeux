@@ -20,6 +20,13 @@
         AND E.id = '.$id
 			);
     }
+    
+    function checkEnseignementLibelle($libelle) {
+			return $this->find(array(
+				'conditions' => 'libelle = "' . $libelle . '"'
+			));
+		}
+    
 		function deleteEnseignement($id=null) {
 			// delete des keywords associés
 			$this->deleteQuery("DELETE FROM smed_keyword WHERE id_enseignement=$id");
