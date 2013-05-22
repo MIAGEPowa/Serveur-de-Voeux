@@ -2,7 +2,7 @@
 	class EnseignementController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Enseignement','Keyword');
+		var $models = array('Enseignement','Keyword','FiliereEnseignement');
 
 		function index() {
 			// Titre
@@ -124,6 +124,7 @@
       
       $d['enseignement'] = $this->Enseignement->getEnseignementView($id);
       $d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_enseignement = '.$id));
+      $d['arrayFilieres'] = $this->FiliereEnseignement->getAllFiliere($id);
       
       $this->set($d);
 			$this->render('view');

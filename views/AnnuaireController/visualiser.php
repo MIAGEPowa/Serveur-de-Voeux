@@ -103,7 +103,7 @@
         <div class="form-item">
           <label class="blue">Enseignements</label>
           <?php
-						// s'il existe des keywords
+						// s'il existe des enseignements
 						if(count($arrayDegrees) != 0) {
 						?>
 							<table class='form-table table-white'>

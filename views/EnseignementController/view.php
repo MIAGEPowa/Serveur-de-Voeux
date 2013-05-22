@@ -56,6 +56,40 @@
             ?>
         </div>
 
+        <div class="form-item">
+          <label class="blue">Filières</label>
+          <?php
+						// s'il existe des filières
+						if(count($arrayFilieres) != 0) {
+						?>
+							<table class='form-table table-white'>
+								<thead>
+									<tr>
+										<th width="22%">#</th>
+                    <th width="78%">Intitulé</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									// On parcours le tableau des enseignements
+                  $apprentissage = '';
+                  
+									foreach($arrayFilieres as $filiere) {
+                    if ($filiere['apprentissage'] == 0) $apprentissage = 'Initial'; else $apprentissage = 'Apprentissage';
+									?>
+										<tr>
+                      <td><?php echo $filiere['id_filiere']; ?></td>
+											<td><?php echo $filiere['libelle_niveau'].' '.$filiere['libelle_specialite'].' '.$apprentissage; ?></td>
+										</tr>
+									<?php 
+									} 
+									?>
+								</tbody>
+							</table>
+						<?php 
+						}
+						?>
+        </div>
 				</fieldset>
 			</form>
 		</div>
