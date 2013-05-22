@@ -64,7 +64,7 @@
 								echo '<td></td>';
 							
 							echo '
-										<td><span class="buttons button-green">Visualiser</span></td>
+										<td><a class="buttons-link" href="'.WEBROOT.'annuaire/visualiser/'.$u['id'].'"><span class="buttons button-green">Visualiser</span></a></td>
 									</tr>';							
 							
 						}

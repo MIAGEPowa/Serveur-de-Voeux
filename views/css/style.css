@@ -18,9 +18,11 @@ body {
 	cursor: pointer;
 }
 .clear {
-clear: both;
+  clear: both;
 }
-
+.blue {
+  color: #009FE0;
+}
 /************** 
 	HEADER
 ***************/
@@ -92,11 +94,11 @@ clear: both;
 }
 #overlay .overlayBlock {
 	width: 500px;
-	height: 80px;
+	height: 100px;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -40px 0 0 -250px;
+	margin: -50px 0 0 -250px;
 	border-radius: 4px;
 	border: 1px #d9d9d9 solid;
 	background: linear-gradient(to bottom, #FFFFFF, #F2F2F2);
@@ -118,7 +120,7 @@ clear: both;
 #overlay .overlayIcon {
 	display: inline-block;
 	float: left;
-	margin-right: 7px;
+	margin: 1px 7px 0 0;
 }
 #overlay p {
 	padding: 5px 10px;
@@ -485,7 +487,9 @@ input[type="submit"].input-submit-orange:hover, .button-orange:hover {
 .text table tbody tr.tr-success {
 	background: #9de69d;
 }
-
+.text table.table-white tbody tr td {
+  background: white;
+}
 /************************ 
 	AUTHENTIFICATION
 *************************/
@@ -670,6 +674,14 @@ span.icon-delegations {
 }
 #col li.active span.icon-delegations {
 	background: url(../img/sprite.png) -96px -16px;
+}
+span.icon-roles {
+	width: 15px;
+	height: 16px;
+	background: url(../img/sprite.png) -81px 0;
+}
+#col li.active span.icon-delegations {
+	background: url(../img/sprite.png) -81px -16px;
 }
 
 /* RESET */

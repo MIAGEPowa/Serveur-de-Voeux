@@ -129,6 +129,7 @@
 				$dataUtilisateur = array(	"nom" => strtoupper($_POST['nom']),
 											"prenom" => ucfirst(strtolower($_POST['prenom'])),
 											"email" => $_POST['email'],
+											"badge" => $_POST['badge'],
 											"civilite" => $_POST['civilite'],
 											"actif" => 1 );
 				$this->Utilisateur->save($dataUtilisateur);
@@ -193,11 +194,58 @@
 		
 			// Traitement du formulaire des délégations
 			if($_POST['utilisateur_form_importer']) {
-				die(1);
+				if(isset($_POST['textarea_csv']) && !empty($_POST['textarea_csv'])) {
+					$n = 0;
+					$lines = explode('\n', $_POST['textarea_csv']);
+					foreach($lines as $l) {
+						$items = explode(';', $l);
+						
+						// On enregistre l'utilisateur
+						$dataUtilisateur = array(	'nom' => strtoupper($items[1]),
+													'prenom' => ucfirst(strtolower($items[2])),
+													'email' =>  $items[3],
+													'badge' => $items[4],
+													'civilite' => (int)($items[0]),
+													'actif' => (int)($items[5]));
+						$this->Utilisateur->save($dataUtilisateur);
+						
+						// On lui envoie un mail avec son mot de passe
+						$utilisateur = $this->Utilisateur->getUtilisateurByEmail($items[3]);
+						foreach($utilisateur as $u) {
+							$utilisateur_id = $u['id'];
+							$utilisateur_email = $u['email'];
+							$utilisateur_nom = $u['nom'];
+							$utilisateur_prenom = $u['prenom'];
+						}
+						$this->Utilisateur->mailAjout($utilisateur_id, $utilisateur_email, $utilisateur_nom, $utilisateur_prenom);
+						
+						$n = $n + 1;
+					}
+					
+					$d['v_success'] = $n.' utilisateurs ont été importés correctement.';
+				} else {
+					$d['v_errors'] = 'Oops ! Votre champ est vide.';
+				}
 			}
 		
 			$this->set($d);
 			$this->render('importer');
 		}
+    
+    function gestion() {
+      $d['v_titreHTML'] = 'Gestion des utilisateurs';
+			$d['v_menuActive'] = 'utilisateurs';
+      
+      // On récupère tous les utilisateurs
+			$d['utilisateurs'] = $this->Utilisateur->find(array('order' => 'actif ASC'));
+      
+      $this->set($d);
+			$this->render('gestion');
+    }
+    
+    function updateEtat($id, $etat) {
+      $this->Utilisateur->save(array('id' => $id, 'actif' => $etat));
+      redirection("utilisateur", "gestion");
+    }
 	}
 ?>

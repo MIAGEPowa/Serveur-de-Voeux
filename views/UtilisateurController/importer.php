@@ -10,7 +10,7 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="<?php echo WEBROOT.'utilisateur/gestion'; ?>" title="Utilisateurs">Utilisateurs</a><span class="delimiter">> </span>Importer des utilisateurs
+			<a href="<?php echo WEBROOT.'utilisateurs/gestion'; ?>" title="Utilisateurs">Utilisateurs</a><span class="delimiter">> </span>Importer des utilisateurs
 		</div>
 		
 		<div class="text text-full">
@@ -26,7 +26,9 @@
 					<span class="form-description">
 						Veuillez insérer dans le textarea ci-dessus le contenu du fichier CSV d'importation des utilisateurs.<br />
 						Un utilisateur par ligne.<br />
-						(civilite;nom;prenom;email;badge;actif)
+						(civilite;nom;prenom;email;badge;actif)<br />
+						Pour les civilités, veuillez préciser 0 pour Madame et 1 pour Monsieur.<br />
+						Seul le paramètre badge est facultatif.	Si vous souhaitez importer un utilisateur sans badge (civilite;nom;prenom;email;;actif).				
 					</span>
 				
 					<div class="form-item">

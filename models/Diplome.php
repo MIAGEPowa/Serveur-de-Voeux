@@ -9,7 +9,7 @@
 			));
 		}
     
-    function getDegree($id) {
+		function getDegree($id) {
 			return $this->find(array(
 				'conditions' => 'id='.$id
 			));

@@ -90,12 +90,12 @@
 						?>
 							
 							<tr>
-								<td><?php echo $enseignement['id']; ?></td>
+								<td><?php echo $enseignement['id_enseignement']; ?></td>
 								<td><?php echo $enseignement['libelle']; ?></td>
-								<td><?php echo $_SESSION['v_prenom'].' '. $_SESSION['v_nom']; ?></td>
+								<td><?php echo $enseignement['auteur_nom'].' '. $enseignement['auteur_prenom']; ?></td>
 								<td><?php echo $etat; ?></td>
 								<td>
-									<span class="buttons button-green">Visualiser</span><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/update/<?php echo $enseignement['id']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
+									<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/view/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-green">Visualiser</span><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/update/<?php echo $enseignement['id']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
 								</td>
 							</tr>
 						
