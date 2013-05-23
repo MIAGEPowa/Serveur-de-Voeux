@@ -60,11 +60,20 @@
 				<table>
 					<thead>
 						<tr>
-							<th width="65%">Libellé</th>
-							<th width="35%">Actions</th>
+							<th width="85%">Libellé</th>
+							<th width="15%">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
+						<?php
+							foreach($roles_utilisateur as $re) {
+								echo '
+									<tr>
+										<td>'.$re['libelle'].'</td>
+										<td><a class="buttons-link" href="'.WEBROOT.'utilisateur/role/'.$id_utilisateur_role.'/1/'.$re['id_role'].'/'.$re['id_filiere_enseignement'].'" title="Supprimer"><span class="buttons button-red">Supprimer</span></a></td>
+									</tr>';
+							}
+						?>
 						
 					</tbody>
 				</table>

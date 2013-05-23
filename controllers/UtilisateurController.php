@@ -243,12 +243,12 @@
 			$this->render('gestion');
 		}
 		
-		function role($id) {
+		function role($id, $delete_utilisateur_role = 0, $id_role = 0, $id_filiere_enseignement = 0) {
 			$d['v_titreHTML'] = 'Associer un rôle à un utilisateur';
 			$d['v_menuActive'] = 'utilisateurs';
 			$d['id_utilisateur_role'] = $id;
 			
-			// Traitement du formulaire
+			// Traitement du formulaire d'association d'un utilisateur et d'un rôle
 			if($_POST['utilisateur_submit_role']) {
 				if(isset($_POST['ur_role']) && !empty($_POST['ur_role']) && isset($_POST['ur_filiere_enseignement']) && !empty($_POST['ur_filiere_enseignement'])) {
 					
@@ -279,14 +279,57 @@
 				}
 			}
 			
+			// Traitement de la suppresion de l'association d'un utilisateur et d'un rôle
+			if($delete_utilisateur_role && $id_role) {
+			
+				// ID du role responsable de cours
+				if($id_role == 7) {
+					if($id_filiere_enseignement) {
+						$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $id_role, $id_filiere_enseignement);
+						if($checkRole) {
+							$this->UtilisateurRole->deleteRoleUtilisateur($id, $id_role, $id_filiere_enseignement);
+							$d['v_success'] = 'Le rôle a bien été supprimé de l\'utilisateur.';
+						} else {
+							$d['v_errors'] = 'Oops ! Le rôle n\'est pas associé à l\'utilisateur.';
+						}
+					} else {
+						$d['v_errors'] = 'Oops ! Il manque l\'id de la filiere enseignement.';
+					}
+					
+				} else {
+					$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $id_role, 0);
+					if($checkRole) {
+						$this->UtilisateurRole->deleteRoleUtilisateur($id, $id_role, 0);
+						$d['v_success'] = 'Le rôle a bien été supprimé de l\'utilisateur.';
+					} else {
+						$d['v_errors'] = 'Oops ! Le rôle n\'est pas associé à l\'utilisateur.';
+					}
+				}
+			}
 			
 			$d['roles'] = $this->Role->getRoles();
 			$utilisateur = $this->Utilisateur->getUtilisateur($id);
 			foreach($utilisateur as $u) {
 				$d['utilisateur'] = $u['prenom'].' '.$u['nom'];
 			}
+			
+			// Liste des rôles de l'utilisateur
+			$d['roles_utilisateur'] = $this->UtilisateurRole->getRoleUtilisateur($id);
+			for($i=0; $i<count($d['roles_utilisateur']); $i++) {
+				$role_libelle = $this->Role->getRoleLibelle($d['roles_utilisateur'][$i]['id_role']);
+				$d['roles_utilisateur'][$i]['libelle'] = $role_libelle[0]['libelle'];
+				
+				// Si l'utilisateur possède le rôle responsable de cours, alors afficher quel filière et quel enseignement
+				if($d['roles_utilisateur'][$i]['id_role'] == 7) {
+					$array_filiere_enseignement = $this->FiliereEnseignement->getFiliereEnseignement($d['roles_utilisateur'][$i]['id_filiere_enseignement']);
+					$d['roles_utilisateur'][$i]['libelle'] .= ' '.$this->Filiere->getFiliereName($array_filiere_enseignement[0]['id_filiere']);
+					
+					$array_enseignement = $this->Enseignement->getEnseignement($array_filiere_enseignement[0]['id_enseignement']);
+					$d['roles_utilisateur'][$i]['libelle'] .= ' - '.$array_enseignement[0]['libelle'];
+				}
+			}
+			
 			$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->getFiliereEnseignementYear('2012');
-	
 			// Dans la liste des filières-enseignement, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
 			for($i=0; $i<count($d['arrayFiliereEnseignement']); $i++) {
 				

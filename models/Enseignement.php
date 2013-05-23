@@ -3,25 +3,30 @@
 
 		var $table = 'smed_enseignement';
 		
-    function getAll() {
-      return $this->query('
+		function getEnseignement($id_enseignement) {
+			return $this->find(array(
+				'conditions' => 'id = '.$id_enseignement
+			));
+		}
+		
+		function getAll() {
+			return $this->query('
 				SELECT E.id as id_enseignement, libelle, description, U.nom as auteur_nom, U.prenom as auteur_prenom, etat
 				FROM smed_enseignement E, smed_utilisateur U 
-				WHERE E.auteur = U.id 
-				'
+				WHERE E.auteur = U.id'
 			);
-    }
-    
-    function getEnseignementView($id) {
-      return $this->query('
+		}
+		
+		function getEnseignementView($id) {
+			return $this->query('
 				SELECT E.id as id_enseignement, libelle, description, U.id as auteur_id, U.nom as auteur_nom, U.prenom as auteur_prenom, etat
 				FROM smed_enseignement E, smed_utilisateur U 
 				WHERE E.auteur = U.id 
-        AND E.id = '.$id
+				AND E.id = '.$id
 			);
-    }
-    
-    function checkEnseignementLibelle($libelle) {
+		}
+		
+		function checkEnseignementLibelle($libelle) {
 			return $this->find(array(
 				'conditions' => 'libelle = "' . $libelle . '"'
 			));

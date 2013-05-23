@@ -9,6 +9,12 @@
 			));
 		}
 		
+		function getRoleLibelle($id_role) {
+			return $this->find(array(
+				'conditions' => 'id = '.$id_role
+			));
+		}
+		
 		function checkRoleLibelle($libelle) {
 			return $this->find(array(
 				'conditions' => 'libelle = "' . $libelle . '"'
