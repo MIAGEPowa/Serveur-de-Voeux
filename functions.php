@@ -38,10 +38,20 @@
 	*
 	* @param string $date Date à transformer
 	*/
-	function transformDate($date) { 
+	function dateNormalToBDD($date) { 
 		$date = explode("/", $date);
-		$dateTime = date('Y-m-d', mktime(0, 0, 0, $date[1], $date[0], $date[2]));
+		$dateTime = $date[2].'-'.$date[1].'-'.$date[0];
 		return $dateTime;
 	}
 	
+	/**
+	* Transforme une date de la forme "AAAA-MM-DD" en "DD/MM/AAAA"
+	*
+	* @param string $date Date à transformer
+	*/
+	function dateBDDToNormal($date) { 
+		$date = explode("-", $date);
+		$dateTime = $date[2].'/'.$date[1].'/'.$date[0];
+		return $dateTime;
+	}
 ?>

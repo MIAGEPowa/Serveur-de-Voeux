@@ -1,8 +1,8 @@
-$(document).ready(function() {
-	//
-	// vérifie si tous les champs sont valides au moment du submit du formulaire
-	//
-	
+$(document).ready(function() {
+	//
+	// vérifie si tous les champs sont valides au moment du submit du formulaire
+	//
+	
 	$('#form-create-filiereEnseignement').submit(function() {
 		// date début
 		if($('#dateDebut').val() == "") {
@@ -44,8 +44,8 @@ $(document).ready(function() {
 		if(!$.isNumeric($('#groupesTD').val())) {
 			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre de groupes de TD\"</strong> !");
 			return false;
-		}
-		return true;
-	});
-	
+		}
+		return true;
+	});
+	
 });
