@@ -5,7 +5,7 @@
 		var $models = array('Role', 'Diplome', 'Niveau', 'Filiere', 'Specialite');
 		
 		// Variables pour les vues
-		var $v_JS = array('jquery-1.9.1.min', 'tools', 'role');
+		var $v_JS = array('role');
 		
 		function index() {
 			// Titre

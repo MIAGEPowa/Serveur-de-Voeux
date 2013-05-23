@@ -51,18 +51,16 @@
 										<td><a href="'.WEBROOT.'annuaire/visualiser/'.$u['id'].'" title="'.$civ.' '.$u['prenom'].' '.$u['nom'].'">'.$civ.' '.$u['prenom'].' '.$u['nom'].'</a></td>
 										<td>'.$u['email'].'</td>
 										<td>Directeur du département</td>';
-							
 							echo '<td>';
-                echo '<a class="buttons-link" href="'.WEBROOT.'annuaire/visualiser/'.$u['id'].'"><span class="buttons button-green">Visualiser</span></a>';
-                echo '<a class="buttons-link" href=""><span class="buttons button-orange">Rôle</span></a>';
-                if ($u['actif'] == 1)
-                  echo '<a class="buttons-link" href="'.WEBROOT.'utilisateur/updateEtat/'.$u['id'].'/0"><span class="buttons button-blue">Désactiver</span></a>';
-                else 
-                  echo '<a class="buttons-link" href="'.WEBROOT.'utilisateur/updateEtat/'.$u['id'].'/1"><span class="buttons button-blue">Activer</span></a>';
-              echo '</td>';
-              echo '</td>';
-							echo '</tr>';							
+							echo '<a class="buttons-link" href="'.WEBROOT.'annuaire/visualiser/'.$u['id'].'"><span class="buttons button-blue">Visualiser</span></a>';
+							echo '<a class="buttons-link" href="'.WEBROOT.'utilisateur/role/'.$u['id'].'"><span class="buttons button-orange">Rôle</span></a>';
 							
+							if ($u['actif'] == 1)
+								echo '<a class="buttons-link" href="'.WEBROOT.'utilisateur/updateEtat/'.$u['id'].'/0"><span class="buttons button-red">Désactiver</span></a>';
+							else 
+								echo '<a class="buttons-link" href="'.WEBROOT.'utilisateur/updateEtat/'.$u['id'].'/1"><span class="buttons button-green">Activer</span></a>';
+							
+							echo '</td></tr>';						
 						}
 					?>
 					

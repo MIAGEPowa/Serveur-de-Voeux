@@ -54,19 +54,18 @@
 			readfile($filename);
 		}
     
-    function visualiser($id) {
-    
-      // Titre
+		function visualiser($id) {
+			// Titre
 			$d['v_titreHTML'] = 'Annuaire';
 			$d['v_menuActive'] = 'annuaire';
-      
-      $d['utilisateur'] = $this->Utilisateur->getUtilisateur($id);
-      $d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_utilisateur = '.$id));
-      $d['arrayDegrees'] = $this->Enseignement->find(array('conditions' => 'auteur = '.$id));
-      
-      $this->set($d);
+
+			$d['utilisateur'] = $this->Utilisateur->getUtilisateur($id);
+			$d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_utilisateur = '.$id));
+			$d['arrayDegrees'] = $this->Enseignement->find(array('conditions' => 'auteur = '.$id));
+
+			$this->set($d);
 			$this->render('visualiser');
-    }
+		}
 
 	}
 ?>

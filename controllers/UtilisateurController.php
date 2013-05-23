@@ -2,10 +2,10 @@
 	class UtilisateurController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Utilisateur','Keyword');
+		var $models = array('Utilisateur', 'Keyword', 'Role', 'UtilisateurRole');
 		
 		// Variables pour les vues
-		var $v_JS = array('monCompte');
+		var $v_JS = array('monCompte', 'utilisateurRole');
 
 		function moncompte() {
 			// Titre
@@ -232,20 +232,54 @@
 			$this->render('importer');
 		}
     
-    function gestion() {
-      $d['v_titreHTML'] = 'Gestion des utilisateurs';
+		function gestion() {
+			$d['v_titreHTML'] = 'Gestion des utilisateurs';
 			$d['v_menuActive'] = 'utilisateurs';
-      
-      // On récupère tous les utilisateurs
-			$d['utilisateurs'] = $this->Utilisateur->find(array('order' => 'actif ASC'));
-      
-      $this->set($d);
+
+			// On récupère tous les utilisateurs
+			$d['utilisateurs'] = $this->Utilisateur->find(array('order' => 'nom ASC'));
+		  
+			$this->set($d);
 			$this->render('gestion');
-    }
-    
-    function updateEtat($id, $etat) {
-      $this->Utilisateur->save(array('id' => $id, 'actif' => $etat));
-      redirection("utilisateur", "gestion");
-    }
+		}
+		
+		function role($id) {
+			$d['v_titreHTML'] = 'Associer un rôle à un utilisateur';
+			$d['v_menuActive'] = 'utilisateurs';
+			$d['id_utilisateur_role'] = $id;
+			
+			// Traitement du formulaire
+			if($_POST['utilisateur_submit_role']) {
+				if(isset($_POST['ur_role']) && !empty($_POST['ur_role'])) {
+					
+					$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $_POST['ur_role'], 0);
+					if(!$checkRole) {
+						$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], 0);
+						$d['v_success'] = 'Le rôle a été associé correctement.';
+					} else {
+						$d['v_errors'] = 'Oops ! Ce rôle est déjà associé à cet utilisateur.';
+					}
+				
+				
+				} else {
+					$d['v_errors'] = 'Oops ! Le champ rôle est obligatoire.';
+				}
+			}
+			
+			
+			$d['roles'] = $this->Role->getRoles();
+			$utilisateur = $this->Utilisateur->getUtilisateur($id);
+			foreach($utilisateur as $u) {
+				$d['utilisateur'] = $u['prenom'].' '.$u['nom'];
+			}
+			
+			$this->set($d);
+			$this->render('role');
+		}
+		
+		function updateEtat($id, $etat) {
+			$this->Utilisateur->save(array('id' => $id, 'actif' => $etat));
+			redirection("utilisateur", "gestion");
+		}
 	}
 ?>
