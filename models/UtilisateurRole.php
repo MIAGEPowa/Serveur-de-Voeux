@@ -33,5 +33,12 @@
 			}
 		}
 		
+		function getNumberUtilisateurRole($id_role) {
+			return $this->find(array(
+				'conditions' => 'id_role = '.$id_role,
+				'order' => 'id_utilisateur ASC'
+			));
+		}
+		
 	}
 ?>

@@ -166,7 +166,7 @@
 										<td>'.$r['libelle'].'</td>
 										<td>'.$re.'</td>
 										<td>'.$role_txt.'</td>
-										<td>Nbr utilisateurs reliés à ce role</td>
+										<td>'.$r['utilisateurs'].'</td>
 										<td><a class="buttons-link" href="'.WEBROOT.'" title="Supprimer"><span class="buttons button-red">Supprimer</span></a></td>
 									</tr>';
 						}

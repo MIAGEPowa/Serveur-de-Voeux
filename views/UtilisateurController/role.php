@@ -41,8 +41,8 @@
 							<label for="ur_filiere_enseignement">Filière enseignement</label>
 							<select name="ur_filiere_enseignement" id="ur_filiere_enseignement">
 								<?php
-									foreach($roles as $r) {
-										//echo '<option value="'.$r['id'].'">'.$r['libelle'].'</option>';
+									foreach($arrayFiliereEnseignement as $fe) {
+										echo '<option value="'.$fe['id'].'">'.$fe['filiere'].' - '.$fe['enseignement'].'</option>';
 									}
 								?>
 							</select>

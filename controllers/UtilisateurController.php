@@ -2,7 +2,7 @@
 	class UtilisateurController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Utilisateur', 'Keyword', 'Role', 'UtilisateurRole');
+		var $models = array('Utilisateur', 'Keyword', 'Role', 'UtilisateurRole', 'FiliereEnseignement', 'Filiere', 'Niveau', 'Enseignement', 'Specialite');
 		
 		// Variables pour les vues
 		var $v_JS = array('monCompte', 'utilisateurRole');
@@ -250,17 +250,30 @@
 			
 			// Traitement du formulaire
 			if($_POST['utilisateur_submit_role']) {
-				if(isset($_POST['ur_role']) && !empty($_POST['ur_role'])) {
+				if(isset($_POST['ur_role']) && !empty($_POST['ur_role']) && isset($_POST['ur_filiere_enseignement']) && !empty($_POST['ur_filiere_enseignement'])) {
 					
-					$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $_POST['ur_role'], 0);
-					if(!$checkRole) {
-						$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], 0);
-						$d['v_success'] = 'Le rôle a été associé correctement.';
+					// ID du role responsable de cours
+					if($_POST['ur_role'] == 7) {
+					
+						$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $_POST['ur_role'], $_POST['ur_filiere_enseignement']);
+						if(!$checkRole) {
+							$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], $_POST['ur_filiere_enseignement']);
+							$d['v_success'] = 'Le rôle a été associé correctement.';
+						} else {
+							$d['v_errors'] = 'Oops ! Ce rôle est déjà associé à cet utilisateur.';
+						}
+			
 					} else {
-						$d['v_errors'] = 'Oops ! Ce rôle est déjà associé à cet utilisateur.';
+			
+						$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $_POST['ur_role'], 0);
+						if(!$checkRole) {
+							$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], 0);
+							$d['v_success'] = 'Le rôle a été associé correctement.';
+						} else {
+							$d['v_errors'] = 'Oops ! Ce rôle est déjà associé à cet utilisateur.';
+						}
 					}
-				
-				
+					
 				} else {
 					$d['v_errors'] = 'Oops ! Le champ rôle est obligatoire.';
 				}
@@ -271,6 +284,28 @@
 			$utilisateur = $this->Utilisateur->getUtilisateur($id);
 			foreach($utilisateur as $u) {
 				$d['utilisateur'] = $u['prenom'].' '.$u['nom'];
+			}
+			$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->getFiliereEnseignementYear('2012');
+	
+			// Dans la liste des filières-enseignement, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
+			for($i=0; $i<count($d['arrayFiliereEnseignement']); $i++) {
+				
+				$filiere = $this->Filiere->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_filiere']));
+				// Niveau
+				$niveau = $this->Niveau->find(array('conditions' => 'id = '.$filiere[0]['id_niveau']));
+				$niveau = $niveau[0]['libelle'];
+				// Spécialité
+				$specialite = $this->Specialite->find(array('conditions' => 'id = '.$filiere[0]['id_specialite']));
+				$specialite = $specialite[0]['libelle'];
+				// Apprentissage
+				if($d['arrayFiliereEnseignement'][$i]['apprentissage'] == 0) {$apprentissage = 'Initial';}
+				else {$apprentissage = 'Apprentissage';}
+				// Filière
+				$d['arrayFiliereEnseignement'][$i]['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
+				
+				// Enseignement
+				$enseignement = $this->Enseignement->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_enseignement']));
+				$d['arrayFiliereEnseignement'][$i]['enseignement'] = $enseignement[0]['libelle'];
 			}
 			
 			$this->set($d);

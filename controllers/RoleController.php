@@ -2,7 +2,7 @@
 	class RoleController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Role', 'Diplome', 'Niveau', 'Filiere', 'Specialite');
+		var $models = array('Role', 'Diplome', 'Niveau', 'Filiere', 'Specialite', 'UtilisateurRole');
 		
 		// Variables pour les vues
 		var $v_JS = array('role');
@@ -117,7 +117,6 @@
 						
 					}
 					
-					
 				} else {
 					$d['v_errors'] = 'Oops ! Il manque l\'id du droit du rôle que vous souhaitez ajouter.';
 				}
@@ -126,6 +125,9 @@
 			
 			// On récupère tous les rôles, niveaux et filières
 			$d['roles'] = $this->Role->getRoles();
+			foreach($d['roles'] as $r_key => $r) {
+				$d['roles'][$r_key]['utilisateurs'] = count($this->UtilisateurRole->getNumberUtilisateurRole($r['id']));
+			}
 			$d['diplomes'] = $this->Diplome->getAll();
 			$d['arrayFilieres'] = $this->Filiere->find();
 			for($i=0; $i<count($d['arrayFilieres']); $i++) {
