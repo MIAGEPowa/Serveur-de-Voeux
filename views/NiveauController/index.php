@@ -28,7 +28,7 @@
 							<select id="diplome" name="diplome">
                 <?php foreach ($diplomes as $d): ?>
                   <option value="<?php echo $d['id'];?>"><?php echo $d['libelle'];?></option>
-                  <?php endforeach; ?>
+                <?php endforeach; ?>
               </select>
 						</div>
 						<div class="form-item">
