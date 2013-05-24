@@ -24,6 +24,18 @@
 			));
 		}
 		
+		// Retourne le niveau de droits max de l'utilisateur
+		function getUtilisateurDroitsMax($id) {
+			$req = $this->query('
+				SELECT MAX(r.droits) as max_droits
+				FROM '.DB_PREFIX.'role r, '.DB_PREFIX.'utilisateur_role ur
+				WHERE r.id=ur.id_role
+				AND ur.id_utilisateur = '.$id
+			);
+			
+			return $req[0]['max_droits'];
+		}
+		
 		// Retourne l'utilisateur de l'email précisé passé en param
 		function getUtilisateurByEmail($email) {
 			return $this->find(array(

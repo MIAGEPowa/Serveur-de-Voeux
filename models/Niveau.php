@@ -12,8 +12,14 @@
 				'
 			);
 		}
-
-    function getLevel($id) {
+    
+    function checkNiveauLibelle($libelle) {
+			return $this->find(array(
+				'conditions' => 'libelle = "' . $libelle . '"'
+			));
+		}
+    
+    function getNiveau($id) {
 			return $this->find(array(
 				'conditions' => 'id='.$id
 			));

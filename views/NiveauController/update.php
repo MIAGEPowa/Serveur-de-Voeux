@@ -19,18 +19,18 @@
 					<legend ><span class="icon-podium"></span>Modifier un niveau</legend>
 					<div>
           
-            <input type="hidden" id="idLevel" name="idLevel" value="<?php echo $info_level[0]['id'];?>"/>
+            <input type="hidden" id="idNiveau" name="idNiveau" value="<?php echo $niveau[0]['id'];?>"/>
             
 						<div class="form-item">
 							<label for="intitule">Intitulé *</label>
-							<input type="text" id="intitule" name="intitule" value="<?php echo $info_level[0]['libelle'];?>" class="input-large" />
+							<input type="text" id="intitule" name="intitule" value="<?php echo $niveau[0]['libelle'];?>" class="input-large" />
 						</div>
 						
 						<div class="form-item">
 							<label for="description">Diplôme *</label>
 							<select id="diplome" name="diplome">
-                <?php foreach ($degrees as $d) { ?>
-                  <?php if ($d['id'] == $info_level[0]['id_diplome']) { ?>
+                <?php foreach ($diplomes as $d) { ?>
+                  <?php if ($d['id'] == $niveau[0]['id_diplome']) { ?>
                     <option selected="selected" value="<?php echo $d['id'];?>"><?php echo $d['libelle'];?></option>
                   <?php } else { ?>
                     <option value="<?php echo $d['id'];?>"><?php echo $d['libelle'];?></option>

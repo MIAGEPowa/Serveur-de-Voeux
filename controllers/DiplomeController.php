@@ -14,18 +14,24 @@
 
 			if(isset($_POST) && count($_POST) != 0) {
 				
-				$dataDiplome = array('id' => $_POST['idDegree'],
+				$dataDiplome = array('id' => $_POST['idDiplome'],
                              'libelle' => $_POST['intitule']);
 				
-				$this->Diplome->save($dataDiplome);
-				
-        if(isset($_POST['idDegree']) && !empty($_POST['idDegree']))
-          $d['v_success'] = "Le diplôme a bien été mis à jour";
-        else
-          $d['v_success'] = "Le diplôme a bien été créé";
+        $checkDiplome = $this->Diplome->checkDiplomeLibelle($_POST['intitule']);
+        
+				if ((!$checkDiplome) || (!empty($_POST['idDiplome']))) {
+          $this->Diplome->save($dataDiplome);
+          
+          if(isset($_POST['idDiplome']) && !empty($_POST['idDiplome']))
+            $d['v_success'] = "Le diplôme a bien été mis à jour";
+          else
+            $d['v_success'] = "Le diplôme a bien été créé";
+        } else {
+          $d['v_errors'] = 'Oops ! Ce diplôme a déjà été créé.';
+        }
 			}
 			
-			$d['degrees'] = $this->Diplome->getAll();
+			$d['diplomes'] = $this->Diplome->getAll();
       
 			$this->set($d);
 			$this->render('index');
@@ -36,7 +42,7 @@
 		  
 		  $d['v_titreHTML'] = 'Diplômes';
 				$d['v_menuActive'] = 'diplomes';
-		  $d['info_degree'] = $this->Diplome->getDegree($id);
+		  $d['diplome'] = $this->Diplome->getDiplome($id);
 
 		  $this->set($d);
 				$this->render('update');

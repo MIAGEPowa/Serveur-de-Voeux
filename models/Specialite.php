@@ -9,7 +9,13 @@
 			));
 		}
     
-    function getSpeciality($id) {
+    function checkSpecialiteLibelle($libelle) {
+			return $this->find(array(
+				'conditions' => 'libelle = "' . $libelle . '"'
+			));
+		}
+    
+    function getSpecialite($id) {
 			return $this->find(array(
 				'conditions' => 'id='.$id
 			));

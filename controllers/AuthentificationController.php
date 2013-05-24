@@ -24,6 +24,13 @@
 							$_SESSION['v_prenom'] = $c['prenom'];
 						}
 						
+						// Droits max de l'utilisateur
+						$droits = $this->Utilisateur->getUtilisateurDroitsMax($c['id']);
+						if($droits)
+							$_SESSION['v_droits'] = $droits;
+						else
+							$_SESSION['v_droits'] = 1;
+												
 						// Rediriger l'utilisateur sur la page d'acceuil du BO
 						redirection("tableaudebord", "index");
 						

@@ -9,6 +9,7 @@
 	define('SECRET_KEY', 'wh3N57$$GuT$KL@b578ySq4q%dW=$%V7');
 	define('EMAIL_ADMIN', 'a.auberton@gmail.com');
 	define('EMAIL_LABEL', 'Serveur de voeux administrateur');
+	define('DB_PREFIX', 'smed_');
 
 	require(ROOT.'core/model.php');
 	require(ROOT.'core/controller.php');

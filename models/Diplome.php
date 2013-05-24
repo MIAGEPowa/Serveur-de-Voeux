@@ -9,7 +9,13 @@
 			));
 		}
     
-		function getDegree($id) {
+    function checkDiplomeLibelle($libelle) {
+			return $this->find(array(
+				'conditions' => 'libelle = "' . $libelle . '"'
+			));
+		}
+    
+		function getDiplome($id) {
 			return $this->find(array(
 				'conditions' => 'id='.$id
 			));

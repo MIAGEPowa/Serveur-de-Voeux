@@ -14,20 +14,27 @@
 
 			if(isset($_POST) && count($_POST) != 0) {
 				
-				$dataNiveau = array('id' => $_POST['idLevel'],
+				$dataNiveau = array('id' => $_POST['idNiveau'],
                             'libelle' => $_POST['intitule'],
                             'id_diplome' => $_POST['diplome']);
 				
-				$this->Niveau->save($dataNiveau);
-				
-				if(isset($_POST['idLevel']) && !empty($_POST['idLevel']))
-				  $d['v_success'] = "Le niveau a bien été mis à jour";
-				else
-				  $d['v_success'] = "Le niveau a bien été créé";
+        $checkNiveau = $this->Niveau->checkNiveauLibelle($_POST['intitule']);
+        
+				if ((!$checkNiveau) || (!empty($_POST['idNiveau']))) {
+          $this->Niveau->save($dataNiveau);
+          
+          if(isset($_POST['idNiveau']) && !empty($_POST['idNiveau']))
+            $d['v_success'] = "Le niveau a bien été mis à jour";
+          else
+            $d['v_success'] = "Le niveau a bien été créé";
+            
+        } else {
+          $d['v_errors'] = 'Oops ! Ce niveau a déjà été créé.';
+        }
 			}
 			
-			$d['levels'] = $this->Niveau->getAll();
-			$d['degrees'] = $this->Diplome->getAll();
+			$d['niveaux'] = $this->Niveau->getAll();
+			$d['diplomes'] = $this->Diplome->getAll();
       
 			$this->set($d);
 			$this->render('index');
@@ -38,7 +45,7 @@
 		  
 		  $d['v_titreHTML'] = 'Niveaux';
 				$d['v_menuActive'] = 'niveaux';
-		  $d['info_level'] = $this->Niveau->getLevel($id);
+		  $d['niveau'] = $this->Niveau->getNiveau($id);
 		  $d['degrees'] = $this->Diplome->getAll();
 
 		  $this->set($d);

@@ -18,7 +18,7 @@
 			<form id="form-create-degree" action="#" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-roles"></span>Ajouter un rôle<span class="icon-arrow"></span></legend>
-					<div style="display:none">
+					<div style="display: none;">
 						
 						<div class="form-item">
 							<label for="droits">Droits *</label>
@@ -133,8 +133,11 @@
 			<table>
 				<thead>
 					<tr>
-						<th width="55%">Libellé</th>
-						<th width="45%">Actions</th>
+						<th width="45%">Libellé</th>
+						<th width="15%">Role d'enseignant</th>
+						<th width="15%">Droits</th>
+						<th width="15%">Utilisateurs</th>
+						<th width="10%">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -143,11 +146,29 @@
 						
 						foreach($roles as $r) {
 							
+							// Role d'enseignant
+							if($r['role_enseignant'])
+								$re = 'Oui';
+							else
+								$re = 'Non';
+								
+							// Droits
+							if($r['droits'] == 1)
+								$role_txt = 'Secrétaire';
+							else if($r['droits'] == 2)
+								$role_txt = 'Enseignant';
+							else if($r['droits'] == 3)
+								$role_txt = 'Responsable';
+							else if($r['droits'] == 4)
+								$role_txt = 'Administrateur';
+								
 							echo '	<tr>
 										<td>'.$r['libelle'].'</td>
-										<td></td>
+										<td>'.$re.'</td>
+										<td>'.$role_txt.'</td>
+										<td>'.$r['utilisateurs'].'</td>
+										<td><a class="buttons-link" href="'.WEBROOT.'" title="Supprimer"><span class="buttons button-red">Supprimer</span></a></td>
 									</tr>';
-							
 						}
 						
 					?>
