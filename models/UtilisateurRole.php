@@ -1,7 +1,11 @@
 <?php
 	class UtilisateurRole extends Model {
 
-		var $table = 'smed_utilisateur_role';
+		var $table = 'utilisateur_role';
+	
+		function __construct() {
+			$this->table = DB_PREFIX.$this->table;
+		}
 	
 		function getRoleUtilisateur($id_utilisateur) {
 			return $this->find(array(

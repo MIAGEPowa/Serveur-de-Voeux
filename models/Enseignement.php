@@ -1,7 +1,11 @@
 <?php
 	class Enseignement extends Model {
 
-		var $table = 'smed_enseignement';
+		var $table = 'enseignement';
+		
+		function __construct() {
+			$this->table = DB_PREFIX.$this->table;
+		}
 		
 		function getEnseignement($id_enseignement) {
 			return $this->find(array(
@@ -12,7 +16,7 @@
 		function getAll() {
 			return $this->query('
 				SELECT E.id as id_enseignement, libelle, description, U.nom as auteur_nom, U.prenom as auteur_prenom, etat
-				FROM smed_enseignement E, smed_utilisateur U 
+				FROM '.DB_PREFIX.'enseignement E, '.DB_PREFIX.'utilisateur U 
 				WHERE E.auteur = U.id'
 			);
 		}
@@ -20,7 +24,7 @@
 		function getEnseignementView($id) {
 			return $this->query('
 				SELECT E.id as id_enseignement, libelle, description, U.id as auteur_id, U.nom as auteur_nom, U.prenom as auteur_prenom, etat
-				FROM smed_enseignement E, smed_utilisateur U 
+				FROM '.DB_PREFIX.'enseignement E, '.DB_PREFIX.'utilisateur U 
 				WHERE E.auteur = U.id 
 				AND E.id = '.$id
 			);
@@ -34,7 +38,7 @@
     
 		function deleteEnseignement($id=null) {
 			// delete des keywords associés
-			$this->deleteQuery("DELETE FROM smed_keyword WHERE id_enseignement=$id");
+			$this->deleteQuery("DELETE FROM '.DB_PREFIX.'keyword WHERE id_enseignement=$id");
 			// delete de l'enseignement
 			$this->del($id);
 		}

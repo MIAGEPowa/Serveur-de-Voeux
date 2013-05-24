@@ -1,7 +1,11 @@
 <?php
 	class Diplome extends Model {
 
-		var $table = 'smed_diplome';
+		var $table = 'diplome';
+		
+		function __construct() {
+			$this->table = DB_PREFIX.$this->table;
+		}
 		
 		function getAll() {
 			return $this->find(array(
@@ -9,7 +13,7 @@
 			));
 		}
     
-    function checkDiplomeLibelle($libelle) {
+		function checkDiplomeLibelle($libelle) {
 			return $this->find(array(
 				'conditions' => 'libelle = "' . $libelle . '"'
 			));

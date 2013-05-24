@@ -17,37 +17,36 @@
                                     "auteur" => $_SESSION['v_id_utilisateur'],
                                     "etat" => 0 );
                                     
-        $checkEnseignement = $this->Enseignement->checkEnseignementLibelle($_POST['intitule']);   
-        
-        if(!$checkEnseignement) {
-          $this->Enseignement->save($dataEnseignement);
-          
-          // keywords
-          $idEnseignement = $this->Enseignement->id;
-          
-          for($i=0; $i<count($_POST['keyword']); $i++) {
-            
-            // $_POST['keyword'][$i] sous la forme "keyword,typeKeyword"
-            // Exemple : "XML,1" (1 = prérequis, 2 = compétence acquise)
-            $keyword = explode(",", $_POST['keyword'][$i]);
-            $prerequis = 0;
-            $competences = 0;
-            
-            if($keyword[1] == 1) {$prerequis = 1;}
-            else if($keyword[1] == 2) {$competences = 1;}
-            
-            $dataKeyword = array(	"id_utilisateur" => 0,
-                        "id_enseignement" => $idEnseignement,
-                        "pre_requis" => $prerequis,
-                        "competences_acquises" => $competences,
-                        "keyword" => $keyword[0] );
-            $this->Keyword->save($dataKeyword);  
-          }
-          
-          $d['v_success'] = "L'enseignement a bien été créé"; 
-        } else {
-          $d['v_errors'] = 'Oops ! Cet enseignement a déjà été créé.';
-        }
+				$checkEnseignement = $this->Enseignement->checkEnseignementLibelle($_POST['intitule']);   
+				
+				if(!$checkEnseignement) {
+					$this->Enseignement->save($dataEnseignement);
+
+					// keywords
+					$idEnseignement = $this->Enseignement->id;
+
+					for($i=0; $i<count($_POST['keyword']); $i++) {
+
+					// $_POST['keyword'][$i] sous la forme "keyword,typeKeyword"
+					// Exemple : "XML,1" (1 = prérequis, 2 = compétence acquise)
+					$keyword = explode(",", $_POST['keyword'][$i]);
+					$prerequis = 0;
+					$competences = 0;
+
+					if($keyword[1] == 1) {$prerequis = 1;}
+					else if($keyword[1] == 2) {$competences = 1;}
+
+					$dataKeyword = array(	"id_utilisateur" => 0,
+								"id_enseignement" => $idEnseignement,
+								"pre_requis" => $prerequis,
+								"competences_acquises" => $competences,
+								"keyword" => $keyword[0] );
+					$this->Keyword->save($dataKeyword);  
+					}
+					$d['v_success'] = "L'enseignement a bien été créé"; 
+				} else {
+					$d['v_errors'] = 'Oops ! Cet enseignement a déjà été créé.';
+				}
         
 			}
 			
@@ -100,8 +99,7 @@
 			
 			// L'enseignement à modifier
 			$d['enseignement'] = $this->Enseignement->find(array(
-									'conditions' => 'id = ' . $id
-								));
+									'conditions' => 'id = '.$id));
 			$d['enseignement'] = $d['enseignement'][0];
 			
 			// Les keywords
@@ -116,18 +114,18 @@
 			redirection("enseignement", "index");
 		}
     
-    function view($id) {
-      // Titre
+		function view($id) {
+			// Titre
 			$d['v_titreHTML'] = 'Enseignements';
 			$d['v_menuActive'] = 'enseignements';
-      $this->v_JS = array('enseignement');
-      
-      $d['enseignement'] = $this->Enseignement->getEnseignementView($id);
-      $d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_enseignement = '.$id));
-      $d['arrayFilieres'] = $this->FiliereEnseignement->getAllFiliere($id);
-      
-      $this->set($d);
+			$this->v_JS = array('enseignement');
+		  
+			$d['enseignement'] = $this->Enseignement->getEnseignementView($id);
+			$d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_enseignement = '.$id));
+			$d['arrayFilieres'] = $this->FiliereEnseignement->getAllFiliere($id);
+
+			$this->set($d);
 			$this->render('view');
-    }
+		}
 	}
 ?>

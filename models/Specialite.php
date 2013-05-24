@@ -1,7 +1,11 @@
 <?php
 	class Specialite extends Model {
 
-		var $table = 'smed_specialite';
+		var $table = 'specialite';
+		
+		function __construct() {
+			$this->table = DB_PREFIX.$this->table;
+		}
 		
 		function getAll() {
 			return $this->find(array(
@@ -9,13 +13,13 @@
 			));
 		}
     
-    function checkSpecialiteLibelle($libelle) {
+		function checkSpecialiteLibelle($libelle) {
 			return $this->find(array(
 				'conditions' => 'libelle = "' . $libelle . '"'
 			));
 		}
     
-    function getSpecialite($id) {
+		function getSpecialite($id) {
 			return $this->find(array(
 				'conditions' => 'id='.$id
 			));

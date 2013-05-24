@@ -1,12 +1,16 @@
 <?php
 	class FiliereEnseignement extends Model {
 
-		var $table = 'smed_filiere_enseignement';
+		var $table = 'filiere_enseignement';
+		
+		function __construct() {
+			$this->table = DB_PREFIX.$this->table;
+		}
 		
 		function getAllFiliere($id) {
 			return $this->query('
 				SELECT id_filiere, N.libelle as libelle_niveau, S.libelle as libelle_specialite, apprentissage
-				FROM smed_filiere_enseignement FE, smed_filiere F, smed_niveau N, smed_specialite S
+				FROM '.DB_PREFIX.'filiere_enseignement FE, '.DB_PREFIX.'filiere F, '.DB_PREFIX.'niveau N, '.DB_PREFIX.'specialite S
 				WHERE FE.id_filiere = F.id
 				AND F.id_niveau = N.id
 				AND F.id_specialite = S.id

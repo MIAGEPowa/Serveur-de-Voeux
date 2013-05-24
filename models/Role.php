@@ -1,7 +1,11 @@
 <?php
 	class Role extends Model {
 
-		var $table = 'smed_role';
+		var $table = 'role';
+		
+		function __construct() {
+			$this->table = DB_PREFIX.$this->table;
+		}
 		
 		function getRoles() {
 			return $this->find(array(

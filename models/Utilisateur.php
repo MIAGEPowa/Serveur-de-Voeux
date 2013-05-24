@@ -1,7 +1,11 @@
 <?php
 	class Utilisateur extends Model {
 
-		var $table = 'smed_utilisateur';
+		var $table = 'utilisateur';
+		
+		function __construct() {
+			$this->table = DB_PREFIX.$this->table;
+		}
 		
 		// Teste la connexion avec le couple email/password
 		function connexion($email, $password) {
