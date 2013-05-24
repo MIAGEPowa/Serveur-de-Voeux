@@ -35,7 +35,12 @@
 						redirection("tableaudebord", "index");
 						
 					} else {
-						$d['v_errors'] = 'Oops ! Le couple email et mot de passe est incorrect.';
+						// si le user n'existe mais qu'il est inactif
+						$existe = $this->Utilisateur->existe($_POST['email'], $_POST['password']);
+						if($existe)
+							$d['v_errors'] = 'Oops ! Votre compte est inactif.';
+						else
+							$d['v_errors'] = 'Oops ! Le couple email et mot de passe est incorrect.';
 					}
 				} else {
 					$d['v_errors'] = 'Oops ! Veuillez remplir tous les champs du formulaire.';

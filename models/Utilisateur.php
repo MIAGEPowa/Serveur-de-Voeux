@@ -10,6 +10,17 @@
 			));
 		}
 		
+		// Teste si l'utilisateur existe
+		function existe($email, $password) {
+			$utilisateur = $this->find(array(
+				'conditions' => 'email = "' . $email . '" AND password = "' . md5(SECRET_KEY.$password) . '"'
+			));
+			if(count($utilisateur) != 0)
+				return true;
+			
+			return false;
+		}
+		
 		// Retourne tous les utilisateurs actif
 		function getUtilisateurs() {
 			return $this->find(array(
