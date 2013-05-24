@@ -17,5 +17,6 @@
 		</ul>
 		<li <?php if($v_menuActive == 'roles') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'role/index'; ?>" title="Gérer les rôles"><span class="icon-roles"></span>Rôles</a></li>
 		<li <?php if($v_menuActive == 'delegations') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/delegations'; ?>" title="Gérer ses délégations"><span class="icon-delegations"></span>Délégations</a></li>
+		<li <?php if($v_menuActive == 'keywords') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'keyword/index'; ?>" title="Recherche par mots clés"><span class="icon-heart"></span>Mots clés</a></li>
 	</ul>
 </div>
