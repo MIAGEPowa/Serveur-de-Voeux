@@ -15,7 +15,7 @@
 				AND F.id_niveau = N.id
 				AND F.id_specialite = S.id
 				AND FE.id_enseignement = E.id
-				ORDER BY id_filiere ASC');
+				ORDER BY N.libelle, S.libelle, apprentissage ASC');
     }
     
 		function getAllFiliere($id) {
