@@ -9,7 +9,8 @@
 			<li <?php if($v_menuActive == 'specialites') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'specialite/index'; ?>" title="Spécialités"><span class="icon-star"></span>Spécialités</a></li>
 		</ul>
 		<li <?php if($v_menuActive == 'filieresEnseignements') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'filiereEnseignement/index'; ?>" title=""><span class="icon-heart"></span>Filières - Enseignements</a></li>
-		<li <?php if($v_menuActive == 'annuaire') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'annuaire/index'; ?>" title="Annuaire"><span class="icon-annuaire"></span>Annuaire</a></li>
+		<li <?php if($v_menuActive == 'voeux') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'voeu/index'; ?>" title=""><span class="icon-heart"></span>V&oelig;ux</a></li>
+    <li <?php if($v_menuActive == 'annuaire') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'annuaire/index'; ?>" title="Annuaire"><span class="icon-annuaire"></span>Annuaire</a></li>
 		<li <?php if($v_menuActive == 'utilisateurs') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/gestion'; ?>" title="Gérer les utilisateurs"><span class="icon-utilisateurs"></span>Utilisateurs</a></li>
 		<ul class="sub-menu">
 			<li <?php if($v_menuActive == 'utilisateursAdd') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/add'; ?>" title="Ajouter un utilisateur"><span class="icon-add-utilisateur"></span>Ajouter</a></li>
