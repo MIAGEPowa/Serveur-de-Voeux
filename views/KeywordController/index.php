@@ -119,4 +119,10 @@
 		</div>
 		
 	</div>
-</div>
+</div>
+
+<script defer>
+$("#intitule").autocomplete({
+	source: <?php echo json_encode($arrayLibKeywords); ?>
+});
+</script>

@@ -35,6 +35,12 @@
 				}
 			}
 			
+			$allKeywords = $this->Keyword->find();
+			$d['arrayLibKeywords'] = array();
+			foreach($allKeywords as $keyword) {
+				$d['arrayLibKeywords'][] = $keyword['keyword'];
+			}
+			
 			$this->set($d);
 			$this->render('index');
 		}

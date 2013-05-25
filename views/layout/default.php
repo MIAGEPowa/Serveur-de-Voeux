@@ -47,8 +47,6 @@
 			?>
 		</div>
 		
-		<?php echo $content_for_layout; ?>
-		
 		<!-- JavaScript -->
 		<script src="<?php echo JS_DIR.'jquery-1.9.1.min'; ?>.js" type="text/javascript"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
@@ -62,6 +60,7 @@
 		}?>
 		<script src="<?php echo JS_DIR.'tools'; ?>.js" type="text/javascript" defer="defer"></script>
 		
+		<!-- Calendrier -->
 		<script>
 		$(function() {
 			$( ".date" ).datepicker({
@@ -82,6 +81,8 @@
 			});
 		});
 		</script>
+		
+		<?php echo $content_for_layout; ?>
 		
 	</body>
 </html>
