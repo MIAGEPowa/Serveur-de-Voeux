@@ -680,8 +680,32 @@ span.icon-roles {
 	height: 16px;
 	background: url(../img/sprite.png) -81px 0;
 }
-#col li.active span.icon-delegations {
+#col li.active span.icon-roles {
 	background: url(../img/sprite.png) -81px -16px;
+}
+span.icon-filieres {
+	width: 17px;
+	height: 16px;
+	background: url(../img/sprite.png) -115px 0;
+}
+#col li.active span.icon-filieres {
+	background: url(../img/sprite.png) -115px -16px;
+}
+span.icon-filieres-enseignement {
+	width: 16px;
+	height: 16px;
+	background: url(../img/sprite.png) -97px -32px;
+}
+#col li.active span.icon-filieres-enseignement {
+	background: url(../img/sprite.png) -97px -48px;
+}
+span.icon-keywords {
+	width: 20px;
+	height: 16px;
+	background: url(../img/sprite.png) -113px -32px;
+}
+#col li.active span.icon-keywords {
+	background: url(../img/sprite.png) -113px -48px;
 }
 
 /* RESET */

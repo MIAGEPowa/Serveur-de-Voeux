@@ -11,46 +11,72 @@
 			// Titre
 			$d['v_titreHTML'] = 'Spécialités';
 			$d['v_menuActive'] = 'specialites';
+			$d['v_needRights'] = 4;
 
-			if(isset($_POST) && count($_POST) != 0) {
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+
+				if(isset($_POST) && count($_POST) != 0) {
+
+					$dataSpecialite = array('id' => $_POST['idSpecialite'],
+											'libelle' => $_POST['intitule']);
+											
+					$checkSpecialite = $this->Specialite->checkSpecialiteLibelle($_POST['intitule']);
+
+					if ((!$checkSpecialite) || (!empty($_POST['idSpecialite']))) {
+						$this->Specialite->save($dataSpecialite);
+
+						if(isset($_POST['idSpecialite']) && !empty($_POST['idSpecialite']))
+							$d['v_success'] = "La spécialité a bien été mise à jour";
+						else
+							$d['v_success'] = "La spécialité a bien été créée";
+					} else {
+						$d['v_errors'] = 'Oops ! Cette spécialité a déjà été créée.';
+					}
+				}
+
+				$d['specialities'] = $this->Specialite->getAll();
+
+				$this->set($d);
+				$this->render('index');
 				
-				$dataSpecialite = array('id' => $_POST['idSpecialite'],
-                                'libelle' => $_POST['intitule']);
-				
-        $checkSpecialite = $this->Specialite->checkSpecialiteLibelle($_POST['intitule']);
-        
-				if ((!$checkSpecialite) || (!empty($_POST['idSpecialite']))) {
-          $this->Specialite->save($dataSpecialite);
-          
-          if(isset($_POST['idSpecialite']) && !empty($_POST['idSpecialite']))
-            $d['v_success'] = "La spécialité a bien été mise à jour";
-          else
-            $d['v_success'] = "La spécialité a bien été créée";
-        } else {
-          $d['v_errors'] = 'Oops ! Cette spécialité a déjà été créée.';
-        }
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
 			}
-			
-			$d['specialities'] = $this->Specialite->getAll();
-      
-			$this->set($d);
-			$this->render('index');
 		}
     
 		function update($id) {
-		  $this->Specialite->id = $id;
-		  
-		  $d['v_titreHTML'] = 'Spécialités';
-				$d['v_menuActive'] = 'specialites';
-		  $d['specialite'] = $this->Specialite->getSpecialite($id);
+			$d['v_needRights'] = 4;
 
-		  $this->set($d);
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+			
+				$this->Specialite->id = $id;
+
+				$d['v_titreHTML'] = 'Spécialités';
+				$d['v_menuActive'] = 'specialites';
+				$d['specialite'] = $this->Specialite->getSpecialite($id);
+
+				$this->set($d);
 				$this->render('update');
+				
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
 		}
 		
 		function delete($id) {
-		  $this->Specialite->del($id);
+			$d['v_needRights'] = 4;
+
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+			
+				$this->Specialite->del($id);
 				redirection("specialite", "index");
+			
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
 		}
 	}
 ?>

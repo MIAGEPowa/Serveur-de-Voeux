@@ -14,6 +14,14 @@
 			$this->set($d);
 			$this->render('index');
 		}
+		
+		function droits() {
+			// Titre
+			$d['v_titreHTML'] = 'Erreur de droits';
+			
+			$this->set($d);
+			$this->render('droits');
+		}
 
 	}
 ?>

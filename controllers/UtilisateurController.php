@@ -122,242 +122,287 @@
 		function add() {
 			$d['v_titreHTML'] = 'Ajouter un utilisateur';
 			$d['v_menuActive'] = 'utilisateursAdd';
+			$d['v_needRights'] = 4;
 			$this->v_JS = array('utilisateurAdd');
 			
-			if($_POST['utilisateur_form_add']) {
-				// on enregistre l'utilisateur
-				$dataUtilisateur = array(	"nom" => strtoupper($_POST['nom']),
-											"prenom" => ucfirst(strtolower($_POST['prenom'])),
-											"email" => $_POST['email'],
-											"badge" => $_POST['badge'],
-											"civilite" => $_POST['civilite'],
-											"actif" => 1 );
-				$this->Utilisateur->save($dataUtilisateur);
-				
-				// on lui envoie un mail
-				$utilisateur = $this->Utilisateur->getUtilisateurByEmail($_POST['email']);
-					if($utilisateur) {
-						foreach($utilisateur as $u) {
-							$utilisateur_id = $u['id'];
-							$utilisateur_email = $u['email'];
-							$utilisateur_nom = $u['nom'];
-							$utilisateur_prenom = $u['prenom'];
-						}
-						
-						$this->Utilisateur->mailAjout($utilisateur_id, $utilisateur_email, $utilisateur_nom, $utilisateur_prenom);
-						$d['v_success'] = 'Le compte a bien été créé et un mail a été envoyé !';
-						
-						// print_r($utilisateur);
-						// die(1);
-					} else {
-						$d['v_errors'] = 'Oops ! L\'email ne correspond à aucun compte.';
-					}
-			}
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
 			
-			$this->set($d);
-			$this->render('add');
+				if($_POST['utilisateur_form_add']) {
+					// on enregistre l'utilisateur
+					$dataUtilisateur = array(	"nom" => strtoupper($_POST['nom']),
+												"prenom" => ucfirst(strtolower($_POST['prenom'])),
+												"email" => $_POST['email'],
+												"badge" => $_POST['badge'],
+												"civilite" => $_POST['civilite'],
+												"actif" => 1 );
+					$this->Utilisateur->save($dataUtilisateur);
+					
+					// on lui envoie un mail
+					$utilisateur = $this->Utilisateur->getUtilisateurByEmail($_POST['email']);
+						if($utilisateur) {
+							foreach($utilisateur as $u) {
+								$utilisateur_id = $u['id'];
+								$utilisateur_email = $u['email'];
+								$utilisateur_nom = $u['nom'];
+								$utilisateur_prenom = $u['prenom'];
+							}
+							
+							$this->Utilisateur->mailAjout($utilisateur_id, $utilisateur_email, $utilisateur_nom, $utilisateur_prenom);
+							$d['v_success'] = 'Le compte a bien été créé et un mail a été envoyé !';
+							
+							// print_r($utilisateur);
+							// die(1);
+						} else {
+							$d['v_errors'] = 'Oops ! L\'email ne correspond à aucun compte.';
+						}
+				}
+				
+				$this->set($d);
+				$this->render('add');
+				
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
 		}
 		
 		function delegations() {
 			$d['v_titreHTML'] = 'Délégations';
 			$d['v_menuActive'] = 'delegations';
+			$d['v_needRights'] = 2;
+
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
 			
-			// Traitement du formulaire des délégations
-			if($_POST['utilisateur_form_delegations']) {
-				if(isset($_POST['description_delegations']) && !empty($_POST['description_delegations']) && isset($_POST['h_delegations']) && !empty($_POST['h_delegations'])) {
-					
-					if(is_numeric($_POST['h_delegations'])) {
-						$this->Utilisateur->updateDelegationsUtilisateur($_SESSION['v_id_utilisateur'], $_POST['description_delegations'], $_POST['h_delegations']);
-						$d['v_success'] = 'Vos délégations ont bien été mises à jour.';
+				// Traitement du formulaire des délégations
+				if($_POST['utilisateur_form_delegations']) {
+					if(isset($_POST['description_delegations']) && !empty($_POST['description_delegations']) && isset($_POST['h_delegations']) && !empty($_POST['h_delegations'])) {
+						
+						if(is_numeric($_POST['h_delegations'])) {
+							$this->Utilisateur->updateDelegationsUtilisateur($_SESSION['v_id_utilisateur'], $_POST['description_delegations'], $_POST['h_delegations']);
+							$d['v_success'] = 'Vos délégations ont bien été mises à jour.';
+						} else {
+							$d['v_errors'] = 'Oops ! La somme de vos heures de délégations doit être une valeur entière.';
+						}
+						
 					} else {
-						$d['v_errors'] = 'Oops ! La somme de vos heures de délégations doit être une valeur entière.';
+						$d['v_errors'] = 'Oops ! Les deux champs sont obligatoires.';
 					}
-					
-				} else {
-					$d['v_errors'] = 'Oops ! Les deux champs sont obligatoires.';
 				}
-			}
+				
+				$u = $this->Utilisateur->getUtilisateur($_SESSION['v_id_utilisateur']);
+				foreach($u as $utilisateur) {
+					$d['nbr_h_delegation'] = $utilisateur['nbr_h_delegation'];
+					$d['description_delegation'] = $utilisateur['description_delegation'];
+				}
 			
-			$u = $this->Utilisateur->getUtilisateur($_SESSION['v_id_utilisateur']);
-			foreach($u as $utilisateur) {
-				$d['nbr_h_delegation'] = $utilisateur['nbr_h_delegation'];
-				$d['description_delegation'] = $utilisateur['description_delegation'];
+				$this->set($d);
+				$this->render('delegations');
+				
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
 			}
-		
-			$this->set($d);
-			$this->render('delegations');
 		}
 		
 		function importer() {
 			$d['v_titreHTML'] = 'Importer des utilisateurs';
 			$d['v_menuActive'] = 'utilisateursImporter';
-		
-			// Traitement du formulaire des délégations
-			if($_POST['utilisateur_form_importer']) {
-				if(isset($_POST['textarea_csv']) && !empty($_POST['textarea_csv'])) {
-					$n = 0;
-					$lines = explode('\n', $_POST['textarea_csv']);
-					foreach($lines as $l) {
-						$items = explode(';', $l);
-						
-						// On enregistre l'utilisateur
-						$dataUtilisateur = array(	'nom' => strtoupper($items[1]),
-													'prenom' => ucfirst(strtolower($items[2])),
-													'email' =>  $items[3],
-													'badge' => $items[4],
-													'civilite' => (int)($items[0]),
-													'actif' => (int)($items[5]));
-						$this->Utilisateur->save($dataUtilisateur);
-						
-						// On lui envoie un mail avec son mot de passe
-						$utilisateur = $this->Utilisateur->getUtilisateurByEmail($items[3]);
-						foreach($utilisateur as $u) {
-							$utilisateur_id = $u['id'];
-							$utilisateur_email = $u['email'];
-							$utilisateur_nom = $u['nom'];
-							$utilisateur_prenom = $u['prenom'];
+			$d['v_needRights'] = 4;
+
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+				// Traitement du formulaire des délégations
+				if($_POST['utilisateur_form_importer']) {
+					if(isset($_POST['textarea_csv']) && !empty($_POST['textarea_csv'])) {
+						$n = 0;
+						$lines = explode('\n', $_POST['textarea_csv']);
+						foreach($lines as $l) {
+							$items = explode(';', $l);
+							
+							// On enregistre l'utilisateur
+							$dataUtilisateur = array(	'nom' => strtoupper($items[1]),
+														'prenom' => ucfirst(strtolower($items[2])),
+														'email' =>  $items[3],
+														'badge' => $items[4],
+														'civilite' => (int)($items[0]),
+														'actif' => (int)($items[5]));
+							$this->Utilisateur->save($dataUtilisateur);
+							
+							// On lui envoie un mail avec son mot de passe
+							$utilisateur = $this->Utilisateur->getUtilisateurByEmail($items[3]);
+							foreach($utilisateur as $u) {
+								$utilisateur_id = $u['id'];
+								$utilisateur_email = $u['email'];
+								$utilisateur_nom = $u['nom'];
+								$utilisateur_prenom = $u['prenom'];
+							}
+							$this->Utilisateur->mailAjout($utilisateur_id, $utilisateur_email, $utilisateur_nom, $utilisateur_prenom);
+							
+							$n = $n + 1;
 						}
-						$this->Utilisateur->mailAjout($utilisateur_id, $utilisateur_email, $utilisateur_nom, $utilisateur_prenom);
 						
-						$n = $n + 1;
+						$d['v_success'] = $n.' utilisateurs ont été importés correctement.';
+					} else {
+						$d['v_errors'] = 'Oops ! Votre champ est vide.';
 					}
-					
-					$d['v_success'] = $n.' utilisateurs ont été importés correctement.';
-				} else {
-					$d['v_errors'] = 'Oops ! Votre champ est vide.';
 				}
-			}
-		
-			$this->set($d);
-			$this->render('importer');
+			
+				$this->set($d);
+				$this->render('importer');
+				
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}		
 		}
     
 		function gestion() {
 			$d['v_titreHTML'] = 'Gestion des utilisateurs';
 			$d['v_menuActive'] = 'utilisateurs';
+			$d['v_needRights'] = 4;
 
-			// On récupère tous les utilisateurs
-			$d['utilisateurs'] = $this->Utilisateur->find(array('order' => 'nom ASC'));
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+			
+				// On récupère tous les utilisateurs
+				$d['utilisateurs'] = $this->Utilisateur->find(array('order' => 'nom ASC'));
 		  
-			$this->set($d);
-			$this->render('gestion');
+				$this->set($d);
+				$this->render('gestion');
+				
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
 		}
 		
 		function role($id, $delete_utilisateur_role = 0, $id_role = 0, $id_filiere_enseignement = 0) {
 			$d['v_titreHTML'] = 'Associer un rôle à un utilisateur';
 			$d['v_menuActive'] = 'utilisateurs';
 			$d['id_utilisateur_role'] = $id;
-			
-			// Traitement du formulaire d'association d'un utilisateur et d'un rôle
-			if($_POST['utilisateur_submit_role']) {
-				if(isset($_POST['ur_role']) && !empty($_POST['ur_role']) && isset($_POST['ur_filiere_enseignement']) && !empty($_POST['ur_filiere_enseignement'])) {
-					
-					// ID du role responsable de cours
-					if($_POST['ur_role'] == 7) {
-					
-						$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $_POST['ur_role'], $_POST['ur_filiere_enseignement']);
-						if(!$checkRole) {
-							$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], $_POST['ur_filiere_enseignement']);
-							$d['v_success'] = 'Le rôle a été associé correctement.';
+			$d['v_needRights'] = 4;
+
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+				// Traitement du formulaire d'association d'un utilisateur et d'un rôle
+				if($_POST['utilisateur_submit_role']) {
+					if(isset($_POST['ur_role']) && !empty($_POST['ur_role']) && isset($_POST['ur_filiere_enseignement']) && !empty($_POST['ur_filiere_enseignement'])) {
+						
+						// ID du role responsable de cours
+						if($_POST['ur_role'] == 7) {
+						
+							$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $_POST['ur_role'], $_POST['ur_filiere_enseignement']);
+							if(!$checkRole) {
+								$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], $_POST['ur_filiere_enseignement']);
+								$d['v_success'] = 'Le rôle a été associé correctement.';
+							} else {
+								$d['v_errors'] = 'Oops ! Ce rôle est déjà associé à cet utilisateur.';
+							}
+				
 						} else {
-							$d['v_errors'] = 'Oops ! Ce rôle est déjà associé à cet utilisateur.';
+				
+							$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $_POST['ur_role'], 0);
+							if(!$checkRole) {
+								$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], 0);
+								$d['v_success'] = 'Le rôle a été associé correctement.';
+							} else {
+								$d['v_errors'] = 'Oops ! Ce rôle est déjà associé à cet utilisateur.';
+							}
 						}
-			
+						
 					} else {
-			
-						$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $_POST['ur_role'], 0);
-						if(!$checkRole) {
-							$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], 0);
-							$d['v_success'] = 'Le rôle a été associé correctement.';
-						} else {
-							$d['v_errors'] = 'Oops ! Ce rôle est déjà associé à cet utilisateur.';
-						}
+						$d['v_errors'] = 'Oops ! Le champ rôle est obligatoire.';
 					}
-					
-				} else {
-					$d['v_errors'] = 'Oops ! Le champ rôle est obligatoire.';
 				}
-			}
-			
-			// Traitement de la suppresion de l'association d'un utilisateur et d'un rôle
-			if($delete_utilisateur_role && $id_role) {
-			
-				// ID du role responsable de cours
-				if($id_role == 7) {
-					if($id_filiere_enseignement) {
-						$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $id_role, $id_filiere_enseignement);
+				
+				// Traitement de la suppresion de l'association d'un utilisateur et d'un rôle
+				if($delete_utilisateur_role && $id_role) {
+				
+					// ID du role responsable de cours
+					if($id_role == 7) {
+						if($id_filiere_enseignement) {
+							$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $id_role, $id_filiere_enseignement);
+							if($checkRole) {
+								$this->UtilisateurRole->deleteRoleUtilisateur($id, $id_role, $id_filiere_enseignement);
+								$d['v_success'] = 'Le rôle a bien été supprimé de l\'utilisateur.';
+							} else {
+								$d['v_errors'] = 'Oops ! Le rôle n\'est pas associé à l\'utilisateur.';
+							}
+						} else {
+							$d['v_errors'] = 'Oops ! Il manque l\'id de la filiere enseignement.';
+						}
+						
+					} else {
+						$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $id_role, 0);
 						if($checkRole) {
-							$this->UtilisateurRole->deleteRoleUtilisateur($id, $id_role, $id_filiere_enseignement);
+							$this->UtilisateurRole->deleteRoleUtilisateur($id, $id_role, 0);
 							$d['v_success'] = 'Le rôle a bien été supprimé de l\'utilisateur.';
 						} else {
 							$d['v_errors'] = 'Oops ! Le rôle n\'est pas associé à l\'utilisateur.';
 						}
-					} else {
-						$d['v_errors'] = 'Oops ! Il manque l\'id de la filiere enseignement.';
-					}
-					
-				} else {
-					$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $id_role, 0);
-					if($checkRole) {
-						$this->UtilisateurRole->deleteRoleUtilisateur($id, $id_role, 0);
-						$d['v_success'] = 'Le rôle a bien été supprimé de l\'utilisateur.';
-					} else {
-						$d['v_errors'] = 'Oops ! Le rôle n\'est pas associé à l\'utilisateur.';
 					}
 				}
-			}
-			
-			$d['roles'] = $this->Role->getRoles();
-			$utilisateur = $this->Utilisateur->getUtilisateur($id);
-			foreach($utilisateur as $u) {
-				$d['utilisateur'] = $u['prenom'].' '.$u['nom'];
-			}
-			
-			// Liste des rôles de l'utilisateur
-			$d['roles_utilisateur'] = $this->UtilisateurRole->getRoleUtilisateur($id);
-			for($i=0; $i<count($d['roles_utilisateur']); $i++) {
-				$role_libelle = $this->Role->getRoleLibelle($d['roles_utilisateur'][$i]['id_role']);
-				$d['roles_utilisateur'][$i]['libelle'] = $role_libelle[0]['libelle'];
 				
-				// Si l'utilisateur possède le rôle responsable de cours, alors afficher quel filière et quel enseignement
-				if($d['roles_utilisateur'][$i]['id_role'] == 7) {
-					$array_filiere_enseignement = $this->FiliereEnseignement->getFiliereEnseignement($d['roles_utilisateur'][$i]['id_filiere_enseignement']);
-					$d['roles_utilisateur'][$i]['libelle'] .= ' '.$this->Filiere->getFiliereName($array_filiere_enseignement[0]['id_filiere']);
-					
-					$array_enseignement = $this->Enseignement->getEnseignement($array_filiere_enseignement[0]['id_enseignement']);
-					$d['roles_utilisateur'][$i]['libelle'] .= ' - '.$array_enseignement[0]['libelle'];
+				$d['roles'] = $this->Role->getRoles();
+				$utilisateur = $this->Utilisateur->getUtilisateur($id);
+				foreach($utilisateur as $u) {
+					$d['utilisateur'] = $u['prenom'].' '.$u['nom'];
 				}
-			}
-			
-			$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->getFiliereEnseignementYear('2012');
-			// Dans la liste des filières-enseignement, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
-			for($i=0; $i<count($d['arrayFiliereEnseignement']); $i++) {
 				
-				$filiere = $this->Filiere->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_filiere']));
-				// Niveau
-				$niveau = $this->Niveau->find(array('conditions' => 'id = '.$filiere[0]['id_niveau']));
-				$niveau = $niveau[0]['libelle'];
-				// Spécialité
-				$specialite = $this->Specialite->find(array('conditions' => 'id = '.$filiere[0]['id_specialite']));
-				$specialite = $specialite[0]['libelle'];
-				// Apprentissage
-				if($d['arrayFiliereEnseignement'][$i]['apprentissage'] == 0) {$apprentissage = 'Initial';}
-				else {$apprentissage = 'Apprentissage';}
-				// Filière
-				$d['arrayFiliereEnseignement'][$i]['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
+				// Liste des rôles de l'utilisateur
+				$d['roles_utilisateur'] = $this->UtilisateurRole->getRoleUtilisateur($id);
+				for($i=0; $i<count($d['roles_utilisateur']); $i++) {
+					$role_libelle = $this->Role->getRoleLibelle($d['roles_utilisateur'][$i]['id_role']);
+					$d['roles_utilisateur'][$i]['libelle'] = $role_libelle[0]['libelle'];
+					
+					// Si l'utilisateur possède le rôle responsable de cours, alors afficher quel filière et quel enseignement
+					if($d['roles_utilisateur'][$i]['id_role'] == 7) {
+						$array_filiere_enseignement = $this->FiliereEnseignement->getFiliereEnseignement($d['roles_utilisateur'][$i]['id_filiere_enseignement']);
+						$d['roles_utilisateur'][$i]['libelle'] .= ' '.$this->Filiere->getFiliereName($array_filiere_enseignement[0]['id_filiere']);
+						
+						$array_enseignement = $this->Enseignement->getEnseignement($array_filiere_enseignement[0]['id_enseignement']);
+						$d['roles_utilisateur'][$i]['libelle'] .= ' - '.$array_enseignement[0]['libelle'];
+					}
+				}
 				
-				// Enseignement
-				$enseignement = $this->Enseignement->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_enseignement']));
-				$d['arrayFiliereEnseignement'][$i]['enseignement'] = $enseignement[0]['libelle'];
-			}
+				$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->getFiliereEnseignementYear('2012');
+				// Dans la liste des filières-enseignement, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
+				for($i=0; $i<count($d['arrayFiliereEnseignement']); $i++) {
+					
+					$filiere = $this->Filiere->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_filiere']));
+					// Niveau
+					$niveau = $this->Niveau->find(array('conditions' => 'id = '.$filiere[0]['id_niveau']));
+					$niveau = $niveau[0]['libelle'];
+					// Spécialité
+					$specialite = $this->Specialite->find(array('conditions' => 'id = '.$filiere[0]['id_specialite']));
+					$specialite = $specialite[0]['libelle'];
+					// Apprentissage
+					if($d['arrayFiliereEnseignement'][$i]['apprentissage'] == 0) {$apprentissage = 'Initial';}
+					else {$apprentissage = 'Apprentissage';}
+					// Filière
+					$d['arrayFiliereEnseignement'][$i]['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
+					
+					// Enseignement
+					$enseignement = $this->Enseignement->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_enseignement']));
+					$d['arrayFiliereEnseignement'][$i]['enseignement'] = $enseignement[0]['libelle'];
+				}
+				
+				$this->set($d);
+				$this->render('role');
 			
-			$this->set($d);
-			$this->render('role');
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
 		}
 		
 		function updateEtat($id, $etat) {
-			$this->Utilisateur->save(array('id' => $id, 'actif' => $etat));
-			redirection("utilisateur", "gestion");
+			$d['v_needRights'] = 4;
+
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+				$this->Utilisateur->save(array('id' => $id, 'actif' => $etat));
+				redirection("utilisateur", "gestion");
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
 		}
 	}
 ?>
