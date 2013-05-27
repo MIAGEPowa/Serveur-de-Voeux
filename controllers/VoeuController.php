@@ -35,6 +35,8 @@
       $d['v_titreHTML'] = 'Voeux';
 			$d['v_menuActive'] = 'voeux';
       
+      $this->v_JS = array('voeu');
+      
       if($_POST['voeu_form_update']) {
 				if (isset($_POST['heuresCours']) && !empty($_POST['heuresCours'])
 				&& isset($_POST['heuresTD']) && !empty($_POST['heuresTD'])) {
@@ -92,6 +94,11 @@
                  	                                                                          
       $this->set($d);
 			$this->render('update');
+    }
+    
+    function delete($id) {
+      $this->FiliereEnseignementEnseignant->delete($id, $_SESSION['v_id_utilisateur']);
+      redirection("voeu", "index");
     }
 	}
 ?>

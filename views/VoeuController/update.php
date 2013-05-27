@@ -42,11 +42,13 @@
             
             <div class="form-item">
 							<label for="heuresCours">Nombre d'heures de cours</label>
+              <input type="hidden" id="nbr_h_cours" value="<?php echo $filiereEnseignement['nbr_h_cours']; ?>"/>
 							<?php echo $filiereEnseignement['nbr_h_cours']; ?>
 						</div>
 						
 						<div class="form-item">
 							<label for="heuresTD">Nombre d'heures de TD</label>
+              <input type="hidden" id="nbr_h_td" value="<?php echo $filiereEnseignement['nbr_h_td']; ?>"/>
 							<?php echo $filiereEnseignement['nbr_h_td']; ?>
 						</div>
             

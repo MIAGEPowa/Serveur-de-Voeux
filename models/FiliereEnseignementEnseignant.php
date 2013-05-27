@@ -30,5 +30,11 @@
 
       mysql_query($sql) or die(mysql_error()."<br/> => ".mysql_query());
     }
+    
+    function delete($id_filiere_enseignement, $id_utilisateur) {
+      $this->deleteQuery('DELETE FROM '.DB_PREFIX.'filiere_enseignement_enseignant 
+                          WHERE id_filiere_enseignement	= '.$id_filiere_enseignement.' 
+                          AND id_utilisateur = '.$id_utilisateur);
+    }
   }
 ?>

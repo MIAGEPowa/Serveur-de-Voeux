@@ -35,12 +35,12 @@
           if ($f_num > 1) {
             echo '</tbody>';
             echo '</table>';
-            /*echo '</div>';*/
+            echo '</div>';
           }
-          /*if ($f_num % 2 != 0)
-            echo '<div class="text-two-item text-two-item-first">';
+          if ($f_num % 2 != 0)
+            echo '<div class="text-two-item text-two-item-first" style="clear: both;">';
           else
-            echo '<div class="text-two-item">';*/
+            echo '<div class="text-two-item">';
           /*echo '<div class="text-two-item">';*/
           echo '<h2>'.$f_libelle.'</h2>';
           echo '<table>
@@ -65,6 +65,7 @@
             echo '<td>'.$f['nbr_h_td'].'</td>';
             echo '<td>';
               echo '<a class="buttons-link" href='.WEBROOT.'voeu/update/'.$f['id_filiere_enseignement'].'><span class="buttons button-orange">Modifier</span></a>';
+              echo '<a class="buttons-link" href='.WEBROOT.'voeu/delete/'.$f['id_filiere_enseignement'].'><span class="buttons button-red">Supprimer</span></a>';
             echo '</td>';
           echo '</tr>';
           

@@ -50,7 +50,7 @@
 		
 		function delete($id) {
 		  $this->Diplome->del($id);
-				redirection("diplome", "index");
+      redirection("diplome", "index");
 		}
 	}
 ?>
