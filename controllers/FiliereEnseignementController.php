@@ -2,7 +2,7 @@
 	class FiliereEnseignementController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('FiliereEnseignement', 'Filiere', 'Enseignement', 'Specialite', 'Niveau');
+		var $models = array('FiliereEnseignementEnseignant', 'FiliereEnseignement', 'Filiere', 'Enseignement', 'Specialite', 'Niveau');
 
 		function index() {
 			// Titre
@@ -173,7 +173,9 @@
 			// Date de début de l'enseignement
 			$d['filiereEnseignement']['date_debut_enseignement'] = dateBDDToNormal($d['filiereEnseignement']['date_debut_enseignement']);
 			
-			$this->set($d);
+      $d['filiereEnseignementEnseignant'] = $this->FiliereEnseignementEnseignant->getAllByFiliereEnseignement($id);
+      
+      $this->set($d);
 			$this->render('view');
 		}
 	}

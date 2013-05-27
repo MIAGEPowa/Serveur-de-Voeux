@@ -7,6 +7,14 @@
 			$this->table = DB_PREFIX.$this->table;
 		}
     
+    function getAllByFiliereEnseignement($id_filiere_enseignement) {
+      return $this->query('
+				SELECT *
+        FROM '.DB_PREFIX.'filiere_enseignement_enseignant FEE, '.DB_PREFIX.'utilisateur U 
+        WHERE FEE.id_utilisateur = U.id
+        AND FEE.id_filiere_enseignement = '.$id_filiere_enseignement);
+    }
+    
     function getFiliereEnseignementEnseignant($id_filiere_enseignement, $id_utilisateur) {
       return $this->query('
 				SELECT *
