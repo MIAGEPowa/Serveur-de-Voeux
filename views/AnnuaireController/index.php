@@ -12,14 +12,19 @@
 		<div id="breadcrumb" class="text">
 			<a href="./" title="">Annuaire</a>
 		</div>
-				
-		<!-- Exporter l'annuaire -->
-		<a href="<?php echo WEBROOT.'annuaire/exporter'; ?>" title="Exporter de l'annuaire" target="_blank"><span class="buttons button-blue" style="float: right;margin: -12px 35px 10px 0;">Exporter</span></a>
-		<div class="clear"></div>
-		
+
+		<?php
+			if($_SESSION['v_droits'] >= $v_needRightsExporter) {
+		?>		
+			<!-- Exporter l'annuaire -->
+			<a href="<?php echo WEBROOT.'annuaire/exporter'; ?>" title="Exporter de l'annuaire" target="_blank"><span class="buttons button-blue" style="float: right;margin: -12px 35px 10px 0;">Exporter</span></a>
+			<div class="clear"></div>
+		<?php
+			}
+		?>
 		<div class="text text-full">
 			<h2>Liste des profils</h2>
-			
+
 			<table>
 				 <thead>
 					<tr>

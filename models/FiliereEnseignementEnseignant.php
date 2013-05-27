@@ -7,6 +7,14 @@
 			$this->table = DB_PREFIX.$this->table;
 		}
     
+    function getAllByFiliereEnseignement($id_filiere_enseignement) {
+      return $this->query('
+				SELECT *
+        FROM '.DB_PREFIX.'filiere_enseignement_enseignant FEE, '.DB_PREFIX.'utilisateur U 
+        WHERE FEE.id_utilisateur = U.id
+        AND FEE.id_filiere_enseignement = '.$id_filiere_enseignement);
+    }
+    
     function getFiliereEnseignementEnseignant($id_filiere_enseignement, $id_utilisateur) {
       return $this->query('
 				SELECT *
@@ -29,6 +37,12 @@
       $sql .= " AND ".$id_utilisateur."=".$data[$id_utilisateur];
 
       mysql_query($sql) or die(mysql_error()."<br/> => ".mysql_query());
+    }
+    
+    function delete($id_filiere_enseignement, $id_utilisateur) {
+      $this->deleteQuery('DELETE FROM '.DB_PREFIX.'filiere_enseignement_enseignant 
+                          WHERE id_filiere_enseignement	= '.$id_filiere_enseignement.' 
+                          AND id_utilisateur = '.$id_utilisateur);
     }
   }
 ?>
