@@ -17,7 +17,7 @@
 			<form id="form-update-filiereEnseignement" action="#" method="post">
 				<fieldset>
 					<legend><span class="icon-book"></span>
-						Modifier l'association "<?php echo $filiereEnseignement['filiere']; ?>"-"<?php echo $filiereEnseignement['enseignement']; ?>"
+						Modifier l'association <?php echo $filiereEnseignement['filiere']; ?>-<?php echo $filiereEnseignement['enseignement']; ?>
 					</legend>
 					<div>
 						<div class="form-item">

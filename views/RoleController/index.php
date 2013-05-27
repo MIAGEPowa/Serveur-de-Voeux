@@ -129,7 +129,8 @@
 		</div>
 
 		<div class="text text-full">
-		
+			<h2>Liste des rôles</h2>
+			
 			<table>
 				<thead>
 					<tr>

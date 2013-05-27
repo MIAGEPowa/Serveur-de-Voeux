@@ -50,6 +50,7 @@
 		<!-- JavaScript -->
 		<script src="<?php echo JS_DIR.'jquery-1.9.1.min'; ?>.js" type="text/javascript"></script>
 		<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+		<script src="<?php echo JS_DIR.'jquery.dataTables.min'; ?>.js" type="text/javascript"></script>
 		<?php 
 		if($this->v_JS) {
 		foreach($this->v_JS as $js): 

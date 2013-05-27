@@ -58,7 +58,7 @@
 		</div>
 		
 		<div class="text text-full">
-			<h2>Liste des enseignements</h2>			
+			<h2>Liste des enseignements</h2>
 
 			<?php
 			if(count($arrayEnseignements) == 0) {

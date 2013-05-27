@@ -94,6 +94,23 @@ $(document).ready(function() {
 		}
 	});
 	
+	//
+	// ------------- Pour le tri des tableaux ainsi que la recherche
+	//
+	
+	$(document).ready( function() { 
+        $("table:not(.form-table)").dataTable({		
+			"oLanguage": {
+			  "sSearch": "Recherche:",
+			  "sInfo": "",
+			  "sZeroRecords": "La recherche n'a donné aucun résultat..."
+			},
+			"bPaginate": false,
+			"bInfo": false, 
+		});
+    } 
+); 
+	
 });
 
 function openOverlayError(msg) {

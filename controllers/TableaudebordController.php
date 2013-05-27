@@ -2,7 +2,7 @@
 	class TableaudebordController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Tableaudebord');
+		var $models = array('Filiere','Enseignement','FiliereEnseignement');
 		
 		// Variables pour les vues
 		var $v_JS = array();

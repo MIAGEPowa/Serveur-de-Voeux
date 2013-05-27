@@ -14,6 +14,7 @@
 		</div>
 		
 		<div class="text text-full">
+			<h2>Liste des utilisateurs</h2>
 			
 			<table>
 				 <thead>

@@ -16,7 +16,7 @@
 		<div class="text text-full">
 			<form id="form-create-filiereEnseignement" action="#" method="post">
 				<fieldset>
-					<legend class="button-slide"><span class="icon-book"></span>Ajouter une association "Filières - Enseignements"<span class="icon-arrow"></span></legend>
+					<legend class="button-slide"><span class="icon-book"></span>Ajouter une association Filières - Enseignements<span class="icon-arrow"></span></legend>
 					<div style="display:none">
 						<div class="form-item">
 							<label for="filiere">Filière</label>
