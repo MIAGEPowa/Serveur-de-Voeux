@@ -128,7 +128,7 @@
 			$specialite = $this->Specialite->find(array('conditions' => 'id = '.$filiere[0]['id_specialite']));
 			$specialite = $specialite[0]['libelle'];
 			// Apprentissage
-			if($d['filiereEnseignement']['apprentissage'] == 0) {$apprentissage = 'Initial';}
+			if($filiere[0]['apprentissage'] == 0) {$apprentissage = 'Initial';}
 			else {$apprentissage = 'Apprentissage';}
 			// Filière
 			$d['filiereEnseignement']['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
@@ -161,7 +161,7 @@
 			$specialite = $this->Specialite->find(array('conditions' => 'id = '.$filiere[0]['id_specialite']));
 			$specialite = $specialite[0]['libelle'];
 			// Apprentissage
-			if($d['filiereEnseignement']['apprentissage'] == 0) {$apprentissage = 'Initial';}
+			if($filiere[0]['apprentissage'] == 0) {$apprentissage = 'Initial';}
 			else {$apprentissage = 'Apprentissage';}
 			// Filière
 			$d['filiereEnseignement']['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;

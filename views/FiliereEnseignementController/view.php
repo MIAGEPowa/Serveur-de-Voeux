@@ -17,7 +17,7 @@
 			<form id="form-update-filiereEnseignement" action="#" method="post">
 				<fieldset>
 					<legend><span class="icon-book"></span>
-						Visualiser l'association "<?php echo $filiereEnseignement['filiere']; ?>"-"<?php echo $filiereEnseignement['enseignement']; ?>"
+						Visualiser l'association <?php echo $filiereEnseignement['filiere']; ?> - <?php echo $filiereEnseignement['enseignement']; ?>
 					</legend>
 					<div class="text text-two">
             <div class="text-two-item text-two-item-first">
@@ -75,10 +75,7 @@
                 <label for="moyenne">Moyenne</label>
                 <?php echo $filiereEnseignement['moyenne']; ?>
               </div>
-              
-              <div class="form-item">
-                <input type="submit" name="filiereEnseignement_form_update" class="input-submit input-submit-orange" value="Modifier" />
-              </div>
+			  
             </div>
             <div class="text-two-item">
               <?php

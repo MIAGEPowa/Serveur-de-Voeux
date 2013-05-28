@@ -46,11 +46,10 @@
           echo '<table>
                   <thead>
                     <tr>
-                      <th width="10%">#</th>
                       <th width="30%">Enseignement</th>
-                      <th width="15%">Année</th>
-                      <th width="10%">Cours</th>
-                      <th width="10%">TD</th>
+                      <th width="20%">Année</th>
+                      <th width="20%">Cours</th>
+                      <th width="20%">TD</th>
                       <th>Actions</th>
                     </tr>
                   </thead>
@@ -58,7 +57,6 @@
         }
           
           echo '<tr>';
-            echo '<td>'.$f['id_filiere_enseignement'].'</td>';
             echo '<td>'.$f['libelle_enseignement'].'</td>';
             echo '<td>'.$f['annee'].'</td>';
             echo '<td>'.$f['nbr_h_cours'].'</td>';
