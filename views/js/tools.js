@@ -99,7 +99,7 @@ $(document).ready(function() {
 	//
 	
 	$(document).ready( function() { 
-        $("table:not(.form-table)").dataTable({		
+        $("table:not(.form-table):not(.no-tri)").dataTable({		
 			"oLanguage": {
 			  "sSearch": "Recherche:",
 			  "sInfo": "",

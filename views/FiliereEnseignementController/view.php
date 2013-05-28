@@ -89,7 +89,7 @@
               } else {
               ?>
               <h2>Liste des voeux</h2>
-              <table class="table-white">
+              <table class="table-white no-tri">
                 <thead>
                   <tr>
                     <th>Nom</th>
