@@ -35,7 +35,16 @@
 						$photo = $_SESSION['v_id_utilisateur'].'.gif';
 					else
 						$photo = 'default.jpg';
+				
+					if($_SESSION['v_droits'] >= 4) {
 				?>
+						<div id="linkConfiguration">
+							<a href="<?php echo WEBROOT.'lol/lol'; ?>" title="Configuration"><img src="<?php echo IMG_DIR; ?>configuration.png" title="Configuration" alt="Icône configuration" /></a>
+						</div>
+				<?php
+				
+					}
+				?>					
 					<div id="userAccount">
 						<a href="<?php echo WEBROOT.'utilisateur/moncompte'; ?>" title="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>"><img src="<?php echo WEBROOT.'files/avatar/'.$photo; ?>" alt="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>" title="<?php echo $_SESSION['v_prenom'].' '.$_SESSION['v_nom']; ?>" /></a>
 						<div>

@@ -35,6 +35,11 @@
                 <label for="annee">Année</label>
                 <?php echo $filiereEnseignement['annee']; ?>
               </div>
+			  
+			  <div class="form-item">
+                <label for="reference">Référence</label>
+                <?php echo $filiereEnseignement['reference']; ?>
+              </div>
               
               <div class="form-item">
                 <label for="dateDebut">Date de début de l'enseignement *</label>

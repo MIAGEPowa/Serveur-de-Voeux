@@ -23,6 +23,7 @@ body {
 .blue {
   color: #009FE0;
 }
+
 /************** 
 	HEADER
 ***************/
@@ -52,6 +53,7 @@ body {
 	text-decoration: none;
 }
 #userAccount {
+	width: 185px;
 	float: right;
 	overflow: hidden;
 }
@@ -69,7 +71,6 @@ body {
 }
 #userAccount div {
 	margin: 6px 0 0 0;
-	padding: 0 12px;
 }
 #userAccount div a, #userAccount div a:link, #userAccount div a:active, #userAccount div a:focus, #userAccount div a:visited {
 	color: white;
@@ -78,6 +79,12 @@ body {
 #userAccount div a:hover {
 	color: white;
 	text-decoration: underline;
+}
+#linkConfiguration{
+	border-left: 1px solid white;
+    float: right;
+    margin: 11px 0 0 0;
+    padding: 0 15px;
 }
 
 /************** 

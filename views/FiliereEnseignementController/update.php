@@ -36,6 +36,11 @@
 						</div>
 						
 						<div class="form-item">
+							<label for="reference">Référence</label>
+							<input type="text" class="input-normal" id="reference" name="reference" value="<?php echo $filiereEnseignement['reference']; ?>" />
+						</div>
+						
+						<div class="form-item">
 							<label for="dateDebut">Date de début de l'enseignement *</label>
 							<input type="text" id="dateDebut" class="date" name="dateDebut" value="<?php echo $filiereEnseignement['date_debut_enseignement']; ?>" maxlength="10" readonly="true"/>
 						</div>

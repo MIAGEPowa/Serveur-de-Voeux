@@ -33,7 +33,8 @@
 															'nbr_groupes_td' => $_POST['groupesTD'],
 															'semestre' => $_POST['semestre'],
 															'nbr_etudiants_moyen' => $_POST['etudiantsMoyen'],
-															'moyenne' => $_POST['moyenne']);
+															'moyenne' => $_POST['moyenne'],
+															'reference' => $_POST['reference']);
 						$this->FiliereEnseignement->save($dataFiliereEnseignement);
 						
 						$d['v_success'] = 'L\'association "Filiere-Enseignement" a bien été créée !';
@@ -108,10 +109,11 @@
 														'nbr_groupes_td' => $_POST['groupesTD'],
 														'semestre' => $_POST['semestre'],
 														'nbr_etudiants_moyen' => $_POST['etudiantsMoyen'],
-														'moyenne' => $_POST['moyenne']);
+														'moyenne' => $_POST['moyenne'],
+														'reference' => $_POST['reference']);
 					$this->FiliereEnseignement->save($dataFiliereEnseignement);
 					
-					$d['v_success'] = 'L\'association "Filiere-Enseignement" a bien été modifiée !';
+					$d['v_success'] = 'L\'association Filiere-Enseignement a bien été modifiée !';
 				}
 			}
 			
@@ -173,9 +175,9 @@
 			// Date de début de l'enseignement
 			$d['filiereEnseignement']['date_debut_enseignement'] = dateBDDToNormal($d['filiereEnseignement']['date_debut_enseignement']);
 			
-      $d['filiereEnseignementEnseignant'] = $this->FiliereEnseignementEnseignant->getAllByFiliereEnseignement($id);
+			$d['filiereEnseignementEnseignant'] = $this->FiliereEnseignementEnseignant->getAllByFiliereEnseignement($id);
       
-      $this->set($d);
+			$this->set($d);
 			$this->render('view');
 		}
 	}
