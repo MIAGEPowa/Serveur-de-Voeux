@@ -348,6 +348,9 @@ body {
 	display: inline-block;
 	margin-right: 15px;
 }
+.text label.label-large {
+	width: 300px;
+}
 .text label.label-top {
 	vertical-align: top;
 }
@@ -411,6 +414,9 @@ input[type="submit"].input-submit {
 	font-size: 12px;
 	color: white;
 	cursor: pointer;
+}
+input[type="submit"].input-submit.input-submit-large {
+	margin-left: 320px;
 }
 input[type="submit"].input-submit-blue, .button-blue {
 	border: 1px #037bac solid;
@@ -602,6 +608,52 @@ input[type="submit"].input-submit-orange:hover, .button-orange:hover {
 }
 a.buttons-link:hover {
 	text-decoration: none;
+}
+
+/**************************** 
+	FE ETAT PREVISIONNELLE
+*****************************/
+#feEtatPrevisionnelle {
+	padding: 10px 8px;
+}
+#feEtatPrevisionnelle span.feEtatPrevisionnelleTitle {
+	display: inline-block;
+    margin: 5px 15px 0 0;
+    vertical-align: top;
+}
+#feEtatPrevisionnelle span.feEtatPrevisionnelleHeures {
+	display: inline-block;
+	margin: 5px 0 0 15px;
+    vertical-align: top;
+}
+
+/************************ 
+	BARRE PROGRESSION
+*************************/
+.barreProgression {
+	width: 250px;
+	height: 25px;
+	display: inline-block;
+	border-radius: 4px;
+	border: 1px #b8b8b8 solid;
+	position: relative;
+}
+.barreProgressionGreen {
+	background: linear-gradient(to bottom, #62C462, #51A351);
+}
+.barreProgressionRed {
+	background: linear-gradient(to bottom, #EE5F5B, #BD362F);
+}
+.barreProgression span {
+	position: absolute;
+	margin-top: 4px;
+	font-size: 12px;
+	color: black;
+	left: 48%;
+}
+.progression {
+	height: 25px;
+	display: block;
 }
 
 /************ 

@@ -16,10 +16,10 @@
 		<div class="text text-full">
 			<form id="form-create-filiereEnseignement" action="#" method="post">
 				<fieldset>
-					<legend class="button-slide"><span class="icon-book"></span>Ajouter une association Filières - Enseignements<span class="icon-arrow"></span></legend>
+					<legend class="button-slide"><span class="icon-filieres-enseignement"></span>Ajouter une association Filières - Enseignements<span class="icon-arrow"></span></legend>
 					<div style="display:none">
 						<div class="form-item">
-							<label for="filiere">Filière</label>
+							<label class="label-large" for="filiere">Filière</label>
 							<select id="filiere" name="filiere">							
 								<?php
 								// On parcours le tableau des niveaux
@@ -39,7 +39,7 @@
 						</div>
 						
 						<div class="form-item">
-							<label for="enseignement">Enseignement</label>
+							<label class="label-large" for="enseignement">Enseignement</label>
 							<select id="enseignement" name="enseignement">							
 								<?php
 								// On parcours le tableau des niveaux
@@ -53,7 +53,7 @@
 						</div>
 						
 						<div class="form-item">
-							<label for="annee">Année</label>
+							<label class="label-large" for="annee">Année</label>
 							<select id="annee" name="annee">							
 								<?php
 								// On parcours le tableau des niveaux
@@ -67,37 +67,50 @@
 						</div>
 						
 						<div class="form-item">
-							<label for="reference">Référence</label>
+							<label class="label-large" for="reference">Référence</label>
 							<input type="text" class="input-normal" id="reference" name="reference" />
 						</div>
 						
 						<div class="form-item">
-							<label for="dateDebut">Date de début de l'enseignement *</label>
+							<label class="label-large" for="dateDebut">Date de début de l'enseignement *</label>
 							<input type="text" id="dateDebut" class="date" name="dateDebut" value="" maxlength="10" readonly="true"/>
 						</div>
 						
 						<div class="form-item">
-							<label for="heuresCours">Nombre d'heures de cours *</label>
+							<label class="label-large" for="heuresCours">Nombre d'heures de cours *</label>
 							<input type="text" class="input-little" id="heuresCours" class="input-little" name="heuresCours" value="" maxlength="5" /> heures
+							<input type="text" class="input-little" id="minutesCours" class="input-little" name="minutesCours" value="" maxlength="5" /> minutes
 						</div>
 						
 						<div class="form-item">
-							<label for="heuresTD">Nombre d'heures de TD *</label>
-							<input type="text" class="input-little" id="heuresTD" class="input-little" name="heuresTD" value="" maxlength="5" /> heures
-						</div>
-						
-						<div class="form-item">
-							<label for="groupesCours">Nombre de groupe de cours *</label>
+							<label class="label-large" for="groupesCours">Nombre de groupe de cours</label>
 							<input type="text" class="input-little" id="groupesCours" name="groupesCours" value="" maxlength="5" />
 						</div>
 						
 						<div class="form-item">
-							<label for="groupesTD">Nombre de groupe de TD *</label>
+							<label class="label-large" for="heuresTD">Nombre d'heures de TD *</label>
+							<input type="text" class="input-little" id="heuresTD" class="input-little" name="heuresTD" value="" maxlength="5" /> heures
+							<input type="text" class="input-little" id="minutesTD" class="input-little" name="minutesTD" value="" maxlength="5" /> minutes
+						</div>
+						
+						<div class="form-item">
+							<label class="label-large" for="groupesTD">Nombre de groupe de TD</label>
 							<input type="text" class="input-little" id="groupesTD" name="groupesTD" value="" maxlength="5" />
 						</div>
 						
 						<div class="form-item">
-							<label for="semestre">Semestre</label>
+							<label class="label-large" for="heuresTP">Nombre d'heures de TP *</label>
+							<input type="text" class="input-little" id="heuresTP" class="input-little" name="heuresTP" value="" maxlength="5" /> heures
+							<input type="text" class="input-little" id="minutesTP" class="input-little" name="minutesTP" value="" maxlength="5" /> minutes
+						</div>
+						
+						<div class="form-item">
+							<label class="label-large" for="groupesTP">Nombre de groupe de TP</label>
+							<input type="text" class="input-little" id="groupesTP" name="groupesTP" value="" maxlength="5" />
+						</div>					
+						
+						<div class="form-item">
+							<label class="label-large" for="semestre">Semestre</label>
 							<select id="semestre" name="semestre">
 								<option value="1">1</option>
 								<option value="2">2</option>
@@ -105,17 +118,17 @@
 						</div>
 						
 						<div class="form-item">
-							<label for="etudiantsMoyen">Nombre d'étudiants moyen</label>
+							<label class="label-large" for="etudiantsMoyen">Nombre d'étudiants moyen</label>
 							<input type="text" class="input-little" id="etudiantsMoyen" name="etudiantsMoyen" value="" maxlength="5" />
 						</div>
 						
 						<div class="form-item">
-							<label for="moyenne">Moyenne</label>
+							<label class="label-large" for="moyenne">Moyenne</label>
 							<input type="text" class="input-little decimal" id="moyenne" name="moyenne" value="" maxlength="5" />
 						</div>
 						
 						<div class="form-item">
-							<input type="submit" name="filiereEnseignement_form_add" class="input-submit input-submit-green" value="Enregistrer" />
+							<input type="submit" name="filiereEnseignement_form_add" class="input-submit input-submit-large input-submit-green" value="Enregistrer" />
 						</div>
 						
 					</div>
@@ -138,12 +151,13 @@
 				<table>
 					 <thead>
 						<tr>
-							<th width="12%">#</th>
-							<th width="22%">Filière</th>
-							<th width="22%">Enseignement</th>
-							<th width="22%">Année</th>
-							<th width="22%">Responsable</th>
-							<th width="22%">Actions</th>
+							<th width="10%">#</th>
+							<th width="18%">Filière</th>
+							<th width="18%">Enseignement</th>
+							<th width="9%">Année</th>
+							<th width="9%">Référence</th>
+							<th width="18%">Responsable</th>
+							<th width="18%">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -156,6 +170,7 @@
 								<td><?php echo $filiereEnseignement['filiere']; ?></td>
 								<td><?php echo $filiereEnseignement['enseignement']; ?></td>
 								<td><?php echo $filiereEnseignement['annee']; ?></td>
+								<td><?php echo $filiereEnseignement['reference']; ?></td>
 								<td>A venir</td>
 								<td>
 									<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/update/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/delete/<?php echo $filiere['id']; ?>"><span class="buttons button-red">Supprimer</span></a>

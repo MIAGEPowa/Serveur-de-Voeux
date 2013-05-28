@@ -9,42 +9,59 @@ $(document).ready(function() {
 			openOverlayError("Oops ! Vous n'avez pas rempli le champ <strong>\"Date de début\"</strong> !");
 			return false;
 		}
-		// nombre heures cours
-		if($('#heuresCours').val() == "") {
-			openOverlayError("Oops ! Vous n'avez pas rempli le champ <strong>\"Nombre d'heures de cours\"</strong> !");
+		
+		// On vérifie si au moins un des 6 est remplis
+		if($('#heuresCours').val() == "" && $('#heuresTD').val() == "" && $('#heuresTP').val() == "") {
+			openOverlayError("Oops ! Vous devez remplir au moins les heures de cours, TD ou TP !");
 			return false;
 		}
-		if(!$.isNumeric($('#heuresCours').val())) {
+		
+		
+		if($('#heuresCours').val() != "" && !$.isNumeric($('#heuresCours').val())) {
 			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre d'heures de cours\"</strong> !");
 			return false;
 		}
-		// nombre heures de TD
-		if($('#heuresTD').val() == "") {
-			openOverlayError("Oops ! Vous n'avez pas rempli le champ <strong>\"Nombre d'heures de TD\"</strong> !");
+		
+		if($('#minutesCours').val() != "" && !$.isNumeric($('#minutesCours').val())) {
+			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre de minutes de Cours\"</strong> !");
 			return false;
 		}
-		if(!$.isNumeric($('#heuresTD').val())) {
+		
+		if($('#heuresTD').val() != "" && !$.isNumeric($('#heuresTD').val())) {
 			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre d'heures de TD\"</strong> !");
 			return false;
 		}
-		// nombre de groupes de cours
-		if($('#groupesCours').val() == "") {
-			openOverlayError("Oops ! Vous n'avez pas rempli le champ <strong>\"Nombre de groupes de cours\"</strong> !");
+		
+		if($('#minutesTD').val() != "" && !$.isNumeric($('#minutesTD').val())) {
+			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre de minutes de TD\"</strong> !");
 			return false;
 		}
-		if(!$.isNumeric($('#groupesCours').val())) {
+		
+		if($('#groupesCours').val() != "" && !$.isNumeric($('#groupesCours').val())) {
 			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre de groupes de cours\"</strong> !");
 			return false;
 		}
-		// nombre de groupes de TD
-		if($('#groupesTD').val() == "") {
-			openOverlayError("Oops ! Vous n'avez pas rempli le champ <strong>\"Nombre de groupes de TD\"</strong> !");
-			return false;
-		}
-		if(!$.isNumeric($('#groupesTD').val())) {
+
+		if($('#groupesTD').val() != "" && !$.isNumeric($('#groupesTD').val())) {
 			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre de groupes de TD\"</strong> !");
 			return false;
 		}
+		
+		if($('#heuresTP').val() != "" && !$.isNumeric($('#heuresTP').val())) {
+			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre d'heures de TP\"</strong> !");
+			return false;
+		}
+		
+		if($('#minutesTP').val() != "" && !$.isNumeric($('#minutesTP').val())) {
+			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre de minutes de TP\"</strong> !");
+			return false;
+		}
+		
+		if($('#groupesTP').val() != "" && !$.isNumeric($('#groupesTP').val())) {
+			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre de groupes de TP\"</strong> !");
+			return false;
+		}
+		
 		return true;
 	});
 	
