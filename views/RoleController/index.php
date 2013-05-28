@@ -168,8 +168,10 @@
 										<td>'.$re.'</td>
 										<td>'.$role_txt.'</td>
 										<td>'.$r['utilisateurs'].'</td>
-										<td><a class="buttons-link" href="'.WEBROOT.'" title="Supprimer"><span class="buttons button-red">Supprimer</span></a></td>
-									</tr>';
+										<td>'; 
+                    if ($r['libelle'] == 'Responsable de cours') echo ''; else echo '<a class="buttons-link" href="'.WEBROOT.'role/index/'.$r['id'].'" title="Supprimer"><span class="buttons button-red">Supprimer</span></a>';
+                    echo '  </td>';
+							echo '  </tr>';
 						}
 						
 					?>

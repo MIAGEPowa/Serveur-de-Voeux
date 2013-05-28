@@ -10,7 +10,7 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="./" title="">Annuaire</a>
+			<a href="<?php echo WEBROOT.'annuaire/index';?>" title="Annuaire">Annuaire</a>
 		</div>
 
 		<?php

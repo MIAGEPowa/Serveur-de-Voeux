@@ -7,7 +7,17 @@
 		// Variables pour les vues
 		var $v_JS = array('role');
 		
-		function index() {
+		function index($id_role = 0) {
+    
+      if ($id_role != 0) {
+        if (!$this->UtilisateurRole->existRole($id_role)) {
+          $this->Role->del($id_role);
+          $d['v_success'] = 'Rôle supprimé avec succès';
+        } else {
+          $d['v_errors'] = 'Oops ! Le rôle ne peut pas être supprimé car il est déjà associé à un utilisateur.';
+        }
+      }
+      
 			// Titre
 			$d['v_titreHTML'] = 'Rôles';
 			$d['v_menuActive'] = 'roles';	
@@ -144,6 +154,6 @@
 				redirection("notfound", "droits");
 			}
 		}
-		
+
 	}
 ?>

@@ -14,6 +14,13 @@
 			));
 		}
 		
+    function existRole($id_role) {
+      return $this->find(array(
+				'conditions' => 'id_role = '.$id_role,
+        'order' => 'id_role ASC'
+			));
+    }
+    
 		function deleteRoleUtilisateur($id_utilisateur, $id_role, $id_filiere_enseignement) {
 			if($id_filiere_enseignement)
 				$this->deleteQuery('DELETE FROM '.DB_PREFIX.'utilisateur_role WHERE id_utilisateur = '.$id_utilisateur.' AND id_role = '.$id_role.' AND id_filiere_enseignement = '.$id_filiere_enseignement);

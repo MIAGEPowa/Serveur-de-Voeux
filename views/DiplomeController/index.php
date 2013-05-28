@@ -11,7 +11,7 @@
 
 
 		<div id="breadcrumb" class="text">
-			<a href="<?php echo WEBROOT.'diplome/index';?>" title="">Diplômes</a><span class="delimiter">></span>Ajout / Liste des diplômes
+			<a href="<?php echo WEBROOT.'diplome/index';?>" title="Diplômes">Diplômes</a><span class="delimiter">></span>Ajout / Liste des diplômes
 		</div>
 
 
