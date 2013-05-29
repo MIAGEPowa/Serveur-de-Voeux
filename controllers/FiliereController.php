@@ -44,24 +44,31 @@
 			}
 		}
 		
-		function update($id) {
+		function view($id) {
 			$d['v_needRights'] = 4;
 
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {	
 				// Titre
-				$d['v_titreHTML'] = 'Modifier une filière';
+				$d['v_titreHTML'] = 'Visualiser une filière';
 				$d['v_menuActive'] = 'filieres';
-				
+
 				// La filière, les niveaux et les spécialités
-				$d['filiere'] = $this->Filiere->find(array(
-										'conditions' => 'id = ' . $id
-									));
+				$d['filiere'] = $this->Filiere->find(array( 'conditions' => 'id = ' .$id ));
 				$d['filiere'] = $d['filiere'][0];
-				$d['arrayNiveaux'] = $this->Niveau->find();
-				$d['arraySpecialites'] = $this->Specialite->find();
+				
+				$d['niveau'] = $this->Niveau->find(array( 'conditions' => 'id = ' .$d['filiere']['id_niveau'] ));
+				$d['niveau'] = $d['niveau'][0]['libelle'];	
+				
+				$d['specialite'] = $this->Specialite->find(array( 'conditions' => 'id = ' .$d['filiere']['id_specialite'] ));
+				$d['specialite'] = $d['specialite'][0]['libelle'];
+				
+				$d['apprentissage'] = $d['filiere']['apprentissage'];
+				$d['apprentissage'] = ($d['apprentissage'] == 0) ? 'non' : 'oui';
+				
+				$d['arrayEnseignements'] = $this->Filiere->getEnseignements($id);
 				
 				$this->set($d);
-				$this->render('update');
+				$this->render('view');
 			} else {
 				// Rediriger l'utilisateur sur une page d'erreur
 				redirection("notfound", "droits");
