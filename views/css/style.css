@@ -63,8 +63,13 @@ body {
 }
 #userAccount {
 	width: 185px;
+	height: 50px;
 	float: right;
 	overflow: hidden;
+	padding-left: 5px;
+}
+#userAccount:hover {	
+	background-color: rgb(0, 121, 170);
 }
 #userAccount > a {
 	width: 40px;
@@ -88,6 +93,13 @@ body {
 #userAccount div a:hover {
 	color: white;
 	text-decoration: underline;
+}
+#configuration{
+	height: 50px;
+    float: right;
+}
+#configuration:hover {	
+	background-color: rgb(0, 121, 170);
 }
 #linkConfiguration{
 	border-left: 1px solid white;
@@ -168,7 +180,7 @@ body {
 #col ul {
 	width: 215px;
 	list-style: none;
-	margin-top: 25px;
+	margin-top: 10px;
 	position: fixed;
 }
 #col ul li {
@@ -822,6 +834,12 @@ span.icon-keywords {
 }
 #col li.active span.icon-keywords {
 	background: url(../img/sprite.png) -113px -48px;
+}
+span.icon-config {
+	width: 18px;
+	height: 18px;
+	background: url(../img/config.png) no-repeat;
+	background-size: 18px 18px;
 }
 
 /* RESET */

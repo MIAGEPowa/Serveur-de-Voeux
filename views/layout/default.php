@@ -38,8 +38,10 @@
 				
 					if($_SESSION['v_droits'] >= 4) {
 				?>
-						<div id="linkConfiguration">
-							<a href="<?php echo WEBROOT.'lol/lol'; ?>" title="Configuration"><img src="<?php echo IMG_DIR; ?>configuration.png" title="Configuration" alt="Icône configuration" /></a>
+						<div id="configuration">
+							<div id="linkConfiguration">
+								<a href="<?php echo WEBROOT.'configuration/index'; ?>" title="Configuration"><img src="<?php echo IMG_DIR; ?>configuration.png" title="Configuration" alt="Icône configuration" /></a>
+							</div>
 						</div>
 				<?php
 				

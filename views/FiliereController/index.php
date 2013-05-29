@@ -96,7 +96,7 @@
 								<td><?php echo $filiere['specialite']; ?></td>
 								<td><?php echo $filiere['apprentissage_lib']; ?></td>
 								<td>
-									<span class="buttons button-green">Visualiser</span><a class="buttons-link" href="<?php echo WEBROOT; ?>filiere/update/<?php echo $filiere['id']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiere/delete/<?php echo $filiere['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
+									<a class="buttons-link" href="<?php echo WEBROOT; ?>filiere/view/<?php echo $filiere['id']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiere/delete/<?php echo $filiere['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
 								</td>
 							</tr>
 						<?php 

@@ -25,5 +25,16 @@
 			return $name;			
 		}
 		
+		function getEnseignements($id_filiere) {
+			$req = $this->query('
+						SELECT * 
+						FROM '.DB_PREFIX.'enseignement e, '.DB_PREFIX.'filiere_enseignement fe
+						WHERE e.id = fe.id_enseignement 
+						AND fe.id_filiere = '.$id_filiere
+			);
+			
+			return $req;
+		}
+		
 	}
 ?>
