@@ -13,6 +13,225 @@
 			<a href="<?php echo WEBROOT.'filiereEnseignement/index'; ?>" title="">Filières - Enseignements</a><span class="delimiter">></span>Visualisation d'une association filière-enseignement
 		</div>
 		
+		<div class="text text-full">
+			<h2><?php echo $filiereEnseignement['filiere']; ?> - <?php echo $filiereEnseignement['enseignement']; ?> - <?php echo $filiereEnseignement['annee']; ?></h2>	
+		
+			<table class="no-tri">
+				<thead>
+					<tr>
+						<th width="9%">Type</th>
+						<th width="9">Volume heures par groupe</th>
+						<th width="9%">Nombre de groupe</th>
+						<th width="9%">Volume heures global</th>
+						<th width="25%">Enseignants</th>
+						<th width="29%">Détails</th>
+						<th width="10%">Conflits</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+					<!-- COURS -->
+					<?php if($filiereEnseignement['h_cours_d'] > 0) { ?>
+						<tr>
+							<td><strong>Cours</strong></td>
+							<td><?php echo $filiereEnseignement['h_cours_d']; ?> h</td>
+							<td><?php echo $filiereEnseignement['nbr_groupes_cours']; ?></td>
+							<td><?php echo $filiereEnseignement['h_cours_d'] * $filiereEnseignement['nbr_groupes_cours']; ?> h</td>
+							<td>
+								<?php
+									$total_volume_cours = $filiereEnseignement['h_cours_d'] * $filiereEnseignement['nbr_groupes_cours'];
+									$total_voeux_cours = 0;
+									$j = 0;
+									foreach ($filiereEnseignementEnseignant as $fee) { 
+										if($fee['nbr_h_cours'] > 0) {
+											// Total voeux
+											$total_voeux_cours = $total_voeux_cours + ($fee['nbr_h_cours'] / 60);
+										
+											if($j)
+												echo '<br />';
+											
+											if($fee['civilite'])
+												$civ = 'M. ';
+											else
+												$civ = 'Mme ';
+											
+											echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$fee['id'].'" title="'.$civ.' '.$fee['prenom'].' '.$fee['nom'].'">'.$civ.' '.$fee['prenom'].' '.$fee['nom'].'</a> - '. round($fee['nbr_h_cours'] / 60, 2).' h';
+											
+											$j = $j + 1;
+										}
+									}
+									
+									$cours_percent = ($total_voeux_cours * 100) / $total_volume_cours;
+									$width_progression = ($cours_percent * 250) / 100;
+									if($width_progression > 100)
+										$width_progression = 250;
+								?>
+							</td>
+							<td class="feEtatPrevisionnelle">
+								<div class="barreProgression">
+									<span><?php echo round($cours_percent, 2); ?> %</span>
+									<div class="progression <?php if($cours_percent == 100) echo 'barreProgressionGreen'; else echo 'barreProgressionRed'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
+								</div>
+								<span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux_cours, 2).' / '.$total_volume_cours; ?> h</span>
+							</td>
+							<td>
+								<!-- CONFLITS -->
+								<?php
+									if($total_volume_cours != $total_voeux_cours) {
+										
+										// Il manque des heures
+										if($total_voeux_cours < $total_volume_cours) {
+											$nbr_h_conflit = $total_volume_cours - $total_voeux_cours;
+											echo '<span class="red"><strong>'.round($nbr_h_conflit, 2).' h</strong></span>';
+										}
+										
+										// Il y a trop d'heures
+										if($total_voeux_cours > $total_volume_cours) {
+											$nbr_h_conflit = $total_voeux_cours - $total_volume_cours;
+											echo '<span class="orange"><strong>'.round($nbr_h_conflit, 2).' h</strong></span>';
+										}
+									}
+								?>
+							</td>
+						</tr>
+					<?php } ?>
+
+					<!-- TD -->
+					<?php if($filiereEnseignement['h_td_d'] > 0) { ?>
+						<tr>
+							<td><strong>TD</strong></td>
+							<td><?php echo $filiereEnseignement['h_td_d']; ?> h</td>
+							<td><?php echo $filiereEnseignement['nbr_groupes_td']; ?></td>
+							<td><?php echo $filiereEnseignement['h_td_d'] * $filiereEnseignement['nbr_groupes_td']; ?> h</td>
+							<td>
+								<?php
+									$total_volume_td = $filiereEnseignement['h_td_d'] * $filiereEnseignement['nbr_groupes_td'];
+									$total_voeux_td = 0;
+									$j = 0;
+									foreach ($filiereEnseignementEnseignant as $fee) { 
+										if($fee['nbr_h_td'] > 0) {
+											// Total voeux
+											$total_voeux_td = $total_voeux_td + ($fee['nbr_h_td'] / 60);
+										
+											if($j)
+												echo '<br />';
+											
+											if($fee['civilite'])
+												$civ = 'M. ';
+											else
+												$civ = 'Mme ';
+											
+											echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$fee['id'].'" title="'.$civ.' '.$fee['prenom'].' '.$fee['nom'].'">'.$civ.' '.$fee['prenom'].' '.$fee['nom'].'</a> - '. round($fee['nbr_h_td'] / 60, 2).' h';
+											
+											$j = $j + 1;
+										}
+									}
+									
+									$td_percent = ($total_voeux_td * 100) / $total_volume_td;
+									$width_progression = ($td_percent * 250) / 100;
+									if($width_progression > 250)
+										$width_progression = 250;
+								?>
+							</td>
+							<td class="feEtatPrevisionnelle">
+								<div class="barreProgression">
+									<span><?php echo round($td_percent, 2); ?> %</span>
+									<div class="progression <?php if($td_percent == 100) echo 'barreProgressionGreen'; else echo 'barreProgressionRed'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
+								</div>
+								<span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux_td, 2).' / '.$total_volume_td; ?> h</span>
+							</td>
+							<td>
+								<!-- CONFLITS -->
+								<?php
+									if($total_volume_td != $total_voeux_td) {
+										
+										// Il manque des heures
+										if($total_voeux_td < $total_volume_td) {
+											$nbr_h_conflit = $total_volume_td - $total_voeux_td;
+											echo '<span class="red"><strong>'.round($nbr_h_conflit, 2).' h</strong></span>';
+										}
+										
+										// Il y a trop d'heures
+										if($total_voeux_td > $total_volume_td) {
+											$nbr_h_conflit = $total_voeux_td - $total_volume_td;
+											echo '<span class="orange"><strong>'.round($nbr_h_conflit, 2).' h</strong></span>';
+										}
+									}
+								?>
+							</td>
+						</tr>
+					<?php } ?>
+					
+					<!-- TP -->
+					<?php if($filiereEnseignement['h_tp_d'] > 0) { ?>
+						<tr>
+							<td><strong>TP</strong></td>
+							<td><?php echo $filiereEnseignement['h_tp_d']; ?> h</td>
+							<td><?php echo $filiereEnseignement['nbr_groupes_tp']; ?></td>
+							<td><?php echo $filiereEnseignement['h_tp_d'] * $filiereEnseignement['nbr_groupes_tp']; ?> h</td>
+							<td>
+								<?php
+									$total_volume_tp = $filiereEnseignement['h_tp_d'] * $filiereEnseignement['nbr_groupes_tp'];
+									$total_voeux_tp = 0;
+									$j = 0;
+									foreach ($filiereEnseignementEnseignant as $fee) { 
+										if($fee['nbr_h_tp'] > 0) {
+											// Total voeux
+											$total_voeux_tp = $total_voeux_tp + ($fee['nbr_h_tp'] / 60);
+										
+											if($j)
+												echo '<br />';
+											
+											if($fee['civilite'])
+												$civ = 'M. ';
+											else
+												$civ = 'Mme ';
+											
+											echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$fee['id'].'" title="'.$civ.' '.$fee['prenom'].' '.$fee['nom'].'">'.$civ.' '.$fee['prenom'].' '.$fee['nom'].'</a> - '. round($fee['nbr_h_tp'] / 60, 2).' h';
+											
+											$j = $j + 1;
+										}
+									}
+									
+									$tp_percent = ($total_voeux_tp * 100) / $total_volume_tp;
+									$width_progression = ($tp_percent * 250) / 100;
+									if($width_progression > 250)
+										$width_progression = 250;
+								?>
+							</td>
+							<td class="feEtatPrevisionnelle">
+								<div class="barreProgression">
+									<span><?php echo round($tp_percent, 2); ?> %</span>
+									<div class="progression <?php if($tp_percent == 100) echo 'barreProgressionGreen'; else echo 'barreProgressionRed'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
+								</div>
+								<span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux_tp, 2).' / '.$total_volume_tp; ?> h</span>
+							</td>
+							<td>
+								<!-- CONFLITS -->
+								<?php
+									if($total_volume_tp != $total_voeux_tp) {
+										
+										// Il manque des heures
+										if($total_voeux_tp < $total_volume_tp) {
+											$nbr_h_conflit = $total_volume_tp - $total_voeux_tp;
+											echo '<span class="red"><strong>'.round($nbr_h_conflit, 2).' h</strong></span>';
+										}
+										
+										// Il y a trop d'heures
+										if($total_voeux_tp > $total_volume_tp) {
+											$nbr_h_conflit = $total_voeux_tp - $total_volume_tp;
+											echo '<span class="orange"><strong>'.round($nbr_h_conflit, 2).' h</strong></span>';
+										}
+									}
+								?>
+							</td>
+						</tr>
+					<?php } ?>
+					
+				</tbody>
+			</table>
+		</div>
+		
 		<div class="text text-two">
 			
 			<div class="text-two-item text-two-item-first">
@@ -20,7 +239,7 @@
 				<form id="form-update-filiereEnseignement" action="#" method="post">
 					<fieldset>
 						<legend><span class="icon-filieres-enseignement"></span>
-							Visualiser l'association <?php echo $filiereEnseignement['filiere']; ?> - <?php echo $filiereEnseignement['enseignement']; ?>
+							Informations complémentaires
 						</legend>
 						<div class="form-item">
 							<label class="label-large blue" for="filiere">Filière</label>
@@ -48,36 +267,6 @@
 						</div>
 
 						<div class="form-item">
-							<label class="label-large blue" for="heuresCours">Nombre d'heures de cours</label>
-							<?php echo $filiereEnseignement['h_cours']; if($filiereEnseignement['h_cours']) echo ' heures'; ?> <?php if($filiereEnseignement['m_cours']) echo 'et '.$filiereEnseignement['m_cours'].' minutes'; ?> 
-						</div>
-
-						<div class="form-item">
-							<label class="label-large blue" for="groupesCours">Nombre de groupe de cours</label>
-							<?php echo $filiereEnseignement['nbr_groupes_cours']; ?>
-						</div>
-
-						<div class="form-item">
-							<label class="label-large blue" for="heuresTD">Nombre d'heures de TD</label>
-							<?php echo $filiereEnseignement['h_td']; if($filiereEnseignement['h_td']) echo ' heures'; ?> <?php if($filiereEnseignement['m_td']) echo 'et '.$filiereEnseignement['m_td'].' minutes'; ?> 
-						</div>
-
-						<div class="form-item">
-							<label class="label-large blue" for="groupesTD">Nombre de groupe de TD</label>
-							<?php echo $filiereEnseignement['nbr_groupes_td']; ?>
-						</div>
-
-						<div class="form-item">
-							<label class="label-large blue" for="heuresTD">Nombre d'heures de TP</label>
-							<?php echo $filiereEnseignement['h_tp']; if($filiereEnseignement['h_tp']) echo ' heures'; ?> <?php if($filiereEnseignement['m_tp']) echo ' et '.$filiereEnseignement['m_tp'].' minutes'; ?> 
-						</div>
-
-						<div class="form-item">
-							<label class="label-large blue" for="groupesTD">Nombre de groupe de TP</label>
-							<?php echo $filiereEnseignement['nbr_groupes_tp']; ?>
-						</div>
-
-						<div class="form-item">
 							<label class="label-large blue" for="semestre">Semestre</label>
 							<?php echo $filiereEnseignement['semestre']; ?>
 						</div>
@@ -96,68 +285,39 @@
 			</div>
 			
 			<div class="text-two-item">
-				<h2>Etat prévisionnelle</h2>
-				<div id="feEtatPrevisionnelle">
-					<div style="overflow: hidden; height: 45px;">	
-						<span class="feEtatPrevisionnelleTitle">Cours</span>
-						<div class="barreProgression">
-							<span>55 %</span>
-							<div class="progression barreProgressionRed" style="width: 115px;"></div>
-						</div>
-						<span class="feEtatPrevisionnelleHeures">100.5 / 305.5 heures</span>
-					</div>
-					
-					<div style="overflow: hidden; height: 45px;">
-						<span class="feEtatPrevisionnelleTitle">TD</span>
-						<div class="barreProgression">
-							<span>55 %</span>
-							<div class="progression barreProgressionRed" style="width: 115px;"></div>
-						</div>
-						<span class="feEtatPrevisionnelleHeures">100.5 / 305.5 heures</span>
-					</div>
-					
-					<div style="overflow: hidden; height: 45px;">
-						<span class="feEtatPrevisionnelleTitle">TP</span>
-						<div class="barreProgression">
-							<span>100 %</span>
-							<div class="progression barreProgressionGreen" style="width: 250px;"></div>
-						</div>
-						<span class="feEtatPrevisionnelleHeures">32.5 / 32.5 heures</span>
-					</div>
-				</div>
+				<form id="form-update-filiereEnseignement" action="#" method="post">
+					<fieldset>
+						<legend><span class="icon-heart"></span>
+							Ajouter un voeu
+						</legend>
+					</fieldset>
+				</form>
+				<br />
 				
-		
+				<h2>Liste des badges</h2>
 				<?php
 					if(count($filiereEnseignementEnseignant) == 0) {
 				?>
-						<h2>Liste des voeux</h2>
 						<p>Aucun voeu n'a encore été créé ...</p>
 				<?php
 					} else {
 				?>
-					<h2>Liste des voeux</h2>
-					<table class="table-white no-tri">
-						<thead>
-							<tr>
-								<th>Nom</th>
-								<th>Cours</th>
-								<th>TD</th>
-								<th>TP</th>
-								<th>Badge</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach ($filiereEnseignementEnseignant as $fee) { ?>
-							<tr>
-								<td><?php echo $fee['prenom'].' '.$fee['nom'];?></td>
-								<td><?php echo $fee['nbr_h_cours'];?></td>
-								<td><?php echo $fee['nbr_h_td'];?></td>
-								<td>0</td>
-								<td><?php echo $fee['badge'];?></td>
-							</tr>
-							<?php } ?>
-						</tbody>
-					</table>
+						<table class="table-white no-tri">
+							<thead>
+								<tr>
+									<th>Nom</th>
+									<th>Badge</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php foreach ($filiereEnseignementEnseignant as $fee) { ?>
+									<tr>
+										<td><a href="<?php echo WEBROOT; ?>annuaire/visualiser/<?php echo $fee['id']; ?>" title="<?php if($fee['civilite']) echo 'M. '; else echo 'Mme '; echo $fee['prenom'].' '.$fee['nom']; ?>"><?php if($fee['civilite']) echo 'M. '; else echo 'Mme '; echo $fee['prenom'].' '.$fee['nom']; ?></a></td>
+										<td><?php echo $fee['badge'];?></td>
+									</tr>
+								<?php } ?>
+							</tbody>
+						</table>
 				<?php
 					}
 				?>

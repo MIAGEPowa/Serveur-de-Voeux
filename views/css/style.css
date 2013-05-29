@@ -23,6 +23,15 @@ body {
 .blue {
   color: #009FE0;
 }
+.red {
+	color: #EE5F5B;
+}
+.green {
+	color: #62C462;
+}
+.orange {
+	color: #FBB450;
+}
 
 /************** 
 	HEADER
@@ -625,15 +634,15 @@ a.buttons-link:hover {
 /**************************** 
 	FE ETAT PREVISIONNELLE
 *****************************/
-#feEtatPrevisionnelle {
+.feEtatPrevisionnelle {
 	padding: 10px 8px;
 }
-#feEtatPrevisionnelle span.feEtatPrevisionnelleTitle {
+.feEtatPrevisionnelle span.feEtatPrevisionnelleTitle {
 	display: inline-block;
     margin: 5px 15px 0 0;
     vertical-align: top;
 }
-#feEtatPrevisionnelle span.feEtatPrevisionnelleHeures {
+.feEtatPrevisionnelle span.feEtatPrevisionnelleHeures {
 	display: inline-block;
 	margin: 5px 0 0 15px;
     vertical-align: top;

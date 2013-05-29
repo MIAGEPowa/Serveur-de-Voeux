@@ -258,16 +258,21 @@
 				// Date de début de l'enseignement
 				$d['filiereEnseignement']['date_debut_enseignement'] = dateBDDToNormal($d['filiereEnseignement']['date_debut_enseignement']);
 				
+				// Voeux
 				$d['filiereEnseignementEnseignant'] = $this->FiliereEnseignementEnseignant->getAllByFiliereEnseignement($id);
 				
 				// Heures Cours, TD et TP
-				$d['filiereEnseignement']['h_cours'] = floor($d['filiereEnseignement']['nbr_h_cours'] / 60);
-				$d['filiereEnseignement']['m_cours'] = $d['filiereEnseignement']['nbr_h_cours'] % 60;
-				$d['filiereEnseignement']['h_td'] = floor($d['filiereEnseignement']['nbr_h_td'] / 60);
-				$d['filiereEnseignement']['m_td'] = $d['filiereEnseignement']['nbr_h_td'] % 60;
-				$d['filiereEnseignement']['h_tp'] = floor($d['filiereEnseignement']['nbr_h_tp'] / 60);
-				$d['filiereEnseignement']['m_tp'] = $d['filiereEnseignement']['nbr_h_tp'] % 60;
+				$d['filiereEnseignement']['h_cours'] = floor(($d['filiereEnseignement']['nbr_h_cours'] * $d['filiereEnseignement']['nbr_groupes_cours']) / 60);
+				$d['filiereEnseignement']['m_cours'] = ($d['filiereEnseignement']['nbr_h_cours'] * $d['filiereEnseignement']['nbr_groupes_cours']) % 60;
+				$d['filiereEnseignement']['h_cours_d'] = round(($d['filiereEnseignement']['nbr_h_cours'] * $d['filiereEnseignement']['nbr_groupes_cours']) / 60, 2);
+				$d['filiereEnseignement']['h_td'] = floor(($d['filiereEnseignement']['nbr_h_td'] * $d['filiereEnseignement']['nbr_groupes_td']) / 60);
+				$d['filiereEnseignement']['m_td'] = ($d['filiereEnseignement']['nbr_h_td'] * $d['filiereEnseignement']['nbr_groupes_td']) % 60;
+				$d['filiereEnseignement']['h_td_d'] = round(($d['filiereEnseignement']['nbr_h_td'] * $d['filiereEnseignement']['nbr_groupes_td']) / 60, 2);
+				$d['filiereEnseignement']['h_tp'] = floor(($d['filiereEnseignement']['nbr_h_tp'] * $d['filiereEnseignement']['nbr_groupes_tp']) / 60);
+				$d['filiereEnseignement']['m_tp'] = ($d['filiereEnseignement']['nbr_h_tp'] * $d['filiereEnseignement']['nbr_groupes_tp']) % 60;
+				$d['filiereEnseignement']['h_tp_d'] = round(($d['filiereEnseignement']['nbr_h_tp'] * $d['filiereEnseignement']['nbr_groupes_tp']) / 60, 2);
 		  
+				
 				$this->set($d);
 				$this->render('view');
 			
