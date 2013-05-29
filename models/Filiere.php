@@ -32,7 +32,6 @@
 						WHERE e.id = fe.id_enseignement 
 						AND fe.id_filiere = '.$id_filiere
 			);
-			
 			return $req;
 		}
 		

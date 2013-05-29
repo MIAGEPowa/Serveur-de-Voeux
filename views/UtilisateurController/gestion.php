@@ -51,7 +51,10 @@
 										<td><img src="'.WEBROOT.'files/avatar/'.$photo.'" alt="'.$civ.' '.$u['prenom'].' '.$u['nom'].'" title="'.$civ.' '.$u['prenom'].' '.$u['nom'].'" width="45" height="45" /></td>
 										<td><a href="'.WEBROOT.'annuaire/visualiser/'.$u['id'].'" title="'.$civ.' '.$u['prenom'].' '.$u['nom'].'">'.$civ.' '.$u['prenom'].' '.$u['nom'].'</a></td>
 										<td>'.$u['email'].'</td>
-										<td>Directeur du département</td>';
+										<td>';
+											foreach($u['arrayRoles'] as $role)
+												echo $role['libelle'].'<br/>';
+								echo	'</td>';
 							echo '<td>';
 							echo '<a class="buttons-link" href="'.WEBROOT.'annuaire/visualiser/'.$u['id'].'"><span class="buttons button-blue">Visualiser</span></a>';
 							echo '<a class="buttons-link" href="'.WEBROOT.'utilisateur/role/'.$u['id'].'"><span class="buttons button-orange">Rôle</span></a>';

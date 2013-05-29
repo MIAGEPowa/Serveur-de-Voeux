@@ -267,9 +267,9 @@
 			$d['v_needRights'] = 4;
 
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
-			
+				
 				// On récupère tous les utilisateurs
-				$d['utilisateurs'] = $this->Utilisateur->find(array('order' => 'nom ASC'));
+				$d['utilisateurs'] = $this->Utilisateur->getUtilisateursAvecRoles();
 		  
 				$this->set($d);
 				$this->render('gestion');

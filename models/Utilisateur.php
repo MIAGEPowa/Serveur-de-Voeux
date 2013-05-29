@@ -26,10 +26,45 @@
 		}
 		
 		// Retourne tous les utilisateurs actif
-		function getUtilisateurs() {
-			return $this->find(array(
-				'conditions' => 'actif = 1'
-			));
+		function getUtilisateurs($actif = 1) {
+			if($actif) {
+				return $this->find(array(
+					'conditions' => 'actif = 1'
+				));
+			}
+			else {
+				return $this->find();
+			}
+		}
+		
+		// Retourne tous les utilisateurs avec leurs rôles
+		function getUtilisateursAvecRoles() {
+			$arrayUtilisateur = $this->getUtilisateurs(0);
+			
+			$res = array();
+			foreach($arrayUtilisateur as $utilisateur) {
+				$arrayRoles = $this->query('
+						SELECT * 
+						FROM '.DB_PREFIX.'utilisateur_role ur, '.DB_PREFIX.'role r
+						WHERE r.id = ur.id_role
+						AND ur.id_utilisateur = '.$utilisateur['id']
+				);
+				$utilisateur['arrayRoles'] = $arrayRoles;
+				$res[] = $utilisateur;
+			}
+			
+			return $res;
+		}
+		
+		// Retourne l'utilisateur voulu avec son/ses rôles
+		function getUtilisateurAvecRoles($id) {
+			$req = $this->query('
+						SELECT * 
+						FROM '.DB_PREFIX.'utilisateur u, '.DB_PREFIX.'utilisateur_role ur
+						WHERE u.id = ur.id_utilisateur 
+						AND u.id = '.$id
+			);
+			return $req;
 		}
 		
 		// Retourne l'utilisateur de l'id passé en param
