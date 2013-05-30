@@ -44,6 +44,7 @@ body {
 	left: 0;
 	background: #009FE0;
 	background-image: linear-gradient(to bottom, #009FE0, #018ec8);
+	z-index: 100;
 }
 #header h1 {
 	width: 350px;
@@ -664,6 +665,9 @@ a.buttons-link:hover {
 }
 .barreProgressionRed {
 	background: linear-gradient(to bottom, #EE5F5B, #BD362F);
+}
+.barreProgressionOrange {
+	background: linear-gradient(to bottom, #FBB450, #F89406);
 }
 .barreProgression span {
 	position: absolute;

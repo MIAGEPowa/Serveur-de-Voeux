@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Projet SMED - <?php echo $v_titreHTML; ?></title>
+		<title><?php echo PAGE_TITLE; ?></title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css" />
@@ -24,7 +24,7 @@
 		</div>
 
 		<div id="header">
-			<h1><a href="<?php echo WEBROOT; ?>" title="Projet SMED">Projet SMED</a></h1>
+			<h1><a href="<?php echo WEBROOT; ?>" title="<?php echo PAGE_TITLE; ?>"><?php echo PAGE_TITLE; ?></a></h1>
 			<?php 
 				if($_SESSION['v_connected']) {
 					if(file_exists(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.png'))
