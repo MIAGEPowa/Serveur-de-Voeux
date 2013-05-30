@@ -16,6 +16,7 @@
 		<div class="text text-full">
 			<!-- Se déconnecter -->
 			<a href="<?php echo WEBROOT.'authentification/deconnexion/'; ?>" title="Se déconnecter"><span class="buttons button-red" style="float: right;">Se déconnecter</span></a>
+			<a href="<?php echo WEBROOT.'annuaire/visualiser/'.$_SESSION['v_id_utilisateur']; ?>" title="Mon profil"><span class="buttons button-blue" style="float: right;">Mon profil</span></a>
 			<div class="clear"></div>
 			
 			<form id="form-update-profile" action="" method="POST" enctype="multipart/form-data">
