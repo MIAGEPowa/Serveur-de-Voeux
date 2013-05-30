@@ -173,7 +173,7 @@
 								<td><?php echo $filiereEnseignement['reference']; ?></td>
 								<td>A venir</td>
 								<td>
-									<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/update/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/delete/<?php echo $filiere['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
+									<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/update/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/index/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
 								</td>
 							</tr>
 						<?php 
