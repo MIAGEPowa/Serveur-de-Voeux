@@ -62,13 +62,28 @@
 					<?php
 						// s'il existe des keywords
 						if(count($arrayKeywords) != 0) {
-							// On parcours le tableau des enseignements
+							// On parcours le tableau des keywords
 							for ($i = 0; $i < count($arrayKeywords); $i++) {
                 if ($i == 0)
                   echo $arrayKeywords[$i]['keyword'];
                 else 
                   echo ", ".$arrayKeywords[$i]['keyword'];
-              } 
+              }
+						}
+            ?>
+        </div>
+        
+        <div id="list-keywords" class="form-item">
+					<label class="blue">Rôles</label>
+					<?php
+						// s'il existe des rôles
+						if(count($roles_utilisateur) != 0) {
+							// On parcours le tableau des rôles
+              echo '<span style="text-align: justify; display: inline-block; width: 70%; vertical-align: top;">';
+							for ($i = 0; $i < count($roles_utilisateur); $i++) {
+                echo $roles_utilisateur[$i]['libelle'].'<br />';
+              }
+              echo '</span>';
 						}
             ?>
         </div>
@@ -123,6 +138,50 @@
                       <td><?php echo $degree['id']; ?></td>
 											<td><?php echo $degree['libelle']; ?></td>
                       <td><?php echo $degree['description']; ?></td>
+										</tr>
+									<?php 
+									} 
+									?>
+								</tbody>
+							</table>
+						<?php 
+						}
+						?>
+        </div>
+        
+        <div class="form-item">
+          <label class="blue">Voeux</label>
+          <?php
+						// s'il existe des voeux
+						if(count($arrayVoeux) != 0) {
+						?>
+							<table class='form-table table-white'>
+								<thead>
+									<tr>
+										<th>Filiere</th>
+                    <th>Enseignement</th>
+                    <th>Année</th>
+                    <th>Cours</th>
+                    <th>TD</th>
+                    <th>TP</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									// On parcours le tableau des voeux
+									foreach($arrayVoeux as $voeu) {
+                    $apprentissage = ($voeu['filiere_apprentissage'] == 1) ? 'Apprentissage' : 'Initial';
+                    $nbr_h_cours = ($voeu['fee_nbr_h_cours'] % 60 != 0) ? (floor( $voeu['fee_nbr_h_cours'] / 60 )).','.round((($voeu['fee_nbr_h_cours'] % 60) * 100 / 60), 0).'h' : (floor( $voeu['fee_nbr_h_cours'] / 60 )).'h';
+                    $nbr_h_td = ($voeu['fee_nbr_h_td'] % 60 != 0) ? (floor( $voeu['fee_nbr_h_td'] / 60 )).','.round((($voeu['fee_nbr_h_td'] % 60) * 100 / 60), 0).'h' : (floor( $voeu['fee_nbr_h_td'] / 60 )).'h';
+                    $nbr_h_tp = ($voeu['fee_nbr_h_tp'] % 60 != 0) ? (floor( $voeu['fee_nbr_h_tp'] / 60 )).','.round((($voeu['fee_nbr_h_tp'] % 60) * 100 / 60), 0).'h' : (floor( $voeu['fee_nbr_h_tp'] / 60 )).'h';
+									?>
+										<tr>
+                      <td><?php echo $voeu['niveau_libelle'].' '.$voeu['specialite_libelle'].' '.$apprentissage; ?></td>
+											<td><?php echo $voeu['enseignement_libelle']; ?></td>
+                      <td><?php echo $voeu['annee']; ?></td>
+                      <td><?php echo $nbr_h_cours; ?></td>
+                      <td><?php echo $nbr_h_td; ?></td>
+                      <td><?php echo $nbr_h_tp; ?></td>
 										</tr>
 									<?php 
 									} 

@@ -6,7 +6,7 @@
 		function __construct() {
 			$this->table = DB_PREFIX.$this->table;
 		}
-		
+    
 		function getRoles() {
 			return $this->find(array(
 				'order' => 'droits DESC'
