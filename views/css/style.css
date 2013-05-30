@@ -670,7 +670,8 @@ a.buttons-link:hover {
 	margin-top: 4px;
 	font-size: 12px;
 	color: black;
-	left: 48%;
+	width: 100%;
+	text-align: center;
 }
 .progression {
 	height: 25px;
