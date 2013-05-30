@@ -46,6 +46,28 @@
 						<label for="badge">Badge</label>
 						<input id="badge" type="text" name="badge" class="input-large" />
 					</div>
+										
+					<div class="form-item">	
+						<label for="ur_role">Rôle</label>
+						<select name="ur_role" id="ur_role">
+							<?php
+								foreach($roles as $r) {
+									echo '<option value="'.$r['id'].'">'.$r['libelle'].'</option>';
+								}
+							?>
+						</select>
+					</div>
+					
+					<div id="ur_responsable_cours" class="form-item" style="display: none;">	
+						<label for="ur_filiere_enseignement">Filière enseignement</label>
+						<select name="ur_filiere_enseignement" id="ur_filiere_enseignement">
+							<?php
+								foreach($arrayFiliereEnseignement as $fe) {
+									echo '<option value="'.$fe['id'].'">'.$fe['filiere'].' - '.$fe['enseignement'].'</option>';
+								}
+							?>
+						</select>
+					</div>
 					
 					<div class="form-item">
 						<input name="utilisateur_form_add" type="submit" value="Enregistrer" class="input-submit input-submit-blue">
