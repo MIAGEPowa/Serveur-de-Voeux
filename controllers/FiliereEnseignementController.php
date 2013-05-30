@@ -4,7 +4,17 @@
 		// Déclaration du modèle rattaché au controlleur
 		var $models = array('FiliereEnseignementEnseignant', 'FiliereEnseignement', 'Filiere', 'Enseignement', 'Specialite', 'Niveau');
 
-		function index() {
+		function index($id_filiere_enseignement = 0) {
+    
+      if ($id_filiere_enseignement != 0) {
+        if (!$this->FiliereEnseignementEnseignant->find(array('conditions' => 'id_filiere_enseignement = "' . $id_filiere_enseignement . '"', 'order' => 'id_filiere_enseignement asc'))) {
+          $this->FiliereEnseignement->del($id_filiere_enseignement);
+          $d['v_success'] = 'Filière - Enseignements supprimée avec succès';
+        } else {
+          $d['v_errors'] = 'Oops ! La Filière - Enseignements ne peut pas être supprimée car elle est déjà associée à un voeu.';
+        }
+      }
+      
 			// Titre
 			$d['v_titreHTML'] = 'Filières - Enseignements';
 			$d['v_menuActive'] = 'filieresEnseignements';
