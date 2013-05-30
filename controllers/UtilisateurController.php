@@ -128,39 +128,74 @@
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
 			
 				if($_POST['utilisateur_form_add']) {
+					
+					if (!$this->Utilisateur->getUtilisateurByEmail($_POST['email'])) {
           
-          if (!$this->Utilisateur->getUtilisateurByEmail($_POST['email'])) {
-          
-            // on enregistre l'utilisateur
-            $dataUtilisateur = array(	"nom" => strtoupper($_POST['nom']),
-                          "prenom" => ucfirst(strtolower($_POST['prenom'])),
-                          "email" => $_POST['email'],
-                          "badge" => $_POST['badge'],
-                          "civilite" => $_POST['civilite'],
-                          "actif" => 1 );
-            $this->Utilisateur->save($dataUtilisateur);
-            
-            // on lui envoie un mail
-            $utilisateur = $this->Utilisateur->getUtilisateurByEmail($_POST['email']);
-              if($utilisateur) {
-                foreach($utilisateur as $u) {
-                  $utilisateur_id = $u['id'];
-                  $utilisateur_email = $u['email'];
-                  $utilisateur_nom = $u['nom'];
-                  $utilisateur_prenom = $u['prenom'];
-                }
+						// on enregistre l'utilisateur
+						$dataUtilisateur = array(	"nom" => strtoupper($_POST['nom']),
+									  "prenom" => ucfirst(strtolower($_POST['prenom'])),
+									  "email" => $_POST['email'],
+									  "badge" => $_POST['badge'],
+									  "civilite" => $_POST['civilite'],
+									  "actif" => 1 );
+						$this->Utilisateur->save($dataUtilisateur);
+						
+						// on lui envoie un mail
+						$utilisateur = $this->Utilisateur->getUtilisateurByEmail($_POST['email']);
+						if($utilisateur) {
+							foreach($utilisateur as $u) {
+								$utilisateur_id = $u['id'];
+								$utilisateur_email = $u['email'];
+								$utilisateur_nom = $u['nom'];
+								$utilisateur_prenom = $u['prenom'];
+							}
                 
-                $this->Utilisateur->mailAjout($utilisateur_id, $utilisateur_email, $utilisateur_nom, $utilisateur_prenom);
-                $d['v_success'] = 'Le compte a bien été créé et un mail a été envoyé !';
-                
-                // print_r($utilisateur);
-                // die(1);
-              } else {
-                $d['v_errors'] = 'Oops ! L\'email ne correspond à aucun compte.';
-              }
-            } else {
-                $d['v_errors'] = 'Oops ! L\'email est déjà utilisé pour un autre compte.';
-            }
+							$this->Utilisateur->mailAjout($utilisateur_id, $utilisateur_email, $utilisateur_nom, $utilisateur_prenom);
+							$d['v_success'] = 'Le compte a bien été créé et un mail a été envoyé !';
+							
+							// print_r($utilisateur);
+							// die(1);
+						} else {
+							$d['v_errors'] = 'Oops ! L\'email ne correspond à aucun compte.';
+						}
+					} else {
+						$d['v_errors'] = 'Oops ! L\'email est déjà utilisé pour un autre compte.';
+					}
+					
+					$utilisateur = $this->Utilisateur->getUtilisateurByEmail($_POST['email']);
+					$utilisateur_id = $utilisateur[0]["id"];
+					
+					// ID du role responsable de cours
+					if($_POST['ur_role'] == 7) {
+						$this->UtilisateurRole->addRoleUtilisateur($utilisateur_id, $_POST['ur_role'], $_POST['ur_filiere_enseignement']);
+					} else {
+						$this->UtilisateurRole->addRoleUtilisateur($utilisateur_id, $_POST['ur_role'], 0);
+					}
+				}
+				
+				// Liste des rôles
+				$d['roles'] = $this->Role->getRoles();
+				
+				$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->getFiliereEnseignementYear('2012');
+				// Dans la liste des filières-enseignement, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
+				for($i=0; $i<count($d['arrayFiliereEnseignement']); $i++) {
+					
+					$filiere = $this->Filiere->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_filiere']));
+					// Niveau
+					$niveau = $this->Niveau->find(array('conditions' => 'id = '.$filiere[0]['id_niveau']));
+					$niveau = $niveau[0]['libelle'];
+					// Spécialité
+					$specialite = $this->Specialite->find(array('conditions' => 'id = '.$filiere[0]['id_specialite']));
+					$specialite = $specialite[0]['libelle'];
+					// Apprentissage
+					if($d['arrayFiliereEnseignement'][$i]['apprentissage'] == 0) {$apprentissage = 'Initial';}
+					else {$apprentissage = 'Apprentissage';}
+					// Filière
+					$d['arrayFiliereEnseignement'][$i]['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
+					
+					// Enseignement
+					$enseignement = $this->Enseignement->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_enseignement']));
+					$d['arrayFiliereEnseignement'][$i]['enseignement'] = $enseignement[0]['libelle'];
 				}
 				
 				$this->set($d);
