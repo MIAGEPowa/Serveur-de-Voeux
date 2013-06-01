@@ -29,7 +29,7 @@
 						&& isset($_POST['filiere']) && !empty($_POST['filiere'])
 						&& isset($_POST['annee']) && !empty($_POST['annee'])) {
 						
-						if(!empty($_POST['heuresCours']) || !empty($_POST['heuresTD']) || !empty($_POST['heuresTP'])) {
+						if(!empty($_POST['heuresCours']) || !empty($_POST['heuresTD']) || !empty($_POST['heuresTP']) || !empty($_POST['minutesCours']) || !empty($_POST['minutesTD']) || !empty($_POST['minutesTP'])) {
 						
 							// On vérifie si la filière-enseignement existe déjà en base
 							$enseignement = $this->FiliereEnseignement->find(array('conditions' => 	'id_enseignement = '.$_POST["enseignement"].
@@ -243,8 +243,47 @@
 			$d['v_titreHTML'] = 'Filières - Enseignements';
 			$d['v_menuActive'] = 'filieresEnseignements';
 			$this->v_JS = array('filiereEnseignementView');
-			$d['v_needRights'] = 3;
-
+			$d['v_needRights'] = 1;
+			
+			// On traite le formulaire d'ajout de voeu
+			if($_SESSION['v_droits'] >= 2) {
+				if($_POST['filiereEnseignement_form_add_voeu']) {
+					$cours_h_voeu = ($_POST['heuresCours'] * 60) + $_POST['minutesCours'];
+					$td_h_voeu = ($_POST['heuresTD'] * 60) + $_POST['minutesTD'];
+					$tp_h_voeu = ($_POST['heuresTP'] * 60) + $_POST['minutesTP'];
+					
+					$dataVoeu = array('id_filiere_enseignement' => $id,
+									  'id_utilisateur' => $_SESSION['v_id_utilisateur'],
+									  'nbr_h_cours' => $cours_h_voeu,
+									  'nbr_h_td' => $td_h_voeu,
+									  'nbr_h_tp' => $tp_h_voeu);
+					
+					$checkVoeu = $this->FiliereEnseignementEnseignant->getFiliereEnseignementEnseignant($id, $_SESSION['v_id_utilisateur']);
+					if (!$checkVoeu) {
+						// On ajoute le voeu
+						if(!empty($_POST['heuresCours']) || !empty($_POST['heuresTD']) || !empty($_POST['heuresTP']) || !empty($_POST['minutesCours']) || !empty($_POST['minutesTD']) || !empty($_POST['minutesTP'])) {
+							$this->FiliereEnseignementEnseignant->save($dataVoeu);
+							$d['v_success'] = 'Le voeu a bien été ajouté !';
+						} else {
+							$d['v_errors'] = 'Oops ! Il faut saisir au minimum un nombre d\'heures de cours, de TD ou de TP.';
+						}
+					} else {
+						if(empty($_POST['heuresCours']) && empty($_POST['heuresTD']) && empty($_POST['heuresTP']) && empty($_POST['minutesCours']) && empty($_POST['minutesTD']) && empty($_POST['minutesTP'])) {
+							// On supprime le voeu si tout a 0
+							$this->FiliereEnseignementEnseignant->delete($id, $_SESSION['v_id_utilisateur']);
+							$d['v_success'] = 'Le voeu a bien été supprimé !';
+						} else {
+							// On modifie le voeu
+							$this->FiliereEnseignementEnseignant->update($dataVoeu, 'id_filiere_enseignement', 'id_utilisateur');
+							$d['v_success'] = 'Le voeu a bien été ajouté !';
+						}
+					}
+				}
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
+			
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
 			
 				/*====== On sélectionne la filière-enseignement concernée ======*/
@@ -276,17 +315,16 @@
 				$d['filiereEnseignementEnseignant'] = $this->FiliereEnseignementEnseignant->getAllByFiliereEnseignement($id);
 				
 				// Heures Cours, TD et TP
-				$d['filiereEnseignement']['h_cours'] = floor(($d['filiereEnseignement']['nbr_h_cours'] * $d['filiereEnseignement']['nbr_groupes_cours']) / 60);
-				$d['filiereEnseignement']['m_cours'] = ($d['filiereEnseignement']['nbr_h_cours'] * $d['filiereEnseignement']['nbr_groupes_cours']) % 60;
-				$d['filiereEnseignement']['h_cours_d'] = round(($d['filiereEnseignement']['nbr_h_cours'] * $d['filiereEnseignement']['nbr_groupes_cours']) / 60, 2);
-				$d['filiereEnseignement']['h_td'] = floor(($d['filiereEnseignement']['nbr_h_td'] * $d['filiereEnseignement']['nbr_groupes_td']) / 60);
-				$d['filiereEnseignement']['m_td'] = ($d['filiereEnseignement']['nbr_h_td'] * $d['filiereEnseignement']['nbr_groupes_td']) % 60;
-				$d['filiereEnseignement']['h_td_d'] = round(($d['filiereEnseignement']['nbr_h_td'] * $d['filiereEnseignement']['nbr_groupes_td']) / 60, 2);
-				$d['filiereEnseignement']['h_tp'] = floor(($d['filiereEnseignement']['nbr_h_tp'] * $d['filiereEnseignement']['nbr_groupes_tp']) / 60);
-				$d['filiereEnseignement']['m_tp'] = ($d['filiereEnseignement']['nbr_h_tp'] * $d['filiereEnseignement']['nbr_groupes_tp']) % 60;
-				$d['filiereEnseignement']['h_tp_d'] = round(($d['filiereEnseignement']['nbr_h_tp'] * $d['filiereEnseignement']['nbr_groupes_tp']) / 60, 2);
+				$d['filiereEnseignement']['h_cours'] = floor($d['filiereEnseignement']['nbr_h_cours'] / 60);
+				$d['filiereEnseignement']['m_cours'] = $d['filiereEnseignement']['nbr_h_cours'] % 60;
+				$d['filiereEnseignement']['h_cours_d'] = round($d['filiereEnseignement']['nbr_h_cours'] / 60, 2);
+				$d['filiereEnseignement']['h_td'] = floor($d['filiereEnseignement']['nbr_h_td'] / 60);
+				$d['filiereEnseignement']['m_td'] = $d['filiereEnseignement']['nbr_h_td'] % 60;
+				$d['filiereEnseignement']['h_td_d'] = round($d['filiereEnseignement']['nbr_h_td'] / 60, 2);
+				$d['filiereEnseignement']['h_tp'] = floor($d['filiereEnseignement']['nbr_h_tp'] / 60);
+				$d['filiereEnseignement']['m_tp'] = $d['filiereEnseignement']['nbr_h_tp'] % 60;
+				$d['filiereEnseignement']['h_tp_d'] = round($d['filiereEnseignement']['nbr_h_tp'] / 60, 2);
 		  
-				
 				$this->set($d);
 				$this->render('view');
 			

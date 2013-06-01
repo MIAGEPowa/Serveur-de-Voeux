@@ -8,26 +8,22 @@
 			// Titre
 			$d['v_titreHTML'] = 'Voeux';
 			$d['v_menuActive'] = 'voeux';
-      
-      $d['filiereEnseignement'] = $this->FiliereEnseignement->getAllFiliereEnseignement();
-      
-      for($i=0; $i < count($d['filiereEnseignement']); $i++) {
-        if ($d['filiereEnseignement'][$i]['id_filiere_enseignement'] != '') {
-       
-          $voeu = $this->FiliereEnseignementEnseignant->getFiliereEnseignementEnseignant($d['filiereEnseignement'][$i]['id_filiere_enseignement'], $_SESSION['v_id_utilisateur']);
-          
-          if (!$voeu) {
-            $d['filiereEnseignement'][$i]['nbr_h_cours'] = 0;
-            $d['filiereEnseignement'][$i]['nbr_h_td'] = 0;
-          } else {
-            $d['filiereEnseignement'][$i]['nbr_h_cours'] = $voeu[0]['nbr_h_cours'];
-            $d['filiereEnseignement'][$i]['nbr_h_td'] = $voeu[0]['nbr_h_td'];
-          } 
-        }
-      }
-      
-			$this->set($d);
-			$this->render('index');
+			$d['v_needRights'] = 2;
+			
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+				$d['fee'] = $this->FiliereEnseignementEnseignant->getFiliereEnseignementByEnseignant($_SESSION['v_id_utilisateur']);
+				foreach($d['fee'] as $key => $fee) {
+					$d['fee'][$key]['filiere'] = $this->Filiere->getFiliereName($d['fee'][$key]['id_filiere']);
+					$d['fee'][$key]['conflits'] = $this->FiliereEnseignementEnseignant->getConflitsByFiliereEnseignement($d['fee'][$key]['id_filiere_enseignement']);
+				} 
+				
+				$this->set($d);
+				$this->render('index');
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
+			
 		}	
 	
     function update($id) {
@@ -96,9 +92,9 @@
 			$this->render('update');
     }
     
-    function delete($id) {
-      $this->FiliereEnseignementEnseignant->delete($id, $_SESSION['v_id_utilisateur']);
-      redirection("voeu", "index");
-    }
+		function delete($id) {
+			$this->FiliereEnseignementEnseignant->delete($id, $_SESSION['v_id_utilisateur']);
+			redirection("voeu", "index");
+		}
 	}
 ?>

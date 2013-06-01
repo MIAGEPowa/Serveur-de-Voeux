@@ -23,9 +23,9 @@
 						<th align="center" width="9%">Volume h/gr.</th>
 						<th align="center" width="9%">Nb de gr.</th>
 						<th align="center" width="9%">Total h</th>
-						<th width="25%">Enseignants</th>
+						<th width="25%">Enseignant</th>
 						<th width="29%">Détails</th>
-						<th width="10%">Conflits</th>
+						<th align="center" width="10%">Conflit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -63,7 +63,7 @@
 									
 									$cours_percent = ($total_voeux_cours * 100) / $total_volume_cours;
 									$width_progression = ($cours_percent * 250) / 100;
-									if($width_progression > 100)
+									if($width_progression > 250)
 										$width_progression = 250;
 
 								?>
@@ -75,7 +75,7 @@
 								</div>
 								<span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux_cours, 2).' / '.$total_volume_cours; ?> h</span>
 							</td>
-							<td>
+							<td align="center">
 								<!-- CONFLITS -->
 								<?php
 									if($total_volume_cours != $total_voeux_cours) {
@@ -141,7 +141,7 @@
 								</div>
 								<span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux_td, 2).' / '.$total_volume_td; ?> h</span>
 							</td>
-							<td>
+							<td align="center">
 								<!-- CONFLITS -->
 								<?php
 									if($total_volume_td != $total_voeux_td) {
@@ -207,7 +207,7 @@
 								</div>
 								<span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux_tp, 2).' / '.$total_volume_tp; ?> h</span>
 							</td>
-							<td>
+							<td align="center">
 								<!-- CONFLITS -->
 								<?php
 									if($total_volume_tp != $total_voeux_tp) {
@@ -286,11 +286,63 @@
 			</div>
 			
 			<div class="text-two-item">
+				<?php
+					// Voeu utilisateur, ajout ou modification
+					$add_voeu_utilisateur = 1;
+					foreach ($filiereEnseignementEnseignant as $fee) {
+						if($fee['id'] == $_SESSION['v_id_utilisateur']) {
+							$voeur_utilisateur_h_cours = floor($fee['nbr_h_cours'] / 60);
+							$voeur_utilisateur_h_td = floor($fee['nbr_h_td'] / 60);
+							$voeur_utilisateur_h_tp = floor($fee['nbr_h_tp'] / 60);
+							$voeur_utilisateur_minutes_cours = $fee['nbr_h_cours'] % 60;
+							$voeur_utilisateur_minutes_td = $fee['nbr_h_td'] % 60;
+							$voeur_utilisateur_minutes_tp = $fee['nbr_h_tp'] % 60;
+							$add_voeu_utilisateur = 0;
+						}	
+					}
+				?>
 				<form id="form-update-filiereEnseignement" action="#" method="post">
 					<fieldset>
 						<legend><span class="icon-heart"></span>
-							Ajouter un voeu
+							<?php
+								if($add_voeu_utilisateur)
+									echo 'Ajouter un voeu';
+								else
+									echo 'Modifier mon voeu';
+							?>
 						</legend>
+						
+						<?php if($filiereEnseignement['h_cours_d'] > 0) { ?>
+							<div class="form-item">
+								<label style="width: 250px;" for="heuresCours">Nombre d'heures de cours</label>
+								<input type="text" class="input-little" id="heuresCours" class="input-little" name="heuresCours" value="<?php echo $voeur_utilisateur_h_cours; ?>" maxlength="5" /> heures
+								<input type="text" class="input-little" id="minutesCours" class="input-little" name="minutesCours" value="<?php echo $voeur_utilisateur_minutes_cours; ?>" maxlength="5" /> minutes
+							</div>
+						<?php } ?>
+						
+						<?php if($filiereEnseignement['h_td_d'] > 0) { ?>
+							<div class="form-item">
+								<label style="width: 250px;" for="heuresTD">Nombre d'heures de TD</label>
+								<input type="text" class="input-little" id="heuresTD" class="input-little" name="heuresTD" value="<?php echo $voeur_utilisateur_h_td; ?>" maxlength="5" /> heures
+								<input type="text" class="input-little" id="minutesTD" class="input-little" name="minutesTD" value="<?php echo $voeur_utilisateur_minutes_td; ?>" maxlength="5" /> minutes
+							</div>
+						<?php } ?>
+
+						<?php if($filiereEnseignement['h_tp_d'] > 0) { ?>
+							<div class="form-item">
+								<label style="width: 250px;" for="heuresTP">Nombre d'heures de TP</label>
+								<input type="text" class="input-little" id="heuresTP" class="input-little" name="heuresTP" value="<?php echo $voeur_utilisateur_h_tp; ?>" maxlength="5" /> heures
+								<input type="text" class="input-little" id="minutesTP" class="input-little" name="minutesTP" value="<?php echo $voeur_utilisateur_minutes_tp; ?>" maxlength="5" /> minutes
+							</div>
+						<?php } ?>
+						
+						<div class="form-item">
+							<?php if($add_voeu_utilisateur) { ?>
+								<input style="margin-left: 270px;" type="submit" name="filiereEnseignement_form_add_voeu" class="input-submit input-submit-green" value="Ajouter" />
+							<?php } else { ?>
+								<input style="margin-left: 270px;" type="submit" name="filiereEnseignement_form_add_voeu" class="input-submit input-submit-orange" value="Modifier" />
+							<?php } ?>
+						</div>
 					</fieldset>
 				</form>
 				<br />
