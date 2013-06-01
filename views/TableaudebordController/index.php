@@ -12,38 +12,50 @@
 			<a href="./" title="Tableau de bord">Tableau de bord</a>
 		</div>
 		
-		<div class="text text-three">
+		<div class="text text-two">
 		
-			<div class="text-three-item">
-				<h2>Enseignements</h2>			
+			<div class="text-two-item text-two-item-first" style="clear:both">
+				<h2>Filière-enseignements avec la même référence</h2>			
 
 				<?php
-				if(count($arrayEnseignements) == 0) {
+				if(count($arrayFilieresEnseignementsSameRef) == 0) {
 				?>
 					<p>
-						Pas de correspondance avec la recherche...
+						Il n'y a pas de filière-enseignement avec la même référence
 					</p>
 				<?php
 				} else {
 				?>
-					<table>
+					<table class="no-search">
 						 <thead>
 							<tr>
-								<th width="12%">#</th>
-								<th width="22%">Intitulé</th>
-								<th width="22%">Mot clé</th>
+								<th width="60%">Filière - Enseignement</th>
+								<th width="20%">Réf</th>
+								<th width="20%">Réf</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
 							// On parcours le tableau des enseignements
-							foreach($arrayEnseignements as $enseignement) {
+							foreach($arrayFilieresEnseignementsSameRef as $key/*=ref*/ => $arrayFilieresEnseignements) {
 							?>
 								
 								<tr>
-									<td><?php echo $enseignement['id']; ?></td>
-									<td><?php echo $enseignement['libelle']; ?></td>
-									<td><?php echo $enseignement['keyword']; ?></td>
+									<td>
+										<?php
+											$i = 0;
+											foreach($arrayFilieresEnseignements as $fe) {
+												if($i != 0) {echo '<br/>';}
+												$apprentissage = ($fe['apprentissage'] == 0) ? "initial" : "apprentissage";
+												echo $fe['libelle_niveau'].' '.$fe['libelle_specialite'].' '.$apprentissage.' - '.$fe['libelle_enseignement'];
+												$i++;
+											}
+										?>
+									</td>
+									<td><strong><?php echo $key; ?></strong></td>
+									<td>
+										<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/index/0/<?php echo $key ?>"><span class="buttons button-orange">Modifier</span></a>
+									</td>
 								</tr>
 							
 							<?php 
@@ -56,94 +68,6 @@
 				?>
 			</div>
 			
-			
-			<div class="text-three-item">
-				<h2>Enseignements</h2>			
-
-				<?php
-				if(count($arrayEnseignements) == 0) {
-				?>
-					<p>
-						Pas de correspondance avec la recherche...
-					</p>
-				<?php
-				} else {
-				?>
-					<table>
-						 <thead>
-							<tr>
-								<th width="12%">#</th>
-								<th width="22%">Intitulé</th>
-								<th width="22%">Mot clé</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							// On parcours le tableau des enseignements
-							foreach($arrayEnseignements as $enseignement) {
-							?>
-								
-								<tr>
-									<td><?php echo $enseignement['id']; ?></td>
-									<td><?php echo $enseignement['libelle']; ?></td>
-									<td><?php echo $enseignement['keyword']; ?></td>
-								</tr>
-							
-							<?php 
-							} 
-							?>
-						</tbody>
-					</table>
-				<?php
-				}
-				?>
-			</div>
-			
-			<div class="text-three-item text-three-item-last">
-				<h2>Utilisateurs</h2>			
-
-				<?php
-				if(count($arrayUtilisateurs) == 0) {
-				?>
-					<p>
-						Pas de correspondance avec la recherche...
-					</p>
-				<?php
-				} else {
-				?>
-					<table>
-						 <thead>
-							<tr>
-								<th width="12%">#</th>
-								<th width="22%">Nom</th>
-								<th width="22%">Mot clé</th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php
-							// On parcours le tableau des utilisateurs
-							foreach($arrayUtilisateurs as $utilisateur) {
-								if($utilisateur['civilite'] == 1)
-									$civilite = "M";
-								else
-									$civilite = "Mme";
-							?>
-								
-								<tr>
-									<td><?php echo $utilisateur['id']; ?></td>
-									<td><?php echo $civilite.' '.$utilisateur['prenom'].' '.$utilisateur['nom']; ?></td>
-									<td><?php echo $utilisateur['keyword']; ?></td>
-								</tr>
-							
-							<?php 
-							} 
-							?>
-						</tbody>
-					</table>
-				<?php
-				}
-				?>
-			</div>
 		</div>
 	</div>
 </div>

@@ -68,10 +68,12 @@ class Model{
             $conditions = "1=1";
             $fields = "*";
             $limit = "";
+            $typeOrder = "ORDER";
             $order = "id DESC";
+            $other = "";
             extract($data);
             if(isset($data["limit"])){ $limit = "LIMIT ".$data["limit"]; }
-            $sql = "SELECT $fields FROM ".$this->table." WHERE $conditions ORDER BY $order $limit";
+            $sql = "SELECT $fields FROM ".$this->table." WHERE $conditions $typeOrder BY $order $other $limit";
             $req = mysql_query($sql) or die(mysql_error()."<br/> => ".$sql);
             $d = array();
             while($data = mysql_fetch_assoc($req)){

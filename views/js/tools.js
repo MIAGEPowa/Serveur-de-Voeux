@@ -99,7 +99,7 @@ $(document).ready(function() {
 	//
 	
 	$(document).ready( function() { 
-        $("table:not(.form-table):not(.no-tri)").dataTable({		
+        $("table:not(.form-table):not(.no-tri):not(.no-search)").dataTable({		
 			"oLanguage": {
 			  "sSearch": "Recherche:",
 			  "sInfo": "",
@@ -107,6 +107,15 @@ $(document).ready(function() {
 			},
 			"bPaginate": false,
 			"bInfo": false, 
+		});
+		$("table.no-search").dataTable({		
+			"oLanguage": {
+			  "sInfo": "",
+			  "sZeroRecords": "La recherche n'a donné aucun résultat..."
+			},
+			"bFilter": false,
+			"bPaginate": false,
+			"bInfo": false
 		});
     } 
 ); 

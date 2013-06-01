@@ -10,7 +10,7 @@
 	define('EMAIL_ADMIN', 'a.auberton@gmail.com');
 	define('EMAIL_LABEL', 'Serveur de voeux administrateur');
 	define('DB_PREFIX', 'smed_');
-  define('PAGE_TITLE', 'Etat de service');
+	define('PAGE_TITLE', 'Etat de service');
 
 	require(ROOT.'core/model.php');
 	require(ROOT.'core/controller.php');

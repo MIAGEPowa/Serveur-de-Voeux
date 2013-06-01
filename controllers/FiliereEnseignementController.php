@@ -4,17 +4,17 @@
 		// Déclaration du modèle rattaché au controlleur
 		var $models = array('FiliereEnseignementEnseignant', 'FiliereEnseignement', 'Filiere', 'Enseignement', 'Specialite', 'Niveau');
 
-		function index($id_filiere_enseignement = 0) {
+		function index($id_filiere_enseignement = 0, $refFiltre = "" /* filtre appelé à partir du tableau de bord (conflit de ref) */) {
     
-      if ($id_filiere_enseignement != 0) {
-        if (!$this->FiliereEnseignementEnseignant->find(array('conditions' => 'id_filiere_enseignement = "' . $id_filiere_enseignement . '"', 'order' => 'id_filiere_enseignement asc'))) {
-          $this->FiliereEnseignement->del($id_filiere_enseignement);
-          $d['v_success'] = 'Filière - Enseignements supprimée avec succès';
-        } else {
-          $d['v_errors'] = 'Oops ! La Filière - Enseignements ne peut pas être supprimée car elle est déjà associée à un voeu.';
-        }
-      }
-      
+			if ($id_filiere_enseignement != 0) {
+				if (!$this->FiliereEnseignementEnseignant->find(array('conditions' => 'id_filiere_enseignement = "' . $id_filiere_enseignement . '"', 'order' => 'id_filiere_enseignement asc'))) {
+					$this->FiliereEnseignement->del($id_filiere_enseignement);
+					$d['v_success'] = 'Filière - Enseignements supprimée avec succès';
+				} else {
+					$d['v_errors'] = 'Oops ! La Filière - Enseignements ne peut pas être supprimée car elle est déjà associée à un voeu.';
+				}
+			}
+	  
 			// Titre
 			$d['v_titreHTML'] = 'Filières - Enseignements';
 			$d['v_menuActive'] = 'filieresEnseignements';
@@ -103,7 +103,11 @@
 				}
 				
 				$d['arrayAnnees'] = array(date('Y')-1,date('Y'),date('Y')+1);
-				$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find();
+				// Si filtre appelé à partir du tableau de bord (conflit de ref)
+				if($refFiltre != "")
+					$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "reference = '".$refFiltre."'"));
+				else
+					$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find();
 				
 				// Dans la liste des filières-enseignement, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
 				for($i=0; $i<count($d['arrayFiliereEnseignement']); $i++) {
