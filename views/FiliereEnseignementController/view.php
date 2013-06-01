@@ -23,9 +23,9 @@
 						<th align="center" width="9%">Volume h/gr.</th>
 						<th align="center" width="9%">Nb de gr.</th>
 						<th align="center" width="9%">Total h</th>
-						<th width="25%">Enseignants</th>
+						<th width="25%">Enseignant</th>
 						<th width="29%">Détails</th>
-						<th width="10%">Conflits</th>
+						<th align="center" width="10%">Conflit</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -75,7 +75,7 @@
 								</div>
 								<span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux_cours, 2).' / '.$total_volume_cours; ?> h</span>
 							</td>
-							<td>
+							<td align="center">
 								<!-- CONFLITS -->
 								<?php
 									if($total_volume_cours != $total_voeux_cours) {
@@ -141,7 +141,7 @@
 								</div>
 								<span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux_td, 2).' / '.$total_volume_td; ?> h</span>
 							</td>
-							<td>
+							<td align="center">
 								<!-- CONFLITS -->
 								<?php
 									if($total_volume_td != $total_voeux_td) {
@@ -207,7 +207,7 @@
 								</div>
 								<span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux_tp, 2).' / '.$total_volume_tp; ?> h</span>
 							</td>
-							<td>
+							<td align="center">
 								<!-- CONFLITS -->
 								<?php
 									if($total_volume_tp != $total_voeux_tp) {

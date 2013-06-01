@@ -14,7 +14,7 @@
 		</div>
 		
 		<div class="text text-full">
-			<h2>Liste de vos v&oelig;ux</h2>
+			<h2>Liste de mes v&oelig;ux</h2>
 			
 			<table>
 				 <thead>
