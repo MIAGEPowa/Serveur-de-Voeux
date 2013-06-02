@@ -2,7 +2,7 @@
 	class AnnuaireController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Utilisateur', 'Keyword', 'Enseignement');
+		var $models = array('UtilisateurRole', 'Role', 'Utilisateur', 'Keyword', 'Enseignement', 'FiliereEnseignementEnseignant');
 		
 		// Variables pour les vues
 		var $v_JS = array();
@@ -69,9 +69,19 @@
 			$d['v_menuActive'] = 'annuaire';
 
 			$d['utilisateur'] = $this->Utilisateur->getUtilisateur($id);
+      
+			$d['roles_utilisateur'] = $this->UtilisateurRole->getRoleUtilisateur($id);
+
+			for($i=0; $i<count($d['roles_utilisateur']); $i++) {
+				$role = $this->Role->find(array('conditions' => 'id = '.$d['roles_utilisateur'][$i]['id_role'], 'order' => 'id'));
+				$d['roles_utilisateur'][$i]['libelle'] = $role[0]['libelle'];
+			}
+      
 			$d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_utilisateur = '.$id));
 			$d['arrayDegrees'] = $this->Enseignement->find(array('conditions' => 'auteur = '.$id));
-
+      
+			$d['arrayVoeux'] = $this->FiliereEnseignementEnseignant->getAllByUser($id);
+      
 			$this->set($d);
 			$this->render('visualiser');
 		}
