@@ -4,12 +4,17 @@
 		// Déclaration du modèle rattaché au controlleur
 		var $models = array('FiliereEnseignementEnseignant', 'FiliereEnseignement', 'Filiere', 'Niveau', 'Specialite', 'Enseignement');
 
-		function index() {
+		function index($id_filiere_enseignement = 0) {
 			// Titre
 			$d['v_titreHTML'] = 'Voeux';
 			$d['v_menuActive'] = 'voeux';
 			$d['v_needRights'] = 2;
 			
+      if ($id_filiere_enseignement != 0) {
+        $this->FiliereEnseignementEnseignant->delete($id_filiere_enseignement, $_SESSION['v_id_utilisateur']);
+        $d['v_success'] = 'Le voeu a bien été supprimé.';
+      }
+
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
 				$d['fee'] = $this->FiliereEnseignementEnseignant->getFiliereEnseignementByEnseignant($_SESSION['v_id_utilisateur']);
 				foreach($d['fee'] as $key => $fee) {
