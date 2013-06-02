@@ -76,7 +76,7 @@
 							</td>
 							<td>
 								<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $f['id_filiere_enseignement']; ?>"><span class="buttons button-green">Visualiser</span></a>
-								<a class="buttons-link" href="<?php echo WEBROOT; ?>voeu/index/<?php echo $f['id_filiere_enseignement']; ?>"><span class="buttons button-red">Supprimer</span></a>
+								<a class="buttons-link" href="<?php echo WEBROOT; ?>"><span class="buttons button-red">Supprimer</span></a>
 							</td>
 						</tr>
 						
