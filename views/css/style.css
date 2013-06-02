@@ -277,6 +277,11 @@ body {
 	color: #009FE0;
 	text-decoration: underline;
 }
+.text #choix-annees {
+	left: 50%;
+	margin-top: 7px;
+	position: absolute;
+}
 
 /*** TEXT FULL, TWO, THREE, FOUR ***/
 .text-full, .text-two, .text-two-large, .text-three, .text-four {

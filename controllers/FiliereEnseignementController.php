@@ -2,9 +2,10 @@
 	class FiliereEnseignementController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('FiliereEnseignementEnseignant', 'FiliereEnseignement', 'Filiere', 'Enseignement', 'Specialite', 'Niveau');
+		var $models = array('FiliereEnseignementEnseignant', 'FiliereEnseignement', 'Filiere', 'Enseignement', 
+							'Specialite', 'Niveau', 'UtilisateurRole', 'Utilisateur', 'Configuration');
 
-		function index($id_filiere_enseignement = 0, $refFiltre = "" /* filtre appelé à partir du tableau de bord (conflit de ref) */) {
+		function index($id_filiere_enseignement = 0, $refFiltre = 0 /* filtre appelé à partir du tableau de bord (conflit de ref) */, $anneeFiltre = 0) {
     
 			if ($id_filiere_enseignement != 0) {
 				if (!$this->FiliereEnseignementEnseignant->find(array('conditions' => 'id_filiere_enseignement = "' . $id_filiere_enseignement . '"', 'order' => 'id_filiere_enseignement asc'))) {
@@ -29,7 +30,7 @@
 						&& isset($_POST['filiere']) && !empty($_POST['filiere'])
 						&& isset($_POST['annee']) && !empty($_POST['annee'])) {
 						
-						if(!empty($_POST['heuresCours']) || !empty($_POST['heuresTD']) || !empty($_POST['heuresTP']) || !empty($_POST['minutesCours']) || !empty($_POST['minutesTD']) || !empty($_POST['minutesTP'])) {
+						if(!empty($_POST['heuresCours']) || !empty($_POST['heuresTD']) || !empty($_POST['heuresTP'])) {
 						
 							// On vérifie si la filière-enseignement existe déjà en base
 							$enseignement = $this->FiliereEnseignement->find(array('conditions' => 	'id_enseignement = '.$_POST["enseignement"].
@@ -102,13 +103,25 @@
 					else {$d['arrayFilieres'][$i]['apprentissage_lib'] = 'Apprentissage';}
 				}
 				
-				$d['arrayAnnees'] = array(date('Y')-1,date('Y'),date('Y')+1);
-				// Si filtre appelé à partir du tableau de bord (conflit de ref)
-				if($refFiltre != "")
-					$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "reference = '".$refFiltre."'"));
-				else
-					$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find();
+				$annee = $this->Configuration->find();
+				$annee = $annee[0]['annee'];
+				$d['arrayAnnees'] = array($annee-1,$annee,$annee+1);
 				
+				// Si filtre appelé à partir du tableau de bord (conflit de ref)
+				if(!empty($refFiltre)) {
+					$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "reference = '".$refFiltre."'"));
+				}else{
+					if(empty($anneeFiltre)){
+						$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "annee = '".$annee."'"));
+						$d['selection'] = $annee;
+					}else if($anneeFiltre === 'tout'){
+						$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find();
+						$d['selection'] = 'tout';
+					}else{
+						$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "annee = '".$anneeFiltre."'"));
+						$d['selection'] = $anneeFiltre;
+					}
+				}
 				// Dans la liste des filières-enseignement, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
 				for($i=0; $i<count($d['arrayFiliereEnseignement']); $i++) {
 					
@@ -122,6 +135,16 @@
 					// Apprentissage
 					if($filiere[0]['apprentissage'] == 0) {$apprentissage = 'Initial';}
 					else {$apprentissage = 'Apprentissage';}
+					// Responsable
+					$arrayResponsables = $this->UtilisateurRole->find(array('conditions' => 'id_filiere_enseignement = '.$filiere[0]['id'],
+																		'order' => 'id_filiere_enseignement'));
+					if(count($arrayResponsables) != 0) {
+						$d['arrayFiliereEnseignement'][$i]['responsable'] = array();
+						foreach ($arrayResponsables as $responsable) {
+							$responsable = $this->Utilisateur->find(array('conditions' => 'id = '.$responsable['id_utilisateur']));
+							$d['arrayFiliereEnseignement'][$i]['responsable'][] = $responsable[0]['prenom'].' '.$responsable[0]['nom'];
+						}
+					}
 					// Filière
 					$d['arrayFiliereEnseignement'][$i]['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
 					

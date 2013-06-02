@@ -59,7 +59,7 @@
 								// On parcours le tableau des niveaux
 								foreach($arrayAnnees as $annee) {
 									?>
-									<option value="<?php echo $annee; ?>" <?php if($annee == date("Y")) {echo 'selected';} ?>><?php echo $annee; ?></option>
+									<option value="<?php echo $annee; ?>" <?php if($annee == $arrayAnnees[1]) {echo 'selected';} ?>><?php echo $annee; ?></option>
 									<?php
 								}
 								?>
@@ -137,8 +137,24 @@
 		</div>
 		
 		<div class="text text-full">
-			<h2>Liste des filières</h2>			
 
+			<div id="choix-annees">
+				Année : 
+				<select id="filtre-annees">							
+					<?php
+					// On parcours le tableau des niveaux
+					foreach($arrayAnnees as $annee) {
+						?>
+						<option value="<?php echo WEBROOT; ?>filiereEnseignement/index/0/0/<?php echo $annee; ?>" <?php if($annee == $selection) {echo 'selected';} ?>><?php echo $annee; ?></option>
+						<?php
+					}
+					?>
+					<option value="<?php echo WEBROOT; ?>filiereEnseignement/index/0/0/tout" <?php if($selection == "tout") {echo 'selected';} ?>>Tout l'historique</option>
+				</select>
+			</div>
+		
+			<h2>Liste des filières</h2>			
+			
 			<?php
 			if(count($arrayFilieres) == 0) {
 			?>
@@ -151,11 +167,11 @@
 				<table>
 					 <thead>
 						<tr>
-							<th width="10%">#</th>
+							<th width="5%">#</th>
 							<th width="18%">Filière</th>
 							<th width="18%">Enseignement</th>
 							<th width="9%">Année</th>
-							<th width="9%">Référence</th>
+							<th width="9%">Réf</th>
 							<th width="18%">Responsable</th>
 							<th width="18%">Actions</th>
 						</tr>
@@ -171,7 +187,17 @@
 								<td><?php echo $filiereEnseignement['enseignement']; ?></td>
 								<td><?php echo $filiereEnseignement['annee']; ?></td>
 								<td><?php echo $filiereEnseignement['reference']; ?></td>
-								<td>A venir</td>
+								<td>
+									<?php
+										if(is_array($filiereEnseignement['responsable'])) {
+											foreach($filiereEnseignement['responsable'] as $responsable) {
+												echo $responsable.'<br/>';
+											}
+										} else {
+											echo 'Pas de responsable';
+										}
+									?>
+								</td>
 								<td>
 									<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/update/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/index/<?php echo $filiereEnseignement['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
 								</td>

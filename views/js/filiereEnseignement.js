@@ -16,7 +16,6 @@ $(document).ready(function() {
 			return false;
 		}
 		
-		
 		if($('#heuresCours').val() != "" && !$.isNumeric($('#heuresCours').val())) {
 			openOverlayError("Oops ! Vous avez mal rempli le champ <strong>\"Nombre d'heures de cours\"</strong> !");
 			return false;
@@ -63,7 +62,15 @@ $(document).ready(function() {
 		}
 		
 		return true;
-		
+	});
+	
+	
+	$('#filtre-annees').change(function () {
+		var url = $(this).val(); // get selected value
+		if (url) { // require a URL
+			window.location = url; // redirect
+		}
+		return false;
 	});
 	
 });
