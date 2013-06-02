@@ -14,12 +14,12 @@
 			));
 		}
 		
-		function existRole($id_role) {
-		  return $this->find(array(
-					'conditions' => 'id_role = '.$id_role,
-			'order' => 'id_role ASC'
-				));
-		}
+    function existRole($id_role) {
+      return $this->find(array(
+				'conditions' => 'id_role = '.$id_role,
+        'order' => 'id_role ASC'
+			));
+    }
     
 		function deleteRoleUtilisateur($id_utilisateur, $id_role, $id_filiere_enseignement) {
 			if($id_filiere_enseignement)

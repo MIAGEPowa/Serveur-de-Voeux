@@ -283,37 +283,6 @@
 						</div>
 					</fieldset>
 				</form>
-				
-				<br />
-				
-				<h2>Liste des responsables</h2>
-				<?php
-					if(count($filiereEnseignement['responsable']) == 0) {
-				?>
-						<p>Il n'y a pas de responsable pour cette filière enseignement</p>
-				<?php
-					} else {
-				?>
-						<table class="table-white no-tri">
-							<thead>
-								<tr>
-									<th>Nom</th>
-									<th>Email</th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php foreach ($filiereEnseignement['responsable'] as $responsable) { ?>
-									<tr>
-										<td><a href="<?php echo WEBROOT; ?>annuaire/visualiser/<?php echo $responsable['id']; ?>" title="<?php echo $responsable['nom']; ?>"><?php echo $responsable['nom']; ?></a></td>
-										<td><?php echo $responsable['email'];?></td>
-									</tr>
-								<?php } ?>
-							</tbody>
-						</table>
-				<?php
-					}
-				?>
-				
 			</div>
 			
 			<div class="text-two-item">

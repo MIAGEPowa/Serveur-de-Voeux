@@ -136,14 +136,13 @@
 					if($filiere[0]['apprentissage'] == 0) {$apprentissage = 'Initial';}
 					else {$apprentissage = 'Apprentissage';}
 					// Responsable
-					$arrayResponsables = $this->UtilisateurRole->find(array('conditions' => 'id_filiere_enseignement = '.$d['arrayFiliereEnseignement'][$i]['id'],
-																			'order' => 'id_filiere_enseignement'));
+					$arrayResponsables = $this->UtilisateurRole->find(array('conditions' => 'id_filiere_enseignement = '.$filiere[0]['id'],
+																		'order' => 'id_filiere_enseignement'));
 					if(count($arrayResponsables) != 0) {
 						$d['arrayFiliereEnseignement'][$i]['responsable'] = array();
 						foreach ($arrayResponsables as $responsable) {
 							$responsable = $this->Utilisateur->find(array('conditions' => 'id = '.$responsable['id_utilisateur']));
-							$civilite = ($responsable['civilite'] == 0) ? "Mme" : "M";
-							$d['arrayFiliereEnseignement'][$i]['responsable'][] = $civilite.' '.$responsable[0]['prenom'].' '.$responsable[0]['nom'];
+							$d['arrayFiliereEnseignement'][$i]['responsable'][] = $responsable[0]['prenom'].' '.$responsable[0]['nom'];
 						}
 					}
 					// Filière
@@ -348,24 +347,7 @@
 				$d['filiereEnseignement']['h_tp'] = floor($d['filiereEnseignement']['nbr_h_tp'] / 60);
 				$d['filiereEnseignement']['m_tp'] = $d['filiereEnseignement']['nbr_h_tp'] % 60;
 				$d['filiereEnseignement']['h_tp_d'] = round($d['filiereEnseignement']['nbr_h_tp'] / 60, 2);
-								
-				// Responsables
-				$arrayResponsables = $this->UtilisateurRole->find(array('conditions' => 'id_filiere_enseignement = '.$id,
-																		'order' => 'id_filiere_enseignement'));
-				if(count($arrayResponsables) != 0) {
-					$d['filiereEnseignement']['responsable'] = array();
-					$i = 0;
-					foreach ($arrayResponsables as $responsable) {
-						$responsable = $this->Utilisateur->find(array('conditions' => 'id = '.$responsable['id_utilisateur']));
-
-						$civilite = ($responsable[0]['civilite'] == 0) ? "Mme" : "M";
-						$d['filiereEnseignement']['responsable'][$i]['id'] = $responsable[0]['id'];
-						$d['filiereEnseignement']['responsable'][$i]['nom'] = $civilite.' '.$responsable[0]['prenom'].' '.$responsable[0]['nom'];
-						$d['filiereEnseignement']['responsable'][$i]['email'] = $responsable[0]['email'];
-						$i++;
-					}
-				}
-				
+		  
 				$this->set($d);
 				$this->render('view');
 			

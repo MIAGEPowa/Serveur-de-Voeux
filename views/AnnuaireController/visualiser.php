@@ -26,7 +26,7 @@
           echo '</span>';
       ?>
 			<fieldset>
-        <legend><span class="icon-user"></span>Profil de <?php if($utilisateur[0]['civilite'] == 1) echo 'M. '; else echo 'Mme '; echo $utilisateur[0]['nom'].' '. $utilisateur[0]['prenom'];?></legend>
+        <legend><span class="icon-user"></span>Profil de <?php if($utilisateur[0]['civilite']) echo 'M. '; else echo 'Mme '; echo $utilisateur[0]['nom'].' '. $utilisateur[0]['prenom'];?></legend>
 				
         <?php
           
