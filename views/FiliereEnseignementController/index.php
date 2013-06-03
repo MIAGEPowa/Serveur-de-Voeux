@@ -77,7 +77,7 @@
 						</div>
 						
 						<div class="form-item">
-							<label class="label-large" for="heuresCours">Nombre d'heures de cours *</label>
+							<label class="label-large" for="heuresCours">Nombre d'heures de cours</label>
 							<input type="text" class="input-little" id="heuresCours" class="input-little" name="heuresCours" value="" maxlength="5" /> heures
 							<input type="text" class="input-little" id="minutesCours" class="input-little" name="minutesCours" value="" maxlength="5" /> minutes
 						</div>
@@ -88,7 +88,7 @@
 						</div>
 						
 						<div class="form-item">
-							<label class="label-large" for="heuresTD">Nombre d'heures de TD *</label>
+							<label class="label-large" for="heuresTD">Nombre d'heures de TD</label>
 							<input type="text" class="input-little" id="heuresTD" class="input-little" name="heuresTD" value="" maxlength="5" /> heures
 							<input type="text" class="input-little" id="minutesTD" class="input-little" name="minutesTD" value="" maxlength="5" /> minutes
 						</div>
@@ -99,7 +99,7 @@
 						</div>
 						
 						<div class="form-item">
-							<label class="label-large" for="heuresTP">Nombre d'heures de TP *</label>
+							<label class="label-large" for="heuresTP">Nombre d'heures de TP</label>
 							<input type="text" class="input-little" id="heuresTP" class="input-little" name="heuresTP" value="" maxlength="5" /> heures
 							<input type="text" class="input-little" id="minutesTP" class="input-little" name="minutesTP" value="" maxlength="5" /> minutes
 						</div>

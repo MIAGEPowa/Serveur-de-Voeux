@@ -38,7 +38,7 @@
 					</div>
 					
 					<div class="form-item">
-						<label for="prenom">Prenom *</label>
+						<label for="prenom">Prénom *</label>
 						<input id="prenom" type="text" name="prenom" class="input-large" />
 					</div>
 					

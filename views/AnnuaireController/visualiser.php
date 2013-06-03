@@ -15,17 +15,18 @@
 		
 		<div class="text text-full">
 			
-      <?php
-      if(file_exists(ROOT.'files/cv/'.$utilisateur[0]['id'].'.pdf')) {
-          echo '<a href="'.WEBROOT.'files/cv/'.$utilisateur[0]['id'].'.pdf" title="CV" target="_blank">';
-          echo '<span class="buttons button-blue" style="float: right;">Télécharger CV</span>';
-          echo '</a>';
-          echo '<div class="clear"></div>';
-        }
-        else
-          echo '</span>';
-      ?>
-			<fieldset>
+		<?php
+		if(file_exists(ROOT.'files/cv/'.$utilisateur[0]['id'].'.pdf')) {
+		  echo '<a href="'.WEBROOT.'files/cv/'.$utilisateur[0]['id'].'.pdf" title="CV" target="_blank">';
+		  echo '<span class="buttons button-blue" style="float: right;">Télécharger CV</span>';
+		  echo '</a>';
+		  echo '<div class="clear"></div>';
+		}
+		else
+		  echo '</span>';
+		?>
+		
+		<fieldset>
         <legend><span class="icon-user"></span>Profil de <?php if($utilisateur[0]['civilite'] == 1) echo 'M. '; else echo 'Mme '; echo $utilisateur[0]['nom'].' '. $utilisateur[0]['prenom'];?></legend>
 				
         <?php
@@ -117,85 +118,85 @@
         
         <div class="form-item">
           <label class="blue">Enseignements</label>
-          <?php
-						// s'il existe des enseignements
-						if(count($arrayDegrees) != 0) {
+			<?php
+			// s'il existe des enseignements
+			if(count($arrayDegrees) != 0) {
+			?>
+				<table class='form-table table-white'>
+					<thead>
+						<tr>
+							<th width="22%">#</th>
+							<th width="22%">Intitulé</th>
+							<th width="22%">Description</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						// On parcours le tableau des enseignements
+						foreach($arrayDegrees as $degree) {
 						?>
-							<table class='form-table table-white'>
-								<thead>
-									<tr>
-										<th width="22%">#</th>
-                    <th width="22%">Intitulé</th>
-                    <th width="22%">Description</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-									// On parcours le tableau des enseignements
-									foreach($arrayDegrees as $degree) {
-									?>
-										<tr>
-                      <td><?php echo $degree['id']; ?></td>
-											<td><?php echo $degree['libelle']; ?></td>
-                      <td><?php echo $degree['description']; ?></td>
-										</tr>
-									<?php 
-									} 
-									?>
-								</tbody>
-							</table>
+							<tr>
+							<td><?php echo $degree['id']; ?></td>
+							<td><?php echo $degree['libelle']; ?></td>
+							<td><?php echo $degree['description']; ?></td>
+							</tr>
 						<?php 
-						}
+						} 
 						?>
+					</tbody>
+				</table>
+			<?php 
+			}
+			?>
         </div>
         
         <div class="form-item">
           <label class="blue">Voeux</label>
           <?php
-						// s'il existe des voeux
-						if(count($arrayVoeux) != 0) {
+			// s'il existe des voeux
+			if(count($arrayVoeux) != 0) {
+			?>
+				<table class='form-table table-white'>
+					<thead>
+						<tr>
+							<th>Filiere</th>
+							<th>Enseignement</th>
+							<th>Année</th>
+							<th>Cours</th>
+							<th>TD</th>
+							<th>TP</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						// On parcours le tableau des voeux
+						foreach($arrayVoeux as $voeu) {
+							$apprentissage = ($voeu['filiere_apprentissage'] == 1) ? 'Apprentissage' : 'Initial';
+							$nbr_h_cours = ($voeu['fee_nbr_h_cours'] % 60 != 0) ? (floor( $voeu['fee_nbr_h_cours'] / 60 )).','.round((($voeu['fee_nbr_h_cours'] % 60) * 100 / 60), 0).'h' : (floor( $voeu['fee_nbr_h_cours'] / 60 )).'h';
+							$nbr_h_td = ($voeu['fee_nbr_h_td'] % 60 != 0) ? (floor( $voeu['fee_nbr_h_td'] / 60 )).','.round((($voeu['fee_nbr_h_td'] % 60) * 100 / 60), 0).'h' : (floor( $voeu['fee_nbr_h_td'] / 60 )).'h';
+							$nbr_h_tp = ($voeu['fee_nbr_h_tp'] % 60 != 0) ? (floor( $voeu['fee_nbr_h_tp'] / 60 )).','.round((($voeu['fee_nbr_h_tp'] % 60) * 100 / 60), 0).'h' : (floor( $voeu['fee_nbr_h_tp'] / 60 )).'h';
 						?>
-							<table class='form-table table-white'>
-								<thead>
-									<tr>
-										<th>Filiere</th>
-                    <th>Enseignement</th>
-                    <th>Année</th>
-                    <th>Cours</th>
-                    <th>TD</th>
-                    <th>TP</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php
-									// On parcours le tableau des voeux
-									foreach($arrayVoeux as $voeu) {
-                    $apprentissage = ($voeu['filiere_apprentissage'] == 1) ? 'Apprentissage' : 'Initial';
-                    $nbr_h_cours = ($voeu['fee_nbr_h_cours'] % 60 != 0) ? (floor( $voeu['fee_nbr_h_cours'] / 60 )).','.round((($voeu['fee_nbr_h_cours'] % 60) * 100 / 60), 0).'h' : (floor( $voeu['fee_nbr_h_cours'] / 60 )).'h';
-                    $nbr_h_td = ($voeu['fee_nbr_h_td'] % 60 != 0) ? (floor( $voeu['fee_nbr_h_td'] / 60 )).','.round((($voeu['fee_nbr_h_td'] % 60) * 100 / 60), 0).'h' : (floor( $voeu['fee_nbr_h_td'] / 60 )).'h';
-                    $nbr_h_tp = ($voeu['fee_nbr_h_tp'] % 60 != 0) ? (floor( $voeu['fee_nbr_h_tp'] / 60 )).','.round((($voeu['fee_nbr_h_tp'] % 60) * 100 / 60), 0).'h' : (floor( $voeu['fee_nbr_h_tp'] / 60 )).'h';
-									?>
-										<tr>
-                      <td><?php echo $voeu['niveau_libelle'].' '.$voeu['specialite_libelle'].' '.$apprentissage; ?></td>
-											<td><?php echo $voeu['enseignement_libelle']; ?></td>
-                      <td><?php echo $voeu['annee']; ?></td>
-                      <td><?php echo $nbr_h_cours; ?></td>
-                      <td><?php echo $nbr_h_td; ?></td>
-                      <td><?php echo $nbr_h_tp; ?></td>
-										</tr>
-									<?php 
-									} 
-									?>
-								</tbody>
-							</table>
+							<tr>
+								<td><?php echo $voeu['niveau_libelle'].' '.$voeu['specialite_libelle'].' '.$apprentissage; ?></td>
+								<td><?php echo $voeu['enseignement_libelle']; ?></td>
+								<td><?php echo $voeu['annee']; ?></td>
+								<td><?php echo $nbr_h_cours; ?></td>
+								<td><?php echo $nbr_h_td; ?></td>
+								<td><?php echo $nbr_h_tp; ?></td>
+							</tr>
 						<?php 
-						}
+						} 
 						?>
-        </div>
-
-				</fieldset>
-			</form>
+					</tbody>
+				</table>
+			<?php 
+			}
+			?>
 		</div>
+
+	</fieldset>
+	</form>
+	</div>
 	
 	</div>
 	

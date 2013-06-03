@@ -113,15 +113,21 @@
 				}else{
 					if(empty($anneeFiltre)){
 						$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "annee = '".$annee."'"));
-						$d['selection'] = $annee;
 					}else if($anneeFiltre === 'tout'){
 						$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find();
-						$d['selection'] = 'tout';
 					}else{
 						$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "annee = '".$anneeFiltre."'"));
-						$d['selection'] = $anneeFiltre;
 					}
 				}
+				// Permet de sélectionner l'année dans le select
+				if(empty($anneeFiltre)){ 
+					$d['selection'] = $annee; 
+				}else if($anneeFiltre === 'tout'){ 
+					$d['selection'] = 'tout'; 
+				}else{ 
+					$d['selection'] = $anneeFiltre; 
+				}
+				
 				// Dans la liste des filières-enseignement, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
 				for($i=0; $i<count($d['arrayFiliereEnseignement']); $i++) {
 					
@@ -299,7 +305,7 @@
 						} else {
 							// On modifie le voeu
 							$this->FiliereEnseignementEnseignant->update($dataVoeu, 'id_filiere_enseignement', 'id_utilisateur');
-							$d['v_success'] = 'Le voeu a bien été ajouté !';
+							$d['v_success'] = 'Le voeu a bien été modifié !';
 						}
 					}
 				}
