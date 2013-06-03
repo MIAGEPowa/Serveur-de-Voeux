@@ -7,6 +7,17 @@
 			$this->table = DB_PREFIX.$this->table;
 		}
 		
+    function getEnseignementLibelle($id_enseignement) {
+      $req = $this->find(array(
+        'fields' => 'libelle',
+				'conditions' => 'id = '.$id_enseignement
+			));
+      
+      $libelle = $req[0]['libelle'];
+      
+      return $libelle;
+    }
+    
 		function getEnseignement($id_enseignement) {
 			return $this->find(array(
 				'conditions' => 'id = '.$id_enseignement

@@ -27,7 +27,11 @@
 								 AND fee.id_filiere_enseignement = '.$id_filiere_enseignement);
 			
 			$arrayConflits = array();
+      //$boolConflits = false;
+      $nbConflits = 0;
+      
 			foreach($req as $r) {
+      
 				// Cours
 				$volume_h_cours = $r['nbr_h_cours'] * $r['nbr_groupes_cours'];
 				$volume_h_td = $r['nbr_h_td'] * $r['nbr_groupes_td'];
@@ -37,48 +41,54 @@
 				if($volume_h_cours != $r['v_cours']) {
 					// Il manque des heures
 					if($r['v_cours'] < $volume_h_cours) {
-						$arrayConflits['cours'] = $volume_h_cours - $r['v_cours'];
-						$arrayConflits['cours_conflit'] = 0;
+						$arrayConflits[$nbConflits]['cours'] = $volume_h_cours - $r['v_cours'];
+						$arrayConflits[$nbConflits]['cours_conflit'] = 0;
 					}
 					
 					// Il y a trop d'heures
 					if($r['v_cours'] > $volume_h_cours) {
-						$arrayConflits['cours'] = $r['v_cours'] - $volume_h_cours;
-						$arrayConflits['cours_conflit'] = 1;
+						$arrayConflits[$nbConflits]['cours'] = $r['v_cours'] - $volume_h_cours;
+						$arrayConflits[$nbConflits]['cours_conflit'] = 1;
 					}
+          
+          $nbConflits++;
 				}
 				
 				// TD
 				if($volume_h_td != $r['v_td']) {
 					// Il manque des heures
 					if($r['v_td'] < $volume_h_td) {
-						$arrayConflits['td'] = $volume_h_td - $r['v_td'];
-						$arrayConflits['td_conflit'] = 0;
+						$arrayConflits[$nbConflits]['td'] = $volume_h_td - $r['v_td'];
+						$arrayConflits[$nbConflits]['td_conflit'] = 0;
 					}
 					
 					// Il y a trop d'heures
 					if($r['v_td'] > $volume_h_td) {
-						$arrayConflits['td'] = $r['v_td'] - $volume_h_td;
-						$arrayConflits['td_conflit'] = 1;
+						$arrayConflits[$nbConflits]['td'] = $r['v_td'] - $volume_h_td;
+						$arrayConflits[$nbConflits]['td_conflit'] = 1;
 					}
+          
+          $nbConflits++;
 				}
 				
 				// TP
 				if($volume_h_tp != $r['v_tp']) {
 					// Il manque des heures
 					if($r['v_tp'] < $volume_h_tp) {
-						$arrayConflits['tp'] = $volume_h_tp - $r['v_tp'];
-						$arrayConflits['tp_conflit'] = 0;
+						$arrayConflits[$nbConflits]['tp'] = $volume_h_tp - $r['v_tp'];
+						$arrayConflits[$nbConflits]['tp_conflit'] = 0;
 					}
 					
 					// Il y a trop d'heures
 					if($r['v_tp'] > $volume_h_tp) {
-						$arrayConflits['tp'] = $r['v_tp'] - $volume_h_tp;
-						$arrayConflits['tp_conflit'] = 1;
+						$arrayConflits[$nbConflits]['tp'] = $r['v_tp'] - $volume_h_tp;
+						$arrayConflits[$nbConflits]['tp_conflit'] = 1;
 					}
+          
+          $nbConflits++;
 				}
 			}
-			
+
 			return $arrayConflits;
 		}
 		

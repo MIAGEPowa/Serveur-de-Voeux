@@ -10,7 +10,7 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="<?php echo WEBROOT.'filiere/index'; ?>" title="">Filières - Enseignements</a>
+			<a href="<?php echo WEBROOT.'filiereEnseignement/index'; ?>" title="">Filières - Enseignements</a>
 		</div>
 		
 		<div class="text text-full">

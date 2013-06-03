@@ -67,7 +67,116 @@
 				}
 				?>
 			</div>
-			
+      
 		</div>
+    
+    <div class="text text-full">
+        <h2>Filière-enseignements ayant des conflits</h2>	
+        
+        <?php
+				if(count($arrayConflits) == 0) {
+				?>
+					<p>
+						Il n'y a pas de conflits
+					</p>
+				<?php
+				} else {
+				?>
+          <table class="no-search">
+             <thead>
+              <tr>
+                <th width="30%">Filière - Enseignement</th>
+                <th width="10%">Type</th>
+                <th width="30%">Détails</th>
+                <th width="15%">Conflits</th>
+                <th width="15%">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php
+							// On parcours le tableau des enseignements
+							foreach($arrayConflits as $conflit) {
+							?>
+                <tr>
+                  <td><?php echo $conflit['filiere'].' '.$conflit['enseignement']?></td>
+                  <td>
+                    <?php
+                    if (isset($conflit['cours'])) 
+                      echo 'Cours';
+                    else if (isset($conflit['td']))
+                      echo 'TD';
+                    else 
+                      echo 'TP';
+                    ?>
+                  </td>
+                  <td class="feEtatPrevisionnelle">
+                    <?php
+                    if (isset($conflit['cours'])) {
+                      $total_volume = $conflit['nbr_h_cours'] * $conflit['nbr_groupes_cours'];
+                      if ($conflit['cours_conflit'] == 0)
+                        $total_voeux = $total_volume - $conflit['cours'];
+                      else
+                        $total_voeux = $conflit['cours'] + $total_volume;
+                        
+                      $type = $conflit['cours_conflit'];
+                    }
+                    else if (isset($conflit['td'])) {
+                      $total_volume = $conflit['nbr_h_td'] * $conflit['nbr_groupes_td'];
+                      if ($conflit['td_conflit'] == 0)
+                        $total_voeux = $total_volume - $conflit['td'];
+                      else
+                        $total_voeux = $conflit['td'] + $total_volume;
+                        
+                      $type = $conflit['td_conflit'];
+                    }    
+                    else {
+                      $total_volume = $conflit['nbr_h_tp'] * $conflit['nbr_groupes_tp'];
+                      if ($conflit['tp_conflit'] == 0)
+                        $total_voeux = $total_volume - $conflit['tp'];
+                      else
+                        $total_voeux = $conflit['tp'] + $total_volume;
+                        
+                      $type = $conflit['tp_conflit'];
+                    } 
+                    
+                    $percent = ($total_voeux * 100) / $total_volume;
+                    $width_progression = ($percent * 250) / 100;
+                    if($width_progression > 250)
+                      $width_progression = 250;
+                    ?>
+                    
+                    <div class="barreProgression">
+                      <span><?php echo round($percent, 2); ?> %</span>
+                      <div class="progression <?php if($percent == 100) echo 'barreProgressionGreen'; else if($percent > 100) echo 'barreProgressionRed'; else if($percent < 100) echo 'barreProgressionOrange'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
+                    </div>
+                    <span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux / 60, 2).' / '.round($total_volume / 60, 2);  ?> h</span>
+                  </td>
+                  <td>
+                    <?php   
+                    // Il manque des heures
+                    if($type == 0) {
+                      $nbr_h_conflit = $total_volume - $total_voeux;
+                      echo '<span class="orange"><strong>- '.round($nbr_h_conflit / 60, 2).' h</strong></span>';
+                    }
+                    else {
+                      $nbr_h_conflit = abs($total_voeux - $total_volume);
+                      echo '<span class="red"><strong>+ '.round($nbr_h_conflit / 60, 2).' h</strong></span>';
+                    }
+                    ?>
+                  </td>
+                  <td>
+                    <a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $conflit['id']; ?>"><span class="buttons button-green">Visualiser</span></a>
+                  </td>
+                </tr>
+              <?php
+              }
+              ?>
+            </tbody>
+          </table> 
+          
+        <?php 
+				} 
+				?>
+      </div>
 	</div>
 </div>

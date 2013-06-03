@@ -60,13 +60,13 @@
 				 <thead>
 					<tr>
 						<th width="18%">Filière</th>
-						<th width="18%">Enseignement</th>
+						<th width="13%">Enseignement</th>
 						<th width="8%" align="center">Année</th>
 						<th width="10%" align="center">Cours</th>
 						<th width="10%" align="center">TD</th>
 						<th width="10%" align="center">TP</th>
 						<th width="11%">Conflits</th>
-						<th width="15%">Actions</th> <!-- Visualiser et Supprimer -->
+						<th width="20%">Actions</th> <!-- Visualiser et Supprimer -->
 					</tr>
 				</thead>
 				<tbody>
