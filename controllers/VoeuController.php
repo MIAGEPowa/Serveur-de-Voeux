@@ -10,11 +10,11 @@
 			$d['v_menuActive'] = 'voeux';
 			$d['v_needRights'] = 2;
 			
-      if ($id_filiere_enseignement != 0) {
-        $this->FiliereEnseignementEnseignant->delete($id_filiere_enseignement, $_SESSION['v_id_utilisateur']);
-        $d['v_success'] = 'Le voeu a bien été supprimé.';
-      }
-
+			if ($id_filiere_enseignement != 0) {
+				$this->FiliereEnseignementEnseignant->delete($id_filiere_enseignement, $_SESSION['v_id_utilisateur']);
+				$d['v_success'] = 'Le voeu a bien été supprimé.';
+			}
+			
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
 			
 				if($_POST['filiereEnseignement_form_add_voeu']) {
@@ -63,7 +63,7 @@
 				
 				$i = 0;
 				foreach($arrayFilieresEnseignementsTemp as $fe) {
-					$apprentissage = ($fe['apprentissage']) ? 'initial' : 'apprentissage';
+					$apprentissage = (!$fe['apprentissage']) ? 'initial' : 'apprentissage';
 					$d['arrayFilieresEnseignements'][$i]['libelle'] = 	$fe['libelle_niveau'].' '.
 																		$fe['libelle_specialite'].' '.
 																		$apprentissage.' - '.

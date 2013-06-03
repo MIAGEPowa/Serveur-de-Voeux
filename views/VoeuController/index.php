@@ -60,13 +60,13 @@
 				 <thead>
 					<tr>
 						<th width="18%">Filière</th>
-						<th width="13%">Enseignement</th>
+						<th width="18%">Enseignement</th>
 						<th width="8%" align="center">Année</th>
 						<th width="10%" align="center">Cours</th>
 						<th width="10%" align="center">TD</th>
 						<th width="10%" align="center">TP</th>
 						<th width="11%">Conflits</th>
-						<th width="20%">Actions</th> <!-- Visualiser et Supprimer -->
+						<th width="15%">Actions</th> <!-- Visualiser et Supprimer -->
 					</tr>
 				</thead>
 				<tbody>
@@ -115,7 +115,7 @@
 								?>
 							</td>
 							<td>
-								<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $f['id_filiere_enseignement']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>"><span class="buttons button-red">Supprimer</span></a>
+								<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $f['id_filiere_enseignement']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>voeu/index/<?php echo $f['id_filiere_enseignement']; ?>"><span class="buttons button-red">Supprimer</span></a>
 							</td>
 						</tr>
 						
