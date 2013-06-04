@@ -130,7 +130,7 @@
 									<td align="center"><?php echo $nbr_h_cours; ?></td>
 									<td align="center"><?php echo $nbr_h_td; ?></td>
 									<td align="center"><?php echo $nbr_h_tp; ?></td>
-									<td align="right"><?php echo str_replace('.', ',', $nbr_h_td + (($voeu['fee_nbr_h_cours'] / 60) * $coeff_cours) + (($voeu['fee_nbr_h_tp'] / 60) * $coeff_tp)); ?></td>
+									<td align="right"><?php echo str_replace('.', ',', round($nbr_h_td + (($voeu['fee_nbr_h_cours'] / 60) * $coeff_cours) + (($voeu['fee_nbr_h_tp'] / 60) * $coeff_tp), 2); ?></td>
 								</tr>
 							<?php 
 							} 
