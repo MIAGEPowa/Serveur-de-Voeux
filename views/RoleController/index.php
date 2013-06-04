@@ -9,7 +9,6 @@
 			<h2>Rôles</h2>
 		</div>
 
-
 		<div id="breadcrumb" class="text">
 			<a href="<?php echo WEBROOT.'role/index';?>" title="">Rôles</a>
 		</div>
@@ -36,12 +35,15 @@
 						<!-- Secrétaire -->
 						<div id="div-1" class="div-droits">
 							<div class="form-item">
-								<label for="s_libelle">Libellé *</label>
-								<input type="text" id="s_libelle" name="s_libelle" value="" class="input-large" />
+								<label for="s_filiere">Filiere *</label>
+								<select name="s_filiere" id="s_filiere">
+									<?php
+										foreach($arrayFilieres as $f) {
+											echo '<option value="'.$f['id'].'">'.$f['name'].'</option>';
+										}
+									?>
+								</select>
 							</div>
-							<span class="form-description">
-								Inscrivez dans ce champ le libellé souhaitez pour le nouveau rôle.
-							</span>
 						</div>
 						
 						<!-- Enseignant -->
@@ -60,6 +62,24 @@
 							</div>
 							<span class="form-description">
 								Veuillez préciser le nombre d'heures que doit effectuer le nouveau rôle d'enseignant.
+							</span>
+							
+							<div class="form-item">
+								<label for="e_coeff_cours">1h de cours équivaut à *</label>
+								<input type="text" id="e_coeff_cours" name="e_coeff_cours" value="" class="input-little" />
+							</div>
+							<span class="form-description">
+								Veuillez préciser le coefficient qui permet de valoriser une heure de cours en équivalent TD.<br />
+								(Exemple : 1h de cours = 1,5h de TD, donc 1.5 de coefficient)
+							</span>
+							
+							<div class="form-item">
+								<label for="e_coeff_tp">1h de TP équivaut à *</label>
+								<input type="text" id="e_coeff_tp" name="e_coeff_tp" value="" class="input-little" />
+							</div>
+							<span class="form-description">
+								Veuillez préciser le coefficient qui permet de valoriser une heure de TP en équivalent TD.<br />
+								(Exemple : 1h de TP = 2h de TD, donc 2 de coefficient)
 							</span>
 						</div>
 						

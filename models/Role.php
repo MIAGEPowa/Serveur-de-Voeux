@@ -25,19 +25,25 @@
 			));
 		}
 		
+		function checkRoleSecretaire($id_filiere) {
+			return $this->find(array(
+				'conditions' => 'id_filiere = '.$id_filiere.' AND droits = 1'
+			));
+		}
+		
 		function checkRoleResponsable($id_filiere, $id_diplome, $adjoint) {
 			if($id_filiere) {
 				return $this->find(array(
-					'conditions' => 'id_filiere = '.$id_filiere.' AND adjoint = '.$adjoint
+					'conditions' => 'id_filiere = '.$id_filiere.' AND adjoint = '.$adjoint.' AND droits = 3'
 				));
 			} else {
 				return $this->find(array(
-					'conditions' => 'id_diplome = '.$id_diplome.' AND adjoint = '.$adjoint
+					'conditions' => 'id_diplome = '.$id_diplome.' AND adjoint = '.$adjoint.' AND droits = 3'
 				));
 			}
 		}
 		
-		function addRole($libelle, $adjoint, $role_enseignant, $quota_h, $droits, $id_filiere, $id_diplome) {
+		function addRole($libelle, $adjoint, $role_enseignant, $quota_h, $droits, $id_filiere, $id_diplome, $coeff_cours = 0, $coeff_tp = 0) {
 			return $this->save(array(
 				'libelle' => $libelle,
 				'adjoint' => (int)($adjoint),
@@ -45,7 +51,9 @@
 				'quota_h' => (int)($quota_h),
 				'droits' => (int)($droits),
 				'id_filiere' => (int)($id_filiere),
-				'id_diplome' => (int)($id_diplome)				
+				'id_diplome' => (int)($id_diplome),
+				'coeff_cours' => $coeff_cours,
+				'coeff_tp' => $coeff_tp
 			));
 		}
 		
