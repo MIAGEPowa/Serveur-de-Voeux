@@ -139,7 +139,7 @@
                       $type = $conflit['tp_conflit'];
                     } 
                     
-                    $percent = ($total_voeux * 100) / $total_volume;
+                    $percent = ($total_volume == 0) ? 0 : ($total_voeux * 100) / $total_volume;
                     $width_progression = ($percent * 250) / 100;
                     if($width_progression > 250)
                       $width_progression = 250;
