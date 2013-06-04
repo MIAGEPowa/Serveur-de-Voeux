@@ -65,5 +65,27 @@
 			));
 		}
 		
+		function getFiliereResponsable($id_filiere) {
+			return $this->query('
+				SELECT U.id as id_utilisateur, civilite, nom, prenom, adjoint, droits
+				FROM '.DB_PREFIX.'utilisateur_role UR, '.DB_PREFIX.'role R, '.DB_PREFIX.'utilisateur U 
+				WHERE UR.id_role = R.id
+				AND UR.id_utilisateur = U.id
+				AND R.id_filiere = '.$id_filiere.' 
+				AND R.droits > 2 
+				ORDER BY R.adjoint ASC '
+			);
+		}
+		
+		function getFiliereSecretaire($id_filiere) {
+			return $this->query('
+				SELECT U.id as id_utilisateur, civilite, nom, prenom, adjoint, droits
+				FROM '.DB_PREFIX.'utilisateur_role UR, '.DB_PREFIX.'role R, '.DB_PREFIX.'utilisateur U 
+				WHERE UR.id_role = R.id
+				AND UR.id_utilisateur = U.id
+				AND R.id_filiere = '.$id_filiere.' 
+				AND R.droits = 1'
+			);
+		}
 	}
 ?>

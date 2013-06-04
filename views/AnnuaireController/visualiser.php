@@ -50,7 +50,7 @@
 
 				<div class="form-item" >
 					<label class="blue">Biographie</label>
-          <span style="text-align: justify; display: inline-block; width: 70%; vertical-align: top;"><?php echo $utilisateur[0]['biographie'];?></span>
+					<span style="text-align: justify; display: inline-block; width: 70%; vertical-align: top;"><?php echo $utilisateur[0]['biographie'];?></span>
 				</div>
 
         <div class="form-item">
