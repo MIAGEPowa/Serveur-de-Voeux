@@ -75,6 +75,11 @@
 			for($i=0; $i<count($d['roles_utilisateur']); $i++) {
 				$role = $this->Role->find(array('conditions' => 'id = '.$d['roles_utilisateur'][$i]['id_role'], 'order' => 'id'));
 				$d['roles_utilisateur'][$i]['libelle'] = $role[0]['libelle'];
+				if($role[0]['droits'] == 2) {
+					$d['coeff_cours'] = $role[0]['coeff_cours'];
+					$d['coeff_tp'] = $role[0]['coeff_tp'];
+					$d['quota_h'] = $role[0]['quota_h'];
+				}				
 			}
       
 			$d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_utilisateur = '.$id));
