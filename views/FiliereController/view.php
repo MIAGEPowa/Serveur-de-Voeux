@@ -36,19 +36,29 @@
 						
 						<div class="form-item">
 							<label class="label-large blue">Responsable</label>
+							<?php 
+								foreach ($arrayResponsable as $resp) {
+									($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+									$responsable = ($resp['adjoint'] == 0) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
+									if ($responsable != '')
+										echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$resp['id_utilisateur'].'">'.$responsable.'</a><br />';
+								}
+							?>
+						</div>		
+						
+						<div class="form-item">
+							<label class="label-large blue">Responsable adjoint</label>
 							<span style="text-align: left; display: inline-block; width: auto; vertical-align: top;">
 							<?php 
 								foreach ($arrayResponsable as $resp) {
 									($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
-									$statut = ($resp['adjoint'] == 0) ? '' : 'Adjoint - ';
-									$responsable =  $civilite.' '.$resp['prenom'].' '.$resp['nom'];
+									$responsable = ($resp['adjoint'] == 1) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
 									if ($responsable != '')
-										echo $statut.'<a href="'.WEBROOT.'annuaire/visualiser/'.$resp['id_utilisateur'].'">'.$responsable.'</a><br />';
+										echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$resp['id_utilisateur'].'">'.$responsable.'</a><br />';
 								}
 							?>
 							</span>
-						</div>		
-						
+						</div>
 						<div class="form-item">
 							<label class="label-large blue">Secrétaire</label>
 							<?php 
