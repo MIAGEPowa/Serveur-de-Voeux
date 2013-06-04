@@ -33,6 +33,41 @@
 							<label class="label-large blue">Apprentissage</label>
 							<?php echo $apprentissage ?>
 						</div>
+						
+						<div class="form-item">
+							<label class="label-large blue">Responsable</label>
+							<?php 
+								foreach ($arrayResponsable as $resp) {
+									($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+									$responsable = ($resp['adjoint'] == 0) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
+									if ($responsable != '')
+										echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$resp['id_utilisateur'].'">'.$responsable.'</a><br />';
+								}
+							?>
+						</div>		
+						
+						<div class="form-item">
+							<label class="label-large blue">Responsable adjoint</label>
+							<span style="text-align: left; display: inline-block; width: auto; vertical-align: top;">
+							<?php 
+								foreach ($arrayResponsable as $resp) {
+									($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+									$responsable = ($resp['adjoint'] == 1) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
+									if ($responsable != '')
+										echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$resp['id_utilisateur'].'">'.$responsable.'</a><br />';
+								}
+							?>
+							</span>
+						</div>
+						<div class="form-item">
+							<label class="label-large blue">Secrétaire</label>
+							<?php 
+								foreach ($arraySecretaire as $secr) {
+									($secr['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+									echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$secr['id_utilisateur'].'">'.$civilite.' '.$secr['prenom'].' '.$secr['nom'].'</a><br />';
+								}
+							?>
+						</div>
 
 					</div>
 				</fieldset>
