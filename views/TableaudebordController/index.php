@@ -14,7 +14,50 @@
 		
 		<div class="text text-two">
 		
-			<div class="text-two-item text-two-item-first" style="clear:both">
+			<div class="text-two-item text-two-item-first" style="clear: both;">
+				<h2>Etat prévisionnel des filières</h2>
+				
+				<table class="no-search">
+					<thead>
+						<tr>
+							<th width="40%">Filière</th>
+							<th width="30%">Responsable</th>
+							<th width="30%">Secrétaire</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							foreach($arrayFilieres as $f) {
+							?>
+							<tr>
+								<td><a href="<?php echo WEBROOT; ?>filiere/view/<?php echo $f['id']; ?>" title="<?php echo $f['name']; ?>"><?php echo $f['name']; ?></a></td>
+								<td>
+									<?php 
+										foreach ($f['responsable'] as $resp) {
+											($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+											$responsable = ($resp['adjoint'] == 0) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
+											if ($responsable != '')
+												echo $responsable.'<br />';
+										}
+									?>
+								</td>
+								<td>
+									<?php 
+										foreach ($f['secretaire'] as $secr) {
+											($secr['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+											echo $civilite.' '.$secr['prenom'].' '.$secr['nom'].'<br />';
+										}
+									?>
+								</td>
+							</tr>
+							<?php
+							}
+						?>
+					</tbody>
+				</table>	
+			</div>
+			
+			<div class="text-two-item">
 				<h2>Filière-enseignements avec la même référence</h2>			
 
 				<?php
@@ -39,7 +82,6 @@
 							// On parcours le tableau des enseignements
 							foreach($arrayFilieresEnseignementsSameRef as $key/*=ref*/ => $arrayFilieresEnseignements) {
 							?>
-								
 								<tr>
 									<td>
 										<?php
@@ -66,8 +108,7 @@
 				<?php
 				}
 				?>
-			</div>
-      
+			</div>      
 		</div>
     
     <div class="text text-full">
