@@ -126,11 +126,10 @@
           <table class="no-search">
              <thead>
               <tr>
-                <th width="30%">Filière - Enseignement</th>
+                <th width="40%">Filière - Enseignement</th>
                 <th width="10%">Type</th>
-                <th width="30%">Détails</th>
+                <th width="35%">Détails</th>
                 <th width="15%">Conflits</th>
-                <th width="15%">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -139,7 +138,7 @@
 							foreach($arrayConflits as $conflit) {
 							?>
                 <tr>
-                  <td><?php echo $conflit['filiere'].' '.$conflit['enseignement']?></td>
+                  <td> <a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $conflit['id']; ?>"><?php echo $conflit['filiere'].' '.$conflit['enseignement']?></a></td>
                   <td>
                     <?php
                     if (isset($conflit['cours'])) 
@@ -204,9 +203,6 @@
                       echo '<span class="red"><strong>+ '.round($nbr_h_conflit / 60, 2).' h</strong></span>';
                     }
                     ?>
-                  </td>
-                  <td>
-                    <a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $conflit['id']; ?>"><span class="buttons button-green">Visualiser</span></a>
                   </td>
                 </tr>
               <?php
