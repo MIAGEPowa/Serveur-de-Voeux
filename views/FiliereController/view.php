@@ -32,7 +32,7 @@
 						</div>		
 						
 						<div class="form-item">
-							<label class="label-large">Responsable adjoint</label>
+							<label class="label-large">Responsable(s) adjoint(s)</label>
 							<span style="text-align: left; display: inline-block; width: auto; vertical-align: top;">
 							<?php 
 								foreach ($arrayResponsable as $resp) {
@@ -85,7 +85,7 @@
 					foreach($arrayEnseignements as $enseignement) {
 						$i = 0;
 					?>
-						<tr <?php if(!$enseignement['voeux']) echo 'class="tr-error"'; ?>>
+						<tr>
 							<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $enseignement['id']; ?>" title="<?php echo $niveau.' '.$specialite; if($apprentissage) echo ' Apprentissage'; else echo ' Initial'; echo ' - '.$enseignement['libelle']; ?>"><?php echo $enseignement['libelle']; ?></a></td>
 							
 							<?php
@@ -143,12 +143,12 @@
 					<tr>
 						<td colspan="4"></td>
 						<td colspan="2" align="left"><strong>Total semestre 1</strong></td>
-						<td align="right"><strong><?php echo round($s1_total, 2); ?></strong></td>
+						<td align="right"><strong><?php echo str_replace('.', ',', round($s1_total, 2)); ?></strong></td>
 					</tr>
 					<tr>
 						<td colspan="4"></td>
 						<td colspan="2" align="left"><strong>Total semestre 2</strong></td>
-						<td align="right"><strong><?php echo round($s2_total, 2); ?></strong></td>
+						<td align="right"><strong><?php echo str_replace('.', ',', round($s2_total, 2)); ?></strong></td>
 					</tr>
 				</tbody>
 			</table>

@@ -24,7 +24,7 @@
 		<div class="text text-full div-mode-admin">
 			<form id="form-create-filiereEnseignement" action="#" method="post">
 				<fieldset>
-					<legend class="button-slide"><span class="icon-filieres-enseignement"></span>Ajouter une association Filières - Enseignements<span class="icon-arrow"></span></legend>
+					<legend class="button-slide"><span class="icon-filieres-enseignement"></span>Associer un enseignement à une filière<span class="icon-arrow"></span></legend>
 					<div style="display:none">
 						<div class="form-item">
 							<label class="label-large" for="filiere">Filière</label>
