@@ -17,10 +17,15 @@
 			
 			<fieldset>
         <legend><span class="icon-book"></span><?php echo $enseignement[0]['libelle'];?></legend>
-
+		
+		<?php
+		$civilite = '';
+		($enseignement[0]['auteur_civilite']) ? $civilite = 'M.' : $civilite = 'Mme'; 
+		?>
+		
         <div class="form-item">
           <label class="blue">Auteur</label>
-          <span><a href="<?php echo WEBROOT.'annuaire/visualiser/'.$enseignement[0]['auteur_id'];?>" title="<?php echo $enseignement[0]['auteur_nom'].' '.$enseignement[0]['auteur_prenom'];?>"><?php echo $enseignement[0]['auteur_nom'].' '.$enseignement[0]['auteur_prenom'];?></a></span>
+          <span><a href="<?php echo WEBROOT.'annuaire/visualiser/'.$enseignement[0]['auteur_id'];?>" title="<?php echo $civilite.' '.$enseignement[0]['auteur_nom'].' '.$enseignement[0]['auteur_prenom'];?>"><?php echo $civilite.' '.$enseignement[0]['auteur_nom'].' '.$enseignement[0]['auteur_prenom'];?></a></span>
         </div>
         
         <div class="form-item">
@@ -30,9 +35,9 @@
 
         <?php
         $etat = '';
-				if($enseignement[0]['etat'] == 0) {$etat = 'Créé';}
-				else if($enseignement[0]['etat'] == 1) {$etat = 'En cours';}
-				else if($enseignement[0]['etat'] == 2) {$etat = 'Abandonné';}
+		if($enseignement[0]['etat'] == 0) {$etat = 'Créé';}
+		else if($enseignement[0]['etat'] == 1) {$etat = 'En cours';}
+		else if($enseignement[0]['etat'] == 2) {$etat = 'Abandonné';} 
         ?> 
         
         <div class="form-item">

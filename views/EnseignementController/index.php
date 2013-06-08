@@ -84,15 +84,17 @@
 						// On parcours le tableau des enseignements
 						foreach($arrayEnseignements as $enseignement) {
 							$etat = '';
+							$civilite = '';
 							if($enseignement['etat'] == 0) {$etat = 'Créé';}
 							else if($enseignement['etat'] == 1) {$etat = 'En cours';}
 							else if($enseignement['etat'] == 2) {$etat = 'Abandonné';}
+							($enseignement['auteur_civilite']) ? $civilite = 'M.' : $civilite = 'Mme'; 
 						?>
 							
 							<tr>
 								<td><?php echo $enseignement['id_enseignement']; ?></td>
 								<td><?php echo $enseignement['libelle']; ?></td>
-								<td><?php echo $enseignement['auteur_nom'].' '. $enseignement['auteur_prenom']; ?></td>
+								<td><?php echo $civilite.' '.$enseignement['auteur_nom'].' '. $enseignement['auteur_prenom']; ?></td>
 								<td><?php echo $etat; ?></td>
 								<td>
 									<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/view/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-green">Visualiser</span><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/update/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-red">Supprimer</span></a>
