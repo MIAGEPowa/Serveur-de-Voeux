@@ -83,14 +83,11 @@ $(document).ready(function() {
 	
 	$('.decimal').keyup( function(e) {
 		// si la touche tapée n'est pas un chiffre, on la supprime
-		if(!$.isNumeric($(this).val())) {
+		if(!$.isNumeric($(this).val()) && $(this).val().slice($(this).val().length-1,$(this).val().length) != ",") {
 			$(this).val($(this).val().slice(0,$(this).val().length-1));
 		}
 		else {
 			$(this).val($(this).val().replace(",","."));
-			if($(this).val().length == 3 && $(this).val().substr($(this).val().length - 1) != '.') {
-				$(this).val([$(this).val().slice(0, 2), '.', $(this).val().slice(2)].join(''));
-			}
 		}
 	});
 	
