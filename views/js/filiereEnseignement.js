@@ -1,4 +1,20 @@
 $(document).ready(function() {
+
+	// Contrôle l'affichage des différents modes d'affichages
+	$('#mode-admin').click(function () {
+		$('#mode-enseignant').show();
+		$(this).hide();
+		$('.mode-aff').hide();
+		
+		$('.div-mode-admin').show();
+	});
+	$('#mode-enseignant').click(function () {
+		$('#mode-admin, .mode-aff').show();
+		$(this).hide();
+		
+		$('.div-mode-admin').hide();
+	});
+	
 	//
 	// vérifie si tous les champs sont valides au moment du submit du formulaire
 	//

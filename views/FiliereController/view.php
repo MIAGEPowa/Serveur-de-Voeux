@@ -17,21 +17,41 @@
 			
 			<div class="text-two-item text-two-item-first">
 				<fieldset>
-					<legend><span class="icon-book"></span>Visualiser une filière</legend>
-					<div>
+					<legend><span class="icon-book"></span><?php echo $niveau.' '.$specialite; if($apprentissage) echo ' Apprentissage'; else echo ' Initial'; ?></legend>
+					<div>						
 						<div class="form-item">
-							<label class="label-large blue">Niveau</label>
-							<?php echo $niveau ?>
-						</div>
+							<label class="label-large">Responsable</label>
+							<?php 
+								foreach ($arrayResponsable as $resp) {
+									($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+									$responsable = ($resp['adjoint'] == 0) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
+									if ($responsable != '')
+										echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$resp['id_utilisateur'].'">'.$responsable.'</a><br />';
+								}
+							?>
+						</div>		
 						
 						<div class="form-item">
-							<label class="label-large blue">Specialité</label>						
-							<?php echo $specialite ?>
+							<label class="label-large">Responsable(s) adjoint(s)</label>
+							<span style="text-align: left; display: inline-block; width: auto; vertical-align: top;">
+							<?php 
+								foreach ($arrayResponsable as $resp) {
+									($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+									$responsable = ($resp['adjoint'] == 1) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
+									if ($responsable != '')
+										echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$resp['id_utilisateur'].'">'.$responsable.'</a><br />';
+								}
+							?>
+							</span>
 						</div>
-						
 						<div class="form-item">
-							<label class="label-large blue">Apprentissage</label>
-							<?php echo $apprentissage ?>
+							<label class="label-large">Secrétaire</label>
+							<?php 
+								foreach ($arraySecretaire as $secr) {
+									($secr['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+									echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$secr['id_utilisateur'].'">'.$civilite.' '.$secr['prenom'].' '.$secr['nom'].'</a><br />';
+								}
+							?>
 						</div>
 
 					</div>
@@ -39,48 +59,100 @@
 			</div>
 			
 			<div class="text-two-item">
-				<?php
-					if(count($arrayEnseignements) == 0) {
-				?>
-						<h2>Liste des enseignements de la filière</h2>
-						<p>Aucun enseignement n'est associé à cette filière</p>
-				<?php
-					} else {
-				?>
-					<h2>Liste des enseignements de la filière</h2>
-					<table>
-					 <thead>
-						<tr>
-							<th width="22%">Intitulé</th>
-							<th width="22%">Créé par</th>
-							<th width="22%">Etat</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-						// On parcours le tableau des enseignements
-						foreach($arrayEnseignements as $enseignement) {
-							$etat = '';
-							if($enseignement['etat'] == 0) {$etat = 'Créé';}
-							else if($enseignement['etat'] == 1) {$etat = 'En cours';}
-							else if($enseignement['etat'] == 2) {$etat = 'Abandonné';}
-						?>
-							
-							<tr>
-								<td><?php echo $enseignement['libelle']; ?></td>
-								<td><?php echo $enseignement['auteur']; ?></td>
-								<td><?php echo $etat; ?></td>
-							</tr>
-						
-						<?php 
-						} 
-						?>
-						</tbody>
-					</table>
-				<?php
-					}
-				?>
+
 			</div>
 		</div>
+		
+		<div class="text text-full">
+			<table class="no-tri">
+				<thead>
+					<tr>
+						<th width="23%">Enseignement</th>
+						<th width="23%">Enseignant</th>
+						<th width="22%">Rôle</th>
+						<th width="8%" align="center">Cours</th>
+						<th width="8%" align="center">TD</th>
+						<th width="8%" align="center">TP</th>
+						<th width="8%" align="right">Total eq. TD</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					// On parcours le tableau des enseignements
+					// DEBUG
+					//echo '<pre>' . print_r($arrayEnseignements, true) . '</pre>';
+					$total = 0;
+					foreach($arrayEnseignements as $enseignement) {
+						$i = 0;
+					?>
+						<tr>
+							<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $enseignement['id']; ?>" title="<?php echo $niveau.' '.$specialite; if($apprentissage) echo ' Apprentissage'; else echo ' Initial'; echo ' - '.$enseignement['libelle']; ?>"><?php echo $enseignement['libelle']; ?></a></td>
+							
+							<?php
+								foreach($enseignement['voeux'] as $v) {
+									if($i) {
+										?>
+										<tr>
+											<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $v['id_filiere_enseignement']; ?>" title="<?php echo $niveau.' '.$specialite; if($apprentissage) echo ' Apprentissage'; else echo ' Initial'; echo ' - '.$enseignement['libelle']; ?>"><?php echo $enseignement['libelle']; ?></a></td>
+										<?php
+									}
+									$total = $total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
+							?>
+											<td>
+												<?php
+													if($v['civilite'])
+														echo 'M. '.$v['prenom']. ' '.$v['nom'];
+													else
+														echo 'Mme '.$v['prenom']. ' '.$v['nom'];
+												?>
+											</td>
+											<td><?php echo $v['role_libelle']; ?></td>
+											<td align="center"><?php echo str_replace('.', ',', round($v['nbr_h_cours'] / 60, 2)); ?></td>
+											<td align="center"><?php echo str_replace('.', ',', round($v['nbr_h_td'] / 60, 2)); ?></td>
+											<td align="center"><?php echo str_replace('.', ',', round($v['nbr_h_tp'] / 60, 2)); ?></td>
+											<td align="right"><?php echo str_replace('.', ',', round($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2)); ?></td>
+										</tr>
+							<?php
+									$i = $i + 1;
+								}
+								
+								if(!$enseignement['voeux'])
+									echo '<td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+					} 
+					?>
+					<tr>
+						<td colspan="4" style="border-top: 1px #979797 solid;"></td>
+						<td colspan="2" align="left" style="border-top: 1px #979797 solid;"><strong>Total</strong></td>
+						<td align="right" style="border-top: 1px #979797 solid;"><strong><span class="blue"><?php echo round($total, 2); ?></span></strong></td>
+					</tr>
+					<?php
+						$s1_total = 0;
+						$s2_total = 0;
+						foreach($arrayEnseignements as $enseignement) {
+							if($enseignement['semestre'] == 1) {
+								foreach($enseignement['voeux'] as $v) {
+									$s1_total = $s1_total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
+								}
+							} else {
+								foreach($enseignement['voeux'] as $v) {
+									$s2_total = $s2_total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
+								}
+							}
+						}
+					?>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="2" align="left"><strong>Total semestre 1</strong></td>
+						<td align="right"><strong><?php echo str_replace('.', ',', round($s1_total, 2)); ?></strong></td>
+					</tr>
+					<tr>
+						<td colspan="4"></td>
+						<td colspan="2" align="left"><strong>Total semestre 2</strong></td>
+						<td align="right"><strong><?php echo str_replace('.', ',', round($s2_total, 2)); ?></strong></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
 	</div>
 </div>

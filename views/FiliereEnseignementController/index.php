@@ -14,9 +14,17 @@
 		</div>
 		
 		<div class="text text-full">
+			<span id="mode-admin" class="buttons button-orange" style="float: right;">Mode administrateur</span>
+			<span id="mode-enseignant" class="buttons button-green" style="float: right; display: none;">Mode enseignant</span>
+			<span id="mode-aff-1" class="buttons button-blue mode-aff" style="float: right;"><img src="<?php echo IMG_DIR; ?>mode_aff_1.png" title="Mode affichage" alt="Icône mode d'affichage" style="display: block;width: 17px;" /></span>
+			<span id="mode-aff-2" class="buttons button-blue mode-aff" style="float: right;"><img src="<?php echo IMG_DIR; ?>mode_aff_2.png" title="Mode affichage" alt="Icône mode d'affichage" style="display: block;width: 17px;margin: 3px 0;" /></span>
+			<div class="clear"></div>
+		</div>
+		
+		<div class="text text-full div-mode-admin">
 			<form id="form-create-filiereEnseignement" action="#" method="post">
 				<fieldset>
-					<legend class="button-slide"><span class="icon-filieres-enseignement"></span>Ajouter une association Filières - Enseignements<span class="icon-arrow"></span></legend>
+					<legend class="button-slide"><span class="icon-filieres-enseignement"></span>Associer un enseignement à une filière<span class="icon-arrow"></span></legend>
 					<div style="display:none">
 						<div class="form-item">
 							<label class="label-large" for="filiere">Filière</label>
@@ -136,7 +144,7 @@
 			</form>
 		</div>
 		
-		<div class="text text-full">
+		<div class="text text-full div-mode-admin">
 
 			<div id="choix-annees">
 				Année : 

@@ -9,14 +9,14 @@
 		
 		function index($id_role = 0) {
     
-      if ($id_role != 0) {
-        if (!$this->UtilisateurRole->existRole($id_role)) {
-          $this->Role->del($id_role);
-          $d['v_success'] = 'Rôle supprimé avec succès';
-        } else {
-          $d['v_errors'] = 'Oops ! Le rôle ne peut pas être supprimé car il est déjà associé à un utilisateur.';
-        }
-      }
+			if ($id_role != 0) {
+				if (!$this->UtilisateurRole->existRole($id_role)) {
+					$this->Role->del($id_role);
+					$d['v_success'] = 'Rôle supprimé avec succès';
+				} else {
+					$d['v_errors'] = 'Oops ! Le rôle ne peut pas être supprimé car il est déjà associé à un utilisateur.';
+				}
+			}
       
 			// Titre
 			$d['v_titreHTML'] = 'Rôles';
@@ -31,11 +31,15 @@
 						// Traitement du role secrétaire
 						if($_POST['droits'] == 1) {
 						
-							if(isset($_POST['s_libelle']) && !empty($_POST['s_libelle'])) {
+							if(isset($_POST['s_filiere']) && !empty($_POST['s_filiere'])) {
 								
-								$checkRole = $this->Role->checkRoleLibelle($_POST['s_libelle']);
+								$l = "Secrétaire";
+								$filiere_libelle = $this->Filiere->getFiliereName($_POST['s_filiere']);
+								$l .= " ".$filiere_libelle;
+								
+								$checkRole = $this->Role->checkRoleSecretaire($_POST['s_filiere']);
 								if(!$checkRole) {
-									$this->Role->addRole($_POST['s_libelle'], 0, 0, 0, 1, 0, 0);
+									$this->Role->addRole($l, 0, 0, 0, 1, $_POST['s_filiere'], 0, 0, 0);
 									$d['v_success'] = 'Rôle ajouté avec succès';
 								} else {
 									$d['v_errors'] = 'Oops ! Ce rôle a déjà été crée.';
@@ -48,11 +52,11 @@
 						// Traitement du role enseignant
 						} else if($_POST['droits'] == 2) {
 						
-							if(isset($_POST['e_libelle']) && !empty($_POST['e_libelle']) && isset($_POST['e_quota_heures']) && !empty($_POST['e_quota_heures']) && is_numeric($_POST['e_quota_heures'])) {
+							if(isset($_POST['e_libelle']) && !empty($_POST['e_libelle']) && isset($_POST['e_quota_heures']) && !empty($_POST['e_quota_heures']) && is_numeric($_POST['e_quota_heures']) && is_numeric($_POST['e_coeff_cours']) && is_numeric($_POST['e_coeff_tp'])) {
 								
 								$checkRole = $this->Role->checkRoleLibelle($_POST['e_libelle']);
 								if(!$checkRole) {
-									$this->Role->addRole($_POST['e_libelle'], 0, 1, (int)($_POST['e_quota_heures']), 2, 0, 0);
+									$this->Role->addRole($_POST['e_libelle'], 0, 1, (int)($_POST['e_quota_heures']), 2, 0, 0, $_POST['e_coeff_cours'], $_POST['e_coeff_tp']);
 									$d['v_success'] = 'Rôle ajouté avec succès';
 								} else {
 									$d['v_errors'] = 'Oops ! Ce rôle a déjà été créé.';
@@ -78,7 +82,7 @@
 										if($_POST['r_adjoint'])
 											$l .= " adjoint";
 										$l .= " ".$filiere_libelle;									
-										$this->Role->addRole($l, $_POST['r_adjoint'], 0, 0, 3, $_POST['r_filiere'], 0);
+										$this->Role->addRole($l, $_POST['r_adjoint'], 0, 0, 3, $_POST['r_filiere'], 0, 0, 0);
 										
 										$d['v_success'] = 'Rôle ajouté avec succès';
 									} else {
@@ -97,7 +101,7 @@
 											$l .= " adjoint";
 										$l .= " ".$tmp[0]['libelle'];
 										
-										$this->Role->addRole($l, $_POST['r_adjoint'], 0, 0, 3, 0, $_POST['r_diplome']);
+										$this->Role->addRole($l, $_POST['r_adjoint'], 0, 0, 3, 0, $_POST['r_diplome'], 0, 0);
 										
 										$d['v_success'] = 'Rôle ajouté avec succès';
 									} else {
@@ -117,7 +121,7 @@
 								
 								$checkRole = $this->Role->checkRoleLibelle($_POST['a_libelle']);
 								if(!$checkRole) {
-									$this->Role->addRole($_POST['a_libelle'], 0, 0, 0, 4, 0, 0);
+									$this->Role->addRole($_POST['a_libelle'], 0, 0, 0, 4, 0, 0, 0, 0);
 									$d['v_success'] = 'Rôle ajouté avec succès';
 								} else {
 									$d['v_errors'] = 'Oops ! Ce rôle a déjà été crée.';

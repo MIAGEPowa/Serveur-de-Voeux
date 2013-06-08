@@ -9,7 +9,7 @@
 		
 		function getAllByUser($id_utilisateur) {
 			return $this->query('
-				SELECT F.apprentissage as filiere_apprentissage, S.libelle as specialite_libelle, N.libelle as niveau_libelle, E.libelle as enseignement_libelle, annee, FEE.nbr_h_cours as fee_nbr_h_cours, FEE.nbr_h_td as fee_nbr_h_td, FEE.nbr_h_tp as fee_nbr_h_tp
+				SELECT FE.id as id_filiere_enseignement, F.apprentissage as filiere_apprentissage, S.libelle as specialite_libelle, N.libelle as niveau_libelle, E.libelle as enseignement_libelle, annee, FEE.nbr_h_cours as fee_nbr_h_cours, FEE.nbr_h_td as fee_nbr_h_td, FEE.nbr_h_tp as fee_nbr_h_tp
 				FROM '.DB_PREFIX.'filiere_enseignement_enseignant FEE, '.DB_PREFIX.'utilisateur U, '.DB_PREFIX.'filiere_enseignement FE, '.DB_PREFIX.'filiere F, '.DB_PREFIX.'enseignement E, '.DB_PREFIX.'niveau N, '.DB_PREFIX.'specialite S
 				WHERE FEE.id_utilisateur = U.id
 				AND FEE.id_filiere_enseignement	= FE.id

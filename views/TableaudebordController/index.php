@@ -14,7 +14,50 @@
 		
 		<div class="text text-two">
 		
-			<div class="text-two-item text-two-item-first" style="clear:both">
+			<div class="text-two-item text-two-item-first" style="clear: both;">
+				<h2>Etat prévisionnel des filières</h2>
+				
+				<table class="no-search">
+					<thead>
+						<tr>
+							<th width="40%">Filière</th>
+							<th width="30%">Responsable</th>
+							<th width="30%">Secrétaire</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							foreach($arrayFilieres as $f) {
+							?>
+							<tr>
+								<td><a href="<?php echo WEBROOT; ?>filiere/view/<?php echo $f['id']; ?>" title="<?php echo $f['name']; ?>"><?php echo $f['name']; ?></a></td>
+								<td>
+									<?php 
+										foreach ($f['responsable'] as $resp) {
+											($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+											$responsable = ($resp['adjoint'] == 0) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
+											if ($responsable != '')
+												echo $responsable.'<br />';
+										}
+									?>
+								</td>
+								<td>
+									<?php 
+										foreach ($f['secretaire'] as $secr) {
+											($secr['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+											echo $civilite.' '.$secr['prenom'].' '.$secr['nom'].'<br />';
+										}
+									?>
+								</td>
+							</tr>
+							<?php
+							}
+						?>
+					</tbody>
+				</table>	
+			</div>
+			
+			<div class="text-two-item">
 				<h2>Filière-enseignements avec la même référence</h2>			
 
 				<?php
@@ -39,7 +82,6 @@
 							// On parcours le tableau des enseignements
 							foreach($arrayFilieresEnseignementsSameRef as $key/*=ref*/ => $arrayFilieresEnseignements) {
 							?>
-								
 								<tr>
 									<td>
 										<?php
@@ -66,8 +108,7 @@
 				<?php
 				}
 				?>
-			</div>
-      
+			</div>      
 		</div>
     
     <div class="text text-full">
@@ -85,11 +126,10 @@
           <table class="no-search">
              <thead>
               <tr>
-                <th width="30%">Filière - Enseignement</th>
+                <th width="40%">Filière - Enseignement</th>
                 <th width="10%">Type</th>
-                <th width="30%">Détails</th>
+                <th width="35%">Détails</th>
                 <th width="15%">Conflits</th>
-                <th width="15%">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -98,7 +138,7 @@
 							foreach($arrayConflits as $conflit) {
 							?>
                 <tr>
-                  <td><?php echo $conflit['filiere'].' '.$conflit['enseignement']?></td>
+                  <td> <a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $conflit['id']; ?>"><?php echo $conflit['filiere'].' '.$conflit['enseignement']?></a></td>
                   <td>
                     <?php
                     if (isset($conflit['cours'])) 
@@ -139,7 +179,7 @@
                       $type = $conflit['tp_conflit'];
                     } 
                     
-                    $percent = ($total_voeux * 100) / $total_volume;
+                    $percent = ($total_volume == 0) ? 0 : ($total_voeux * 100) / $total_volume;
                     $width_progression = ($percent * 250) / 100;
                     if($width_progression > 250)
                       $width_progression = 250;
@@ -163,9 +203,6 @@
                       echo '<span class="red"><strong>+ '.round($nbr_h_conflit / 60, 2).' h</strong></span>';
                     }
                     ?>
-                  </td>
-                  <td>
-                    <a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $conflit['id']; ?>"><span class="buttons button-green">Visualiser</span></a>
                   </td>
                 </tr>
               <?php

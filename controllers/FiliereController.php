@@ -2,7 +2,7 @@
 	class FiliereController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Filiere', 'Niveau', 'Specialite');
+		var $models = array('UtilisateurRole', 'Filiere', 'Niveau', 'Specialite', 'FiliereEnseignementEnseignant');
 
 		function index() {
 			// Titre
@@ -34,6 +34,8 @@
 					$d['arrayFilieres'][$i]['niveau'] = $d['arrayFilieres'][$i]['niveau'][0]['libelle'];
 					if($d['arrayFilieres'][$i]['apprentissage'] == 0) {$d['arrayFilieres'][$i]['apprentissage_lib'] = 'Non';}
 					else {$d['arrayFilieres'][$i]['apprentissage_lib'] = 'Oui';}
+					$d['arrayFilieres'][$i]['responsable'] = $this->UtilisateurRole->getFiliereResponsable($d['arrayFilieres'][$i]['id']);
+					$d['arrayFilieres'][$i]['secretaire'] = $this->UtilisateurRole->getFiliereSecretaire($d['arrayFilieres'][$i]['id']);
 				}
 				
 				$this->set($d);
@@ -67,6 +69,20 @@
 				
 				$d['arrayEnseignements'] = $this->Filiere->getEnseignements($id);
 				
+				foreach($d['arrayEnseignements'] as $key=>$e) {
+					$d['arrayEnseignements'][$key]['voeux'] = $this->FiliereEnseignementEnseignant->getAllByFiliereEnseignement($e['id']);
+					foreach($d['arrayEnseignements'][$key]['voeux'] as $key2=>$v) {
+						$role_e = $this->UtilisateurRole->getRoleEnseignantUtilisateur($v['id']);
+						$d['arrayEnseignements'][$key]['voeux'][$key2]['role_libelle'] = $role_e['libelle'];
+						$d['arrayEnseignements'][$key]['voeux'][$key2]['quota_h'] = $role_e['quota_h'];
+						$d['arrayEnseignements'][$key]['voeux'][$key2]['coeff_cours'] = $role_e['coeff_cours'];
+						$d['arrayEnseignements'][$key]['voeux'][$key2]['coeff_tp'] = $role_e['coeff_tp'];
+					}
+				}
+				
+				$d['arrayResponsable'] = $this->UtilisateurRole->getFiliereResponsable($id);
+				$d['arraySecretaire'] = $this->UtilisateurRole->getFiliereSecretaire($id);
+					
 				$this->set($d);
 				$this->render('view');
 			} else {

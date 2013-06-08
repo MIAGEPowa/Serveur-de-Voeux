@@ -78,11 +78,13 @@
 				<table>
 					 <thead>
 						<tr>
-							<th width="12%">#</th>
-							<th width="22%">Niveau</th>
-							<th width="22%">Specialité</th>
-							<th width="22%">Apprentissage</th>
-							<th width="22%">Actions</th>
+							<th width="5%">#</th>
+							<th width="10%">Niveau</th>
+							<th width="10%">Specialité</th>
+							<th width="15%">Apprentissage</th>
+							<th width="20%">Responsable</th>
+							<th width="20%">Secrétaire</th>
+							<th width="20%">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -95,6 +97,24 @@
 								<td><?php echo $filiere['niveau']; ?></td>
 								<td><?php echo $filiere['specialite']; ?></td>
 								<td><?php echo $filiere['apprentissage_lib']; ?></td>
+								<td>
+									<?php 
+									foreach ($filiere['responsable'] as $resp) {
+										($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+										$responsable = ($resp['adjoint'] == 0) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
+										if ($responsable != '')
+											echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$resp['id_utilisateur'].'">'.$responsable.'</a><br />';
+									}
+									?>
+								</td>
+								<td>
+									<?php 
+									foreach ($filiere['secretaire'] as $secr) {
+										($secr['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+										echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$secr['id_utilisateur'].'">'.$civilite.' '.$secr['prenom'].' '.$secr['nom'].'</a><br />';
+									}
+									?>
+								</td>
 								<td>
 									<a class="buttons-link" href="<?php echo WEBROOT; ?>filiere/view/<?php echo $filiere['id']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>filiere/delete/<?php echo $filiere['id']; ?>"><span class="buttons button-red">Supprimer</span></a>
 								</td>
