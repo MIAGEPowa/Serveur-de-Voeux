@@ -23,8 +23,17 @@
 			</div>
 		</div>
 
-		<div id="header">
-			<h1><a href="<?php echo WEBROOT; ?>" title="<?php echo PAGE_TITLE; ?>"><?php echo PAGE_TITLE; ?></a></h1>
+(		<div id="header">
+			<?php  
+			/* Afin d'obtenir l'année en cours */
+			$annee = mysql_query('SELECT * FROM '.DB_PREFIX.'config') or die(mysql_error()."<br/> => ".$sql);
+			$d = array();
+			while($data = mysql_fetch_assoc($annee)){
+				$d[] = $data;
+			}
+			$annee = $d[0]['annee']; 
+			?>
+			<h1><a href="<?php echo WEBROOT; ?>" title="<?php echo PAGE_TITLE; ?>"><?php echo PAGE_TITLE; ?> <?php echo ' - '.$annee ?></a></h1>
 			<?php 
 				if($_SESSION['v_connected']) {
 					if(file_exists(ROOT.'files/avatar/'.$_SESSION['v_id_utilisateur'].'.png'))

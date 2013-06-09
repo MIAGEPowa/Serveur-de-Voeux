@@ -73,6 +73,11 @@
 																	'reference' => $_POST['reference']);
 								$this->FiliereEnseignement->save($dataFiliereEnseignement);
 								
+								// on met l'enseignement dans l'état "en cours"
+								$dataEnseignement = array(	'id' => $_POST['enseignement'],
+															'etat' => 1);
+								$this->Enseignement->save($dataEnseignement);
+								
 								$d['v_success'] = 'L\'association Filiere-Enseignement a bien été créée !';
 							} else {
 								$d['v_errors'] = 'Oops ! Cette association Filiere-Enseignement existe déjà !';

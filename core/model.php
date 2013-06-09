@@ -67,13 +67,15 @@ class Model{
     public function find($data=array()){
             $conditions = "1=1";
             $fields = "*";
+			$alias = "";
             $limit = "";
             $typeOrder = "ORDER";
             $order = "id DESC";
+			// other = HAVING COUNT(*) par exemple ou autre
             $other = "";
             extract($data);
             if(isset($data["limit"])){ $limit = "LIMIT ".$data["limit"]; }
-            $sql = "SELECT $fields FROM ".$this->table." WHERE $conditions $typeOrder BY $order $other $limit";
+            $sql = "SELECT $fields FROM ".$this->table." $alias WHERE $conditions $typeOrder BY $order $other $limit";
             $req = mysql_query($sql) or die(mysql_error()."<br/> => ".$sql);
             $d = array();
             while($data = mysql_fetch_assoc($req)){

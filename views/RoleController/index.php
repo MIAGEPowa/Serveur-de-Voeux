@@ -66,7 +66,8 @@
 							
 							<div class="form-item">
 								<label for="e_coeff_cours">1h de cours équivaut à *</label>
-								<input type="text" id="e_coeff_cours" name="e_coeff_cours" value="" class="input-little" />
+								<input type="text" id="e_coeff_cours" name="e_coeff_cours" value="" class="decimal input-little" />
+								h de TD
 							</div>
 							<span class="form-description">
 								Veuillez préciser le coefficient qui permet de valoriser une heure de cours en équivalent TD.<br />
@@ -75,7 +76,8 @@
 							
 							<div class="form-item">
 								<label for="e_coeff_tp">1h de TP équivaut à *</label>
-								<input type="text" id="e_coeff_tp" name="e_coeff_tp" value="" class="input-little" />
+								<input type="text" id="e_coeff_tp" name="e_coeff_tp" value="" class="decimal input-little" />
+								h de TD
 							</div>
 							<span class="form-description">
 								Veuillez préciser le coefficient qui permet de valoriser une heure de TP en équivalent TD.<br />

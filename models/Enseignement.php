@@ -49,7 +49,7 @@
     
 		function deleteEnseignement($id=null) {
 			// delete des keywords associés
-			$this->deleteQuery("DELETE FROM '.DB_PREFIX.'keyword WHERE id_enseignement=$id");
+			$this->deleteQuery("DELETE FROM ".DB_PREFIX."keyword WHERE id_enseignement=$id");
 			// delete de l'enseignement
 			$this->del($id);
 		}

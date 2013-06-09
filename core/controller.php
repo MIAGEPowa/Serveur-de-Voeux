@@ -3,7 +3,7 @@
 
 		var $vars = array();
 		var $layout = 'default';
-
+		
 		function __construct() {
 			if(isset($_POST)) {
 				foreach(array_keys($_POST) as $key) {

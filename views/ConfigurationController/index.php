@@ -18,8 +18,12 @@
 				<fieldset>
 					<legend><span class="icon-config"></span>Configuration</legend>
 						<div class="form-item">
-							Attention ! Si vous décidez de passer à l'année suivante, cela aura des répercutions <strong>IRREVERSIBLES</strong> au sein de l'application.<br />
-							Les listes ....
+							Attention ! Si vous décidez de passer à l'année suivante, cela aura des <strong>répercutions</strong> au sein de l'application.<br />
+							<br />
+							<i>
+							- Les utilisateurs qui n'ont pas fait de voeux pendant 3 années successives seront désactivés <br />
+							- Les enseignements en cours et qui ne sont reliés à aucune filière passeront dans l'état <u>abandonné</u> <br />
+							</i>
 						</div>
 						
 						<div class="form-item">

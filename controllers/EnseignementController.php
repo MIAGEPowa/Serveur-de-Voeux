@@ -111,7 +111,10 @@
 		
 		function delete($id) {
 			$this->Enseignement->deleteEnseignement($id);
-			redirection("enseignement", "index");
+			$d['v_success'] = 'L\'enseignement a bien été supprimé !';
+			
+			$this->set($d);
+			$this->render('index');
 		}
     
 		function view($id) {

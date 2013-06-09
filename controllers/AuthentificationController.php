@@ -2,7 +2,7 @@
 	class AuthentificationController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Utilisateur');
+		var $models = array('Utilisateur', 'Configuration');
 		
 		// Variables pour les vues
 		var $v_JS = array('authentification');
