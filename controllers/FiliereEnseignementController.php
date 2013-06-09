@@ -4,25 +4,23 @@
 		// Déclaration du modèle rattaché au controlleur
 		var $models = array('FiliereEnseignementEnseignant', 'FiliereEnseignement', 'Filiere', 'Enseignement', 
 							'Specialite', 'Niveau', 'UtilisateurRole', 'Utilisateur', 'Configuration');
-
-		function index($id_filiere_enseignement = 0, $refFiltre = 0 /* filtre appelé à partir du tableau de bord (conflit de ref) */, $anneeFiltre = 0) {
-    
-			if ($id_filiere_enseignement != 0) {
-				if (!$this->FiliereEnseignementEnseignant->find(array('conditions' => 'id_filiere_enseignement = "' . $id_filiere_enseignement . '"', 'order' => 'id_filiere_enseignement asc'))) {
-					$this->FiliereEnseignement->del($id_filiere_enseignement);
-					$d['v_success'] = 'Filière - Enseignements supprimée avec succès';
-				} else {
-					$d['v_errors'] = 'Oops ! La Filière - Enseignements ne peut pas être supprimée car elle est déjà associée à un voeu.';
-				}
-			}
-	  
-			// Titre
-			$d['v_titreHTML'] = 'Filières - Enseignements';
+							
+		function admin($id_filiere_enseignement = 0, $refFiltre = 0 /* filtre appelé à partir du tableau de bord (conflit de ref) */, $anneeFiltre = 0) {
+			$d['v_titreHTML'] = 'Filières - Enseignements, administrer';
 			$d['v_menuActive'] = 'filieresEnseignements';
 			$this->v_JS = array('filiereEnseignement');
-			$d['v_needRights'] = 2;
+			$d['v_needRights'] = 3;
 
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+			
+				if ($id_filiere_enseignement != 0) {
+					if (!$this->FiliereEnseignementEnseignant->find(array('conditions' => 'id_filiere_enseignement = "' . $id_filiere_enseignement . '"', 'order' => 'id_filiere_enseignement asc'))) {
+						$this->FiliereEnseignement->del($id_filiere_enseignement);
+						$d['v_success'] = 'Filière - Enseignements supprimée avec succès';
+					} else {
+						$d['v_errors'] = 'Oops ! La Filière - Enseignements ne peut pas être supprimée car elle est déjà associée à un voeu.';
+					}
+				}
 			
 				if($_POST['filiereEnseignement_form_add'] && $_SESSION['v_droits'] >= 3) {
 					if(isset($_POST['dateDebut']) && !empty($_POST['dateDebut'])
@@ -91,6 +89,101 @@
 						$d['v_errors'] = 'Oops ! Il manque une ou plusieurs des informations suivantes : date début, enseignement, filière et année.';
 					}
 				}
+				
+				$d['arrayFilieres'] = $this->Filiere->find();
+				$d['arrayEnseignements'] = $this->Enseignement->find();
+				
+				// Dans la liste des filières, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
+				for($i=0; $i<count($d['arrayFilieres']); $i++) {
+					// Spécialité
+					$specialite = $this->Specialite->find(array('conditions' => 'id = '.$d['arrayFilieres'][$i]['id_specialite']));
+					$d['arrayFilieres'][$i]['specialite'] = $specialite[0]['libelle'];
+					// Niveau
+					$niveau = $this->Niveau->find(array('conditions' => 'id = '.$d['arrayFilieres'][$i]['id_niveau']));
+					$d['arrayFilieres'][$i]['niveau'] = $niveau[0]['libelle'];
+					// Apprentissage
+					if($d['arrayFilieres'][$i]['apprentissage'] == 0) {$d['arrayFilieres'][$i]['apprentissage_lib'] = 'Initial';}
+					else {$d['arrayFilieres'][$i]['apprentissage_lib'] = 'Apprentissage';}
+				}
+				
+				$annee = $this->Configuration->find();
+				$annee = $annee[0]['annee'];
+				$d['arrayAnnees'] = array($annee-1,$annee,$annee+1);
+				
+				// Si filtre appelé à partir du tableau de bord (conflit de ref)
+				if(!empty($refFiltre)) {
+					$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "reference = '".$refFiltre."'"));
+				}else{
+					if(empty($anneeFiltre)){
+						$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "annee = '".$annee."'"));
+					}else if($anneeFiltre === 'tout'){
+						$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find();
+					}else{
+						$d['arrayFiliereEnseignement'] = $this->FiliereEnseignement->find(array("conditions" => "annee = '".$anneeFiltre."'"));
+					}
+				}
+				// Permet de sélectionner l'année dans le select
+				if(empty($anneeFiltre)){ 
+					$d['selection'] = $annee; 
+				}else if($anneeFiltre === 'tout'){ 
+					$d['selection'] = 'tout'; 
+				}else{ 
+					$d['selection'] = $anneeFiltre; 
+				}
+				
+				// Dans la liste des filières-enseignement, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
+				for($i=0; $i<count($d['arrayFiliereEnseignement']); $i++) {
+					
+					$filiere = $this->Filiere->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_filiere']));
+					// Niveau
+					$niveau = $this->Niveau->find(array('conditions' => 'id = '.$filiere[0]['id_niveau']));
+					$niveau = $niveau[0]['libelle'];
+					// Spécialité
+					$specialite = $this->Specialite->find(array('conditions' => 'id = '.$filiere[0]['id_specialite']));
+					$specialite = $specialite[0]['libelle'];
+					// Apprentissage
+					if($filiere[0]['apprentissage'] == 0) {$apprentissage = 'Initial';}
+					else {$apprentissage = 'Apprentissage';}
+					// Responsable
+					$arrayResponsables = $this->UtilisateurRole->find(array('conditions' => 'id_filiere_enseignement = '.$d['arrayFiliereEnseignement'][$i]['id'],
+																			'order' => 'id_filiere_enseignement'));
+					if(count($arrayResponsables) != 0) {
+						$d['arrayFiliereEnseignement'][$i]['responsable'] = array();
+						foreach ($arrayResponsables as $responsable) {
+							$responsable = $this->Utilisateur->find(array('conditions' => 'id = '.$responsable['id_utilisateur']));
+							$civilite = ($responsable['civilite'] == 0) ? "Mme" : "M";
+							$d['arrayFiliereEnseignement'][$i]['responsable'][] = $civilite.' '.$responsable[0]['prenom'].' '.$responsable[0]['nom'];
+						}
+					}
+					// Filière
+					$d['arrayFiliereEnseignement'][$i]['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
+					
+					// Enseignement
+					$enseignement = $this->Enseignement->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_enseignement']));
+					$d['arrayFiliereEnseignement'][$i]['enseignement'] = $enseignement[0]['libelle'];
+					
+					// Conflits
+					$d['arrayFiliereEnseignement'][$i]['conflits'] = $this->FiliereEnseignementEnseignant->getConflitsByFiliereEnseignement($d['arrayFiliereEnseignement'][$i]['id']);
+				}
+			
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
+			
+			$this->set($d);
+			$this->render('admin');
+		}
+
+		function index() {
+   
+			// Titre
+			$d['v_titreHTML'] = 'Filières - Enseignements';
+			$d['v_menuActive'] = 'filieresEnseignements';
+			$this->v_JS = array('filiereEnseignement');
+			$d['v_needRights'] = 2;
+
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
 				
 				$d['arrayFilieres'] = $this->Filiere->find();
 				$d['arrayEnseignements'] = $this->Enseignement->find();

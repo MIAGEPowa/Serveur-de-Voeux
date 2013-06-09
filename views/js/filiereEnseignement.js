@@ -6,24 +6,7 @@ $(document).ready(function() {
 		$(this).width(0).animate({"width": width}, 2000);
 	});
 	
-	// Contrôle l'affichage des différents modes d'affichages
-	$('#mode-admin').click(function () {
-		$('#mode-enseignant').show();
-		$(this).hide();
-		$('.mode-aff').hide();
-		
-		$('.div-mode-enseignant').hide();
-		$('.div-mode-admin').show();
-	});
-	$('#mode-enseignant').click(function () {
-		$('#mode-admin, .mode-aff').show();
-		$(this).hide();
-		
-		$('.div-mode-admin').hide();
-		$('#mode-aff-2').hide();
-		$('#mode-enseignant-2').show();
-	});
-	
+	// Contrôle l'affichage des différents modes d'affichages	
 	$('#mode-aff-1').click(function () {
 		$(this).hide();
 		$('#mode-enseignant-2').hide();

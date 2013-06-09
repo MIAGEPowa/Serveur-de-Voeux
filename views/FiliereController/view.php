@@ -17,7 +17,7 @@
 			
 			<div class="text-two-item text-two-item-first">
 				<fieldset>
-					<legend><span class="icon-book"></span><?php echo $niveau.' '.$specialite; if($apprentissage) echo ' Apprentissage'; else echo ' Initial'; ?></legend>
+					<legend><span class="icon-book"></span><?php echo $niveau.' '.$specialite; if($apprentissage == 'oui') echo ' Apprentissage'; else echo ' Initial'; ?></legend>
 					<div>						
 						<div class="form-item">
 							<label class="label-large">Responsable</label>

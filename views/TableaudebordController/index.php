@@ -189,18 +189,18 @@
                       <span><?php echo round($percent, 2); ?> %</span>
                       <div class="progression <?php if($percent == 100) echo 'barreProgressionGreen'; else if($percent > 100) echo 'barreProgressionRed'; else if($percent < 100) echo 'barreProgressionOrange'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
                     </div>
-                    <span class="feEtatPrevisionnelleHeures"><?php echo round($total_voeux / 60, 2).' / '.round($total_volume / 60, 2);  ?> h</span>
+                    <span class="feEtatPrevisionnelleHeures"><?php echo str_replace('.', ',', round($total_voeux / 60, 2)).' / '.str_replace('.', ',', round($total_volume / 60, 2));  ?> h</span>
                   </td>
                   <td>
                     <?php   
                     // Il manque des heures
                     if($type == 0) {
                       $nbr_h_conflit = $total_volume - $total_voeux;
-                      echo '<span class="orange"><strong>- '.round($nbr_h_conflit / 60, 2).' h</strong></span>';
+                      echo '<span class="orange"><strong>- '.str_replace('.', ',', round($nbr_h_conflit / 60, 2)).' h</strong></span>';
                     }
                     else {
                       $nbr_h_conflit = abs($total_voeux - $total_volume);
-                      echo '<span class="red"><strong>+ '.round($nbr_h_conflit / 60, 2).' h</strong></span>';
+                      echo '<span class="red"><strong>+ '.str_replace('.', ',', round($nbr_h_conflit / 60, 2)).' h</strong></span>';
                     }
                     ?>
                   </td>

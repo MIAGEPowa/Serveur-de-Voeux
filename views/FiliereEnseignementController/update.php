@@ -10,7 +10,7 @@
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="<?php echo WEBROOT.'filiereEnseignement/index'; ?>" title="">Filières - Enseignements</a><span class="delimiter">></span>Modification d'une association filière-enseignement
+			<a href="<?php echo WEBROOT.'filiereEnseignement/admin'; ?>" title="">Filières - Enseignements</a><span class="delimiter">></span>Modification d'une association filière-enseignement
 		</div>
 		
 		<div class="text text-full">
