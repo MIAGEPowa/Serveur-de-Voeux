@@ -26,7 +26,7 @@
 		
 		function getAll() {
 			return $this->query('
-				SELECT E.id as id_enseignement, libelle, description, U.nom as auteur_nom, U.prenom as auteur_prenom, etat
+				SELECT E.id as id_enseignement, libelle, description, U.civilite as auteur_civilite, U.nom as auteur_nom, U.prenom as auteur_prenom, etat
 				FROM '.DB_PREFIX.'enseignement E, '.DB_PREFIX.'utilisateur U 
 				WHERE E.auteur = U.id'
 			);
@@ -34,7 +34,7 @@
 		
 		function getEnseignementView($id) {
 			return $this->query('
-				SELECT E.id as id_enseignement, libelle, description, U.id as auteur_id, U.nom as auteur_nom, U.prenom as auteur_prenom, etat
+				SELECT E.id as id_enseignement, libelle, description, U.id as auteur_id, U.civilite as auteur_civilite, U.nom as auteur_nom, U.prenom as auteur_prenom, etat
 				FROM '.DB_PREFIX.'enseignement E, '.DB_PREFIX.'utilisateur U 
 				WHERE E.auteur = U.id 
 				AND E.id = '.$id

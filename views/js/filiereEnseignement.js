@@ -6,6 +6,7 @@ $(document).ready(function() {
 		$(this).hide();
 		$('.mode-aff').hide();
 		
+		$('.div-mode-enseignant').hide();
 		$('.div-mode-admin').show();
 	});
 	$('#mode-enseignant').click(function () {
@@ -13,7 +14,22 @@ $(document).ready(function() {
 		$(this).hide();
 		
 		$('.div-mode-admin').hide();
+		$('#mode-aff-2').hide();
+		$('#mode-enseignant-2').show();
 	});
+	
+	$('#mode-aff-1').click(function () {
+		$(this).hide();
+		$('#mode-enseignant-2').hide();
+		$('#mode-enseignant-1, #mode-aff-2').show();
+	});
+	
+	$('#mode-aff-2').click(function () {
+		$(this).hide();
+		$('#mode-enseignant-1').hide();
+		$('#mode-enseignant-2, #mode-aff-1').show();
+	});
+	
 	
 	//
 	// vérifie si tous les champs sont valides au moment du submit du formulaire

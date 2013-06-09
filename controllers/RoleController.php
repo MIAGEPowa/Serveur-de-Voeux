@@ -51,7 +51,7 @@
 						
 						// Traitement du role enseignant
 						} else if($_POST['droits'] == 2) {
-						
+							
 							if(isset($_POST['e_libelle']) && !empty($_POST['e_libelle']) && isset($_POST['e_quota_heures']) && !empty($_POST['e_quota_heures']) && is_numeric($_POST['e_quota_heures']) && is_numeric($_POST['e_coeff_cours']) && is_numeric($_POST['e_coeff_tp'])) {
 								
 								$checkRole = $this->Role->checkRoleLibelle($_POST['e_libelle']);

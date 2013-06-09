@@ -17,11 +17,11 @@
 			<span id="mode-admin" class="buttons button-orange" style="float: right;">Mode administrateur</span>
 			<span id="mode-enseignant" class="buttons button-green" style="float: right; display: none;">Mode enseignant</span>
 			<span id="mode-aff-1" class="buttons button-blue mode-aff" style="float: right;"><img src="<?php echo IMG_DIR; ?>mode_aff_1.png" title="Mode affichage" alt="Icône mode d'affichage" style="display: block;width: 17px;" /></span>
-			<span id="mode-aff-2" class="buttons button-blue mode-aff" style="float: right;"><img src="<?php echo IMG_DIR; ?>mode_aff_2.png" title="Mode affichage" alt="Icône mode d'affichage" style="display: block;width: 17px;margin: 3px 0;" /></span>
+			<span id="mode-aff-2" class="buttons button-blue mode-aff" style="float: right; display: none;"><img src="<?php echo IMG_DIR; ?>mode_aff_2.png" title="Mode affichage" alt="Icône mode d'affichage" style="display: block;width: 17px;margin: 3px 0;" /></span>
 			<div class="clear"></div>
 		</div>
 		
-		<div class="text text-full div-mode-admin">
+		<div class="text text-full div-mode-admin" style="display: none;">
 			<form id="form-create-filiereEnseignement" action="#" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-filieres-enseignement"></span>Associer un enseignement à une filière<span class="icon-arrow"></span></legend>
@@ -144,7 +144,7 @@
 			</form>
 		</div>
 		
-		<div class="text text-full div-mode-admin">
+		<div class="text text-full div-mode-admin" style="display: none;">
 
 			<div id="choix-annees">
 				Année : 
@@ -161,7 +161,7 @@
 				</select>
 			</div>
 		
-			<h2>Liste des filières</h2>			
+			<h2>Liste des filières enseignements</h2>			
 			
 			<?php
 			if(count($arrayFilieres) == 0) {
@@ -218,6 +218,303 @@
 			<?php
 			}
 			?>
+		</div>
+		
+		
+		<!-- MODE AFFICHAGE ENSEINGNANT 1 -->
+		<div id="mode-enseignant-1" class="div-mode-enseignant" style="display: none;">
+		<?php
+			$i = 1;	
+			foreach($arrayFilieres as $f) {
+				if($i % 2) {
+					echo '<div class="text text-two">
+							<div class="text-two-item text-two-item-first">';
+				} else {
+					echo '<div class="text-two-item">';
+				}
+				?>
+					
+				<h2><?php echo $f['niveau'].' '.$f['specialite'].' '.$f['apprentissage_lib']?></h2>	
+				<table>
+					<thead>
+						<tr>
+							<th width="47%">Enseignement</th>
+							<th width="10%">Annee</th>
+							<th width="10%">Réf</th>
+							<th width="33%">Conflits</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							foreach($arrayFiliereEnseignement as $filiereEnseignement) {
+								if($filiereEnseignement['id_filiere'] == $f['id']) {
+								//DEBUG
+								//echo '<pre>' . print_r($filiereEnseignement, true) . '</pre>';
+								
+								$c_cours = 0;
+								$c_td = 0;
+								$c_tp = 0;
+								?>
+								
+								<tr>
+									<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $filiereEnseignement['id']; ?>"><?php echo $filiereEnseignement['enseignement']; ?></a></td>
+									<td><?php echo $filiereEnseignement['annee']; ?></td>
+									<td><?php echo $filiereEnseignement['reference']; ?></td>
+									<td>
+										<?php
+										
+											// COURS
+											foreach($filiereEnseignement['conflits'] as $key_c => $c) {
+												//DEBUG
+												//echo '<pre>' . print_r($c, true) . '</pre>';
+												
+												if($filiereEnseignement['nbr_h_cours'] > 0 && isset($c['cours']) && isset($c['cours_conflit'])) {
+												?>
+													<div style="display: block;overflow: hidden;margin: 2px 0;">
+														<span style="display: inline-block; margin-top: 2px;">Cours
+														
+														<?php
+															if(!$c['cours_conflit']) {
+																echo '(<strong><span class="orange">- '.str_replace('.', ',', round($c['cours'] / 60, 2)).'</span></strong>)</span>';
+															?>
+																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
+																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
+																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																</div>
+															<?php
+															} else {
+																echo '(<strong><span class="red">+ '.str_replace('.', ',', round($c['cours'] / 60, 2)).'</span></strong>)</span>';
+															?>
+																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
+																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
+																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																</div>
+															<?php
+															}
+														?>
+														
+													</div>
+												<?php
+													$c_cours = 1;
+												}
+											}
+											
+											if($filiereEnseignement['nbr_h_cours'] > 0 && !$c_cours) {
+											?>
+												<div style="display: block;overflow: hidden;margin: 2px 0;">
+													<span style="display: inline-block; margin-top: 2px;">Cours</span>
+													
+													<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
+														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
+															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+														</div>
+														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
+															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+														</div>
+													</div>
+												</div>
+											<?php
+											}
+											
+											
+											
+											// TD
+											foreach($filiereEnseignement['conflits'] as $key_c => $c) {
+												//DEBUG
+												//echo '<pre>' . print_r($c, true) . '</pre>';
+												
+												if($filiereEnseignement['nbr_h_td'] > 0 && isset($c['td']) && isset($c['td_conflit'])) {
+												?>
+													<div style="display: block;overflow: hidden;margin: 2px 0;">
+														<span style="display: inline-block; margin-top: 2px;">TD
+														
+														<?php
+															if(!$c['td_conflit']) {
+																echo '(<strong><span class="orange">- '.str_replace('.', ',', round($c['td'] / 60, 2)).'</span></strong>)</span>';
+															?>
+																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
+																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
+																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																</div>
+															<?php
+															} else {
+																echo '(<strong><span class="red">+ '.str_replace('.', ',', round($c['td'] / 60, 2)).'</span></strong>)</span>';
+															?>
+																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
+																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
+																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																</div>
+															<?php
+															}
+														?>
+						
+													</div>
+												<?php
+													$c_td = 1;
+												}
+											}
+											
+											if($filiereEnseignement['nbr_h_td'] > 0 && !$c_td) {
+											?>
+												<div style="display: block;overflow: hidden;margin: 2px 0;">
+													<span style="display: inline-block; margin-top: 2px;">TD</span>
+													
+													<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
+														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
+															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+														</div>
+														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
+															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+														</div>
+													</div>
+												</div>
+											<?php
+											}
+											
+											// TP
+											foreach($filiereEnseignement['conflits'] as $key_c => $c) {
+												//DEBUG
+												//echo '<pre>' . print_r($c, true) . '</pre>';
+												
+												if($filiereEnseignement['nbr_h_tp'] > 0 && isset($c['tp']) && isset($c['tp_conflit'])) {
+												?>
+													<div style="display: block;overflow: hidden;margin: 2px 0;">
+														<span style="display: inline-block; margin-top: 2px;">TP
+														
+														<?php
+															if(!$c['tp_conflit']) {
+																echo '(<strong><span class="orange">- '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</span></strong>)</span>';
+															?>
+																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
+																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
+																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																</div>
+															<?php
+															} else {
+																echo '(<strong><span class="red">+ '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</span></strong>)</span>';
+															?>
+																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
+																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
+																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																	</div>
+																</div>
+															<?php
+															}
+														?>
+														
+													</div>
+												<?php
+													$c_tp = 1;
+												}
+											}
+											
+											if($filiereEnseignement['nbr_h_tp'] > 0 && !$c_tp) {
+											?>
+												<div style="display: block;overflow: hidden;margin: 2px 0;">
+													<span style="display: inline-block; margin-top: 2px;">TP</span>
+													
+													<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
+														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
+															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+														</div>
+														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
+															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+														</div>
+													</div>
+												</div>
+											<?php
+											}
+											
+										?>
+									</td>
+								</tr>
+								
+								<?php								
+								}
+							}
+						?>
+					</tbody>
+				</table>
+				
+				<?php
+				if($i % 2) {
+					echo '</div>';
+				} else {
+					echo '</div></div>';
+				}
+				
+				$i = $i + 1;
+			}
+			echo '</div>';
+		?>
+		</div>
+		
+		<!-- MODE AFFICHAGE ENSEINGNANT 2 -->
+		<div id="mode-enseignant-2" class="text text-full div-mode-enseignant">
+			<h2>Liste des filières enseignements</h2>
+			<table>
+				 <thead>
+					<tr>
+						<th width="18%">Filière</th>
+						<th width="18%">Enseignement</th>
+						<th width="9%">Année</th>
+						<th width="9%">Réf</th>
+						<th width="18%">Responsable</th>
+						<th width="18%">Conflits</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					// On parcours le tableau des enseignements
+					foreach($arrayFiliereEnseignement as $filiereEnseignement) {
+					?>
+						<tr>
+							<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $filiereEnseignement['id']; ?>"><?php echo $filiereEnseignement['filiere']; ?></a></td>
+							<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $filiereEnseignement['id']; ?>"><?php echo $filiereEnseignement['enseignement']; ?></a></td>
+							<td><?php echo $filiereEnseignement['annee']; ?></td>
+							<td><?php echo $filiereEnseignement['reference']; ?></td>
+							<td>
+								<?php
+									if(is_array($filiereEnseignement['responsable'])) {
+										foreach($filiereEnseignement['responsable'] as $responsable) {
+											echo $responsable.'<br/>';
+										}
+									} else {
+										echo 'Pas de responsable';
+									}
+								?>
+							</td>
+							<td>
+							</td>
+						</tr>
+					<?php 
+					} 
+					?>
+				</tbody>
+			</table>
 		</div>
 		
 	</div>

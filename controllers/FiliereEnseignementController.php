@@ -20,11 +20,11 @@
 			$d['v_titreHTML'] = 'Filières - Enseignements';
 			$d['v_menuActive'] = 'filieresEnseignements';
 			$this->v_JS = array('filiereEnseignement');
-			$d['v_needRights'] = 3;
+			$d['v_needRights'] = 2;
 
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
 			
-				if($_POST['filiereEnseignement_form_add']) {
+				if($_POST['filiereEnseignement_form_add'] && $_SESSION['v_droits'] >= 3) {
 					if(isset($_POST['dateDebut']) && !empty($_POST['dateDebut'])
 						&& isset($_POST['enseignement']) && !empty($_POST['enseignement'])
 						&& isset($_POST['filiere']) && !empty($_POST['filiere'])
@@ -163,6 +163,9 @@
 					// Enseignement
 					$enseignement = $this->Enseignement->find(array('conditions' => 'id = '.$d['arrayFiliereEnseignement'][$i]['id_enseignement']));
 					$d['arrayFiliereEnseignement'][$i]['enseignement'] = $enseignement[0]['libelle'];
+					
+					// Conflits
+					$d['arrayFiliereEnseignement'][$i]['conflits'] = $this->FiliereEnseignementEnseignant->getConflitsByFiliereEnseignement($d['arrayFiliereEnseignement'][$i]['id']);
 				}
 				
 				$this->set($d);
