@@ -67,13 +67,15 @@
 			<table class="no-tri">
 				<thead>
 					<tr>
-						<th width="23%">Enseignement</th>
-						<th width="23%">Enseignant</th>
-						<th width="22%">Rôle</th>
-						<th width="8%" align="center">Cours</th>
-						<th width="8%" align="center">TD</th>
-						<th width="8%" align="center">TP</th>
+						<th width="20%">Enseignement</th>
+						<th width="20%">Enseignant</th>
+						<th width="21%">Rôle</th>
+						<th width="5%" align="center">Cours</th>
+						<th width="5%" align="center">TD</th>
+						<th width="5%" align="center">TP</th>
 						<th width="8%" align="right">Total eq. TD</th>
+						<th width="8%" align="right">Semetre 1</th>
+						<th width="8%" align="right">Semetre 2</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -111,44 +113,47 @@
 											<td align="center"><?php echo str_replace('.', ',', round($v['nbr_h_td'] / 60, 2)); ?></td>
 											<td align="center"><?php echo str_replace('.', ',', round($v['nbr_h_tp'] / 60, 2)); ?></td>
 											<td align="right"><?php echo str_replace('.', ',', round($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2)); ?></td>
+											<td align="right">
+												<?php
+													if($enseignement['semestre'] == 1)
+														echo str_replace('.', ',', round($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2));
+												?>
+											</td>
+											<td align="right">
+												<?php
+													if($enseignement['semestre'] == 2)
+														echo str_replace('.', ',', round($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2));
+												?>
+											</td>
 										</tr>
 							<?php
 									$i = $i + 1;
 								}
 								
 								if(!$enseignement['voeux'])
-									echo '<td></td><td></td><td></td><td></td><td></td><td></td></tr>';
+									echo '<td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>';
 					} 
+					
+					$s1_total = 0;
+					$s2_total = 0;
+					foreach($arrayEnseignements as $enseignement) {
+						if($enseignement['semestre'] == 1) {
+							foreach($enseignement['voeux'] as $v) {
+								$s1_total = $s1_total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
+							}
+						} else {
+							foreach($enseignement['voeux'] as $v) {
+								$s2_total = $s2_total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
+							}
+						}
+					}
 					?>
 					<tr>
 						<td colspan="4" style="border-top: 1px #979797 solid;"></td>
 						<td colspan="2" align="left" style="border-top: 1px #979797 solid;"><strong>Total</strong></td>
-						<td align="right" style="border-top: 1px #979797 solid;"><strong><span class="blue"><?php echo round($total, 2); ?></span></strong></td>
-					</tr>
-					<?php
-						$s1_total = 0;
-						$s2_total = 0;
-						foreach($arrayEnseignements as $enseignement) {
-							if($enseignement['semestre'] == 1) {
-								foreach($enseignement['voeux'] as $v) {
-									$s1_total = $s1_total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
-								}
-							} else {
-								foreach($enseignement['voeux'] as $v) {
-									$s2_total = $s2_total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
-								}
-							}
-						}
-					?>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" align="left"><strong>Total semestre 1</strong></td>
-						<td align="right"><strong><?php echo str_replace('.', ',', round($s1_total, 2)); ?></strong></td>
-					</tr>
-					<tr>
-						<td colspan="4"></td>
-						<td colspan="2" align="left"><strong>Total semestre 2</strong></td>
-						<td align="right"><strong><?php echo str_replace('.', ',', round($s2_total, 2)); ?></strong></td>
+						<td align="right" style="border-top: 1px #979797 solid;"><strong><span class="blue"><?php echo str_replace('.', ',', round($total, 2)); ?></span></strong></td>
+						<td align="right" style="border-top: 1px #979797 solid;"><strong><?php echo str_replace('.', ',', round($s1_total, 2)); ?></strong></td>
+						<td align="right" style="border-top: 1px #979797 solid;"><strong><?php echo str_replace('.', ',', round($s2_total, 2)); ?></strong></td>
 					</tr>
 				</tbody>
 			</table>

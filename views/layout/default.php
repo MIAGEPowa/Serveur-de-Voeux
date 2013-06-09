@@ -23,7 +23,7 @@
 			</div>
 		</div>
 
-(		<div id="header">
+		<div id="header">
 			<?php  
 			/* Afin d'obtenir l'année en cours */
 			$annee = mysql_query('SELECT * FROM '.DB_PREFIX.'config') or die(mysql_error()."<br/> => ".$sql);
