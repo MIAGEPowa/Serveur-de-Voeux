@@ -254,6 +254,7 @@
 								$c_cours = 0;
 								$c_td = 0;
 								$c_tp = 0;
+								$j = 0;
 								?>
 								
 								<tr>
@@ -271,11 +272,11 @@
 												if($filiereEnseignement['nbr_h_cours'] > 0 && isset($c['cours']) && isset($c['cours_conflit'])) {
 												?>
 													<div style="display: block;overflow: hidden;margin: 2px 0;">
-														<span style="display: inline-block; margin-top: 2px;">Cours
+														<span style="width: 75%; display: inline-block; margin-top: 2px;">Cours
 														
 														<?php
 															if(!$c['cours_conflit']) {
-																echo '(<strong><span class="orange">- '.str_replace('.', ',', round($c['cours'] / 60, 2)).'</span></strong>)</span>';
+																echo '<strong><span class="orange" style="float: right;">- '.str_replace('.', ',', round($c['cours'] / 60, 2)).'</span></strong></span>';
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
@@ -287,14 +288,14 @@
 																</div>
 															<?php
 															} else {
-																echo '(<strong><span class="red">+ '.str_replace('.', ',', round($c['cours'] / 60, 2)).'</span></strong>)</span>';
+																echo '<strong><span class="red" style="float: right;">+ '.str_replace('.', ',', round($c['cours'] / 60, 2)).'</span></strong></span>';
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																</div>
 															<?php
@@ -307,10 +308,10 @@
 												}
 											}
 											
-											if($filiereEnseignement['nbr_h_cours'] > 0 && !$c_cours) {
+											if($filiereEnseignement['nbr_h_cours'] > 0 && !$c_cours && !$j) {
 											?>
 												<div style="display: block;overflow: hidden;margin: 2px 0;">
-													<span style="display: inline-block; margin-top: 2px;">Cours</span>
+													<span style="width: 75%; display: inline-block; margin-top: 2px;">Cours</span>
 													
 													<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
@@ -322,6 +323,7 @@
 													</div>
 												</div>
 											<?php
+												$j = 1;
 											}
 											
 											
@@ -334,11 +336,11 @@
 												if($filiereEnseignement['nbr_h_td'] > 0 && isset($c['td']) && isset($c['td_conflit'])) {
 												?>
 													<div style="display: block;overflow: hidden;margin: 2px 0;">
-														<span style="display: inline-block; margin-top: 2px;">TD
+														<span style="width: 75%; display: inline-block; margin-top: 2px;">TD
 														
 														<?php
 															if(!$c['td_conflit']) {
-																echo '(<strong><span class="orange">- '.str_replace('.', ',', round($c['td'] / 60, 2)).'</span></strong>)</span>';
+																echo '<strong><span class="orange" style="float: right;">- '.str_replace('.', ',', round($c['td'] / 60, 2)).'</span></strong></span>';
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
@@ -350,14 +352,14 @@
 																</div>
 															<?php
 															} else {
-																echo '(<strong><span class="red">+ '.str_replace('.', ',', round($c['td'] / 60, 2)).'</span></strong>)</span>';
+																echo '<strong><span class="red" style="float: right;">+ '.str_replace('.', ',', round($c['td'] / 60, 2)).'</span></strong></span>';
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																</div>
 															<?php
@@ -370,10 +372,10 @@
 												}
 											}
 											
-											if($filiereEnseignement['nbr_h_td'] > 0 && !$c_td) {
+											if($filiereEnseignement['nbr_h_td'] > 0 && !$c_td && !$j) {
 											?>
 												<div style="display: block;overflow: hidden;margin: 2px 0;">
-													<span style="display: inline-block; margin-top: 2px;">TD</span>
+													<span style="width: 75%; display: inline-block; margin-top: 2px;">TD</span>
 													
 													<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
@@ -385,6 +387,7 @@
 													</div>
 												</div>
 											<?php
+												$j = 1;
 											}
 											
 											// TP
@@ -395,11 +398,11 @@
 												if($filiereEnseignement['nbr_h_tp'] > 0 && isset($c['tp']) && isset($c['tp_conflit'])) {
 												?>
 													<div style="display: block;overflow: hidden;margin: 2px 0;">
-														<span style="display: inline-block; margin-top: 2px;">TP
+														<span style="width: 75%; display: inline-block; margin-top: 2px;">TP
 														
 														<?php
 															if(!$c['tp_conflit']) {
-																echo '(<strong><span class="orange">- '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</span></strong>)</span>';
+																echo '<strong><span class="orange" style="float: right;">- '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</span></strong></span>';
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
@@ -411,14 +414,14 @@
 																</div>
 															<?php
 															} else {
-																echo '(<strong><span class="red">+ '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</span></strong>)</span>';
+																echo '<strong><span class="red" style="float: right;">+ '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</span></strong></span>';
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-																		<div style="background-color: #EE5F5B; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																</div>
 															<?php
@@ -431,10 +434,10 @@
 												}
 											}
 											
-											if($filiereEnseignement['nbr_h_tp'] > 0 && !$c_tp) {
+											if($filiereEnseignement['nbr_h_tp'] > 0 && !$c_tp && !$j) {
 											?>
 												<div style="display: block;overflow: hidden;margin: 2px 0;">
-													<span style="display: inline-block; margin-top: 2px;">TP</span>
+													<span style="width: 75%; display: inline-block; margin-top: 2px;">TP</span>
 													
 													<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
@@ -446,6 +449,7 @@
 													</div>
 												</div>
 											<?php
+												$j = 1;
 											}
 											
 										?>
@@ -507,7 +511,185 @@
 									}
 								?>
 							</td>
-							<td>
+							<td class="feEtatPrevisionnelle">
+							
+								<?php
+								
+								$c_cours = 0;
+								$c_td = 0;
+								$c_tp = 0;
+								$j = 0;
+								
+								// COURS
+								foreach($filiereEnseignement['conflits'] as $key_c => $c) {
+									//DEBUG
+									//echo '<pre>' . print_r($c, true) . '</pre>';
+									$cours_percent = 0;
+									
+									if($filiereEnseignement['nbr_h_cours'] > 0 && isset($c['cours']) && isset($c['cours_conflit'])) {
+										if(!$c['cours_conflit']) {
+											$cours_percent = (($filiereEnseignement['nbr_h_cours'] - $c['cours']) * 100) / $filiereEnseignement['nbr_h_cours'];
+											if($cours_percent < 0)
+												$cours_percent = 0;
+											$width_progression = ($cours_percent * 125) / 100;
+											if($width_progression > 125)
+												$width_progression = 125;
+										} else {
+											$cours_percent = (($c['cours'] + $filiereEnseignement['nbr_h_cours']) * 100) / $filiereEnseignement['nbr_h_cours'];
+											if($cours_percent < 0)
+												$cours_percent = 0;
+											$width_progression = ($cours_percent * 125) / 100;
+											if($width_progression > 125)
+												$width_progression = 125;
+										}
+										
+									?>
+										<span style="width: 20%; float: left;">Cours</span>
+										<div class="barreProgressionMin">
+											<span><?php echo round($cours_percent, 2); ?> %</span>
+											<div class="progressionMin <?php if($cours_percent > 100) echo 'barreProgressionRed'; else echo 'barreProgressionOrange'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
+										</div>
+										<span class="feEtatPrevisionnelleHeuresMin">
+											<?php
+												if(!$c['cours_conflit']) {
+													echo '<span class="orange"><strong>- '.str_replace('.', ',', round($c['cours'] / 60, 2)).'</strong></span>';
+												} else {
+													echo '<span class="red"><strong>+ '.str_replace('.', ',', round($c['cours'] / 60, 2)).'</strong></span>';
+												}
+											?>
+										</span>
+									<?php
+										$c_cours = 1;
+									}
+									
+									if($filiereEnseignement['nbr_h_cours'] > 0 && !$c_cours && !$j) {
+									?>
+										<span style="width: 20%; float: left;">Cours</span>
+										<div class="barreProgressionMin">
+											<span>100 %</span>
+											<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
+										</div>
+										<span class="feEtatPrevisionnelleHeuresMin"></span>
+									<?php
+										$j = 1;
+									}
+		
+								}
+								
+								
+								// TD
+								foreach($filiereEnseignement['conflits'] as $key_c => $c) {
+									//DEBUG
+									//echo '<pre>' . print_r($c, true) . '</pre>';
+									$td_percent = 0;
+									
+									if($filiereEnseignement['nbr_h_td'] > 0 && isset($c['td']) && isset($c['td_conflit'])) {
+										if(!$c['td_conflit']) {
+											$td_percent = (($filiereEnseignement['nbr_h_td'] - $c['td']) * 100) / $filiereEnseignement['nbr_h_td'];
+											if($td_percent < 0)
+												$td_percent = 0;
+											$width_progression = ($td_percent * 125) / 100;
+											if($width_progression > 125)
+												$width_progression = 125;
+										} else {
+											$td_percent = (($c['td'] + $filiereEnseignement['nbr_h_td']) * 100) / $filiereEnseignement['nbr_h_td'];
+											if($td_percent < 0)
+												$td_percent = 0;
+											$width_progression = ($td_percent * 125) / 100;
+											if($width_progression > 125)
+												$width_progression = 125;
+										}
+										
+									?>
+										<span style="width: 20%; float: left;">TD</span>
+										<div class="barreProgressionMin">
+											<span><?php echo round($td_percent, 2); ?> %</span>
+											<div class="progressionMin <?php if($td_percent > 100) echo 'barreProgressionRed'; else echo 'barreProgressionOrange'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
+										</div>
+										<span class="feEtatPrevisionnelleHeuresMin">
+											<?php
+												if(!$c['td_conflit']) {
+													echo '<span class="orange"><strong>- '.str_replace('.', ',', round($c['td'] / 60, 2)).'</strong></span>';
+												} else {
+													echo '<span class="red"><strong>+ '.str_replace('.', ',', round($c['td'] / 60, 2)).'</strong></span>';
+												}
+											?>
+										</span>
+									<?php
+										$c_td = 1;
+									}
+									
+									if($filiereEnseignement['nbr_h_td'] > 0 && !$c_td && !$j) {
+									?>
+										<span style="width: 20%; float: left;">TD</span>
+										<div class="barreProgressionMin">
+											<span>100 %</span>
+											<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
+										</div>
+										<span class="feEtatPrevisionnelleHeuresMin"></span>
+									<?php
+										$j = 1;
+									}
+		
+								}
+								
+								
+								// TP
+								foreach($filiereEnseignement['conflits'] as $key_c => $c) {
+									//DEBUG
+									//echo '<pre>' . print_r($c, true) . '</pre>';
+									$tp_percent = 0;
+									
+									if($filiereEnseignement['nbr_h_tp'] > 0 && isset($c['tp']) && isset($c['tp_conflit'])) {
+										if(!$c['tp_conflit']) {
+											$tp_percent = (($filiereEnseignement['nbr_h_tp'] - $c['tp']) * 100) / $filiereEnseignement['nbr_h_tp'];
+											if($tp_percent < 0)
+												$tp_percent = 0;
+											$width_progression = ($tp_percent * 125) / 100;
+											if($width_progression > 125)
+												$width_progression = 125;
+										} else {
+											$tp_percent = (($c['tp'] + $filiereEnseignement['nbr_h_tp']) * 100) / $filiereEnseignement['nbr_h_tp'];
+											if($tp_percent < 0)
+												$tp_percent = 0;
+											$width_progression = ($tp_percent * 125) / 100;
+											if($width_progression > 125)
+												$width_progression = 125;
+										}
+										
+									?>
+										<span style="width: 20%; float: left;">TP</span>
+										<div class="barreProgressionMin">
+											<span><?php echo round($tp_percent, 2); ?> %</span>
+											<div class="progressionMin <?php if($tp_percent > 100) echo 'barreProgressionRed'; else echo 'barreProgressionOrange'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
+										</div>
+										<span class="feEtatPrevisionnelleHeuresMin">
+											<?php
+												if(!$c['td_conflit']) {
+													echo '<span class="orange"><strong>- '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</strong></span>';
+												} else {
+													echo '<span class="red"><strong>+ '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</strong></span>';
+												}
+											?>
+										</span>
+									<?php
+										$c_tp = 1;
+									}
+									
+									if($filiereEnseignement['nbr_h_tp'] > 0 && !$c_tp && !$j) {
+									?>
+										<span style="width: 20%; float: left;">TP</span>
+										<div class="barreProgressionMin">
+											<span>100 %</span>
+											<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
+										</div>
+										<span class="feEtatPrevisionnelleHeuresMin"></span>
+									<?php
+										$j = 1;
+									}
+		
+								}
+								?>								
 							</td>
 						</tr>
 					<?php 
