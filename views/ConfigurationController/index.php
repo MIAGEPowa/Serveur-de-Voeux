@@ -23,6 +23,7 @@
 							<i>
 							- Les utilisateurs qui n'ont pas fait de voeux pendant 3 années successives seront désactivés <br />
 							- Les enseignements en cours et qui ne sont reliés à aucune filière passeront dans l'état <u>abandonné</u> <br />
+							- Les filières-enseignements de l'année N seront copiées pour l'année N+1 <br />
 							</i>
 						</div>
 						

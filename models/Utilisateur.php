@@ -124,12 +124,16 @@
 		
 		// Retourne un tableau avec les users inactifs depuis 3 ans ou qui n'ont jamais créé de voeu
 		function getUtilisateursADesactiver() {
+			/* Afin d'obtenir l'année en cours */
+			$annee = $this->query('SELECT * FROM '.DB_PREFIX.'config');
+			$annee = $d[0]['annee']; 
+		
 			$req = $this->query('
 				SELECT distinct u.*
 				FROM '.DB_PREFIX.'filiere_enseignement_enseignant fee, '.DB_PREFIX.'utilisateur u, '.DB_PREFIX.'filiere_enseignement fe
 				WHERE (u.id = fee.id_utilisateur
 				  AND fee.id_filiere_enseignement = fe.id
-				  AND fe.annee < 2010)
+				  AND fe.annee < '.($annee-2).')
 				OR
 				  u.id not in (SELECT fee2.id_utilisateur
 							   FROM '.DB_PREFIX.'filiere_enseignement_enseignant fee2
