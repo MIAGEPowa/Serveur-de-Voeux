@@ -109,7 +109,8 @@
 		}
 		
 		function getFiliereEnseignementByEnseignant($id_utilisateur) {
-			return $this->query('SELECT fe.id_filiere as id_filiere, fe.annee, fee.id_filiere_enseignement, fee.nbr_h_cours, fee.nbr_h_td, fee.nbr_h_tp, e.libelle
+			return $this->query('SELECT fe.id_filiere as id_filiere, fe.annee, fe.nbr_h_cours as t_cours, fe.nbr_h_td as t_td, fe.nbr_h_tp as t_tp, fe.nbr_groupes_cours, fe.nbr_groupes_td, fe.nbr_groupes_tp, 
+								 fee.id_filiere_enseignement, fee.nbr_h_cours, fee.nbr_h_td, fee.nbr_h_tp, e.libelle
 								 FROM '.DB_PREFIX.'filiere_enseignement_enseignant fee, '.DB_PREFIX.'filiere_enseignement fe, '.DB_PREFIX.'enseignement e
 								 WHERE fee.id_filiere_enseignement = fe.id
 								 AND e.id = fe.id_enseignement

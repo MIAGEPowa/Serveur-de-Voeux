@@ -527,15 +527,17 @@
 									$cours_percent = 0;
 									
 									if($filiereEnseignement['nbr_h_cours'] > 0 && isset($c['cours']) && isset($c['cours_conflit'])) {
+										$volume_cours = $filiereEnseignement['nbr_h_cours'] * $filiereEnseignement['nbr_groupes_cours'];
+										
 										if(!$c['cours_conflit']) {
-											$cours_percent = (($filiereEnseignement['nbr_h_cours'] - $c['cours']) * 100) / $filiereEnseignement['nbr_h_cours'];
+											$cours_percent = (($volume_cours - $c['cours']) * 100) / $volume_cours;
 											if($cours_percent < 0)
 												$cours_percent = 0;
 											$width_progression = ($cours_percent * 125) / 100;
 											if($width_progression > 125)
 												$width_progression = 125;
 										} else {
-											$cours_percent = (($c['cours'] + $filiereEnseignement['nbr_h_cours']) * 100) / $filiereEnseignement['nbr_h_cours'];
+											$cours_percent = (($c['cours'] + $volume_cours) * 100) / $volume_cours;
 											if($cours_percent < 0)
 												$cours_percent = 0;
 											$width_progression = ($cours_percent * 125) / 100;
@@ -584,15 +586,17 @@
 									$td_percent = 0;
 									
 									if($filiereEnseignement['nbr_h_td'] > 0 && isset($c['td']) && isset($c['td_conflit'])) {
+										$volume_td = $filiereEnseignement['nbr_h_td'] * $filiereEnseignement['nbr_groupes_td'];
+										
 										if(!$c['td_conflit']) {
-											$td_percent = (($filiereEnseignement['nbr_h_td'] - $c['td']) * 100) / $filiereEnseignement['nbr_h_td'];
+											$td_percent = (($volume_td - $c['td']) * 100) / $volume_td;
 											if($td_percent < 0)
 												$td_percent = 0;
 											$width_progression = ($td_percent * 125) / 100;
 											if($width_progression > 125)
 												$width_progression = 125;
 										} else {
-											$td_percent = (($c['td'] + $filiereEnseignement['nbr_h_td']) * 100) / $filiereEnseignement['nbr_h_td'];
+											$td_percent = (($c['td'] + $volume_td) * 100) / $volume_td;
 											if($td_percent < 0)
 												$td_percent = 0;
 											$width_progression = ($td_percent * 125) / 100;
@@ -641,22 +645,23 @@
 									$tp_percent = 0;
 									
 									if($filiereEnseignement['nbr_h_tp'] > 0 && isset($c['tp']) && isset($c['tp_conflit'])) {
+										$volume_tp = $filiereEnseignement['nbr_h_tp'] * $filiereEnseignement['nbr_groupes_tp'];
+										
 										if(!$c['tp_conflit']) {
-											$tp_percent = (($filiereEnseignement['nbr_h_tp'] - $c['tp']) * 100) / $filiereEnseignement['nbr_h_tp'];
+											$tp_percent = (($volume_tp - $c['tp']) * 100) / $volume_tp;
 											if($tp_percent < 0)
 												$tp_percent = 0;
 											$width_progression = ($tp_percent * 125) / 100;
 											if($width_progression > 125)
 												$width_progression = 125;
 										} else {
-											$tp_percent = (($c['tp'] + $filiereEnseignement['nbr_h_tp']) * 100) / $filiereEnseignement['nbr_h_tp'];
+											$tp_percent = (($c['tp'] + $volume_tp) * 100) / $volume_tp;
 											if($tp_percent < 0)
 												$tp_percent = 0;
 											$width_progression = ($tp_percent * 125) / 100;
 											if($width_progression > 125)
 												$width_progression = 125;
 										}
-										
 									?>
 										<span style="width: 20%; float: left;">TP</span>
 										<div class="barreProgressionMin">
@@ -665,7 +670,7 @@
 										</div>
 										<span class="feEtatPrevisionnelleHeuresMin">
 											<?php
-												if(!$c['td_conflit']) {
+												if(!$c['tp_conflit']) {
 													echo '<span class="orange"><strong>- '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</strong></span>';
 												} else {
 													echo '<span class="red"><strong>+ '.str_replace('.', ',', round($c['tp'] / 60, 2)).'</strong></span>';
