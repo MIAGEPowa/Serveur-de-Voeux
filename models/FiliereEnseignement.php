@@ -21,13 +21,13 @@
     
 		function getAllFiliere($id) {
 			return $this->query('
-				SELECT FE.id, id_filiere, N.libelle as libelle_niveau, S.libelle as libelle_specialite, apprentissage
+				SELECT FE.id, id_filiere, N.libelle as libelle_niveau, S.libelle as libelle_specialite, apprentissage, annee
 				FROM '.DB_PREFIX.'filiere_enseignement FE, '.DB_PREFIX.'filiere F, '.DB_PREFIX.'niveau N, '.DB_PREFIX.'specialite S
 				WHERE FE.id_filiere = F.id
 				AND F.id_niveau = N.id
 				AND F.id_specialite = S.id
 				AND FE.id_enseignement = '.$id.' 
-				ORDER BY libelle_niveau ASC');
+				ORDER BY annee ASC');
 		}
 		
 		function getFiliereEnseignementYear($year) {
