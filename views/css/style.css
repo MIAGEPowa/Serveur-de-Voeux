@@ -875,6 +875,14 @@ span.icon-keywords {
 #col li.active span.icon-keywords {
 	background: url(../img/sprite.png) -113px -48px;
 }
+span.icon-search {
+	width: 16px;
+	height: 16px;
+	background: url(../img/sprite.png) -132px 0;
+}
+#col li.active span.icon-search {
+	background: url(../img/sprite.png) -132px -16px;
+}
 span.icon-config {
 	width: 18px;
 	height: 18px;

@@ -35,13 +35,13 @@
 				?>
 					
 				<h2><?php echo $f['niveau'].' '.$f['specialite'].' '.$f['apprentissage_lib']?></h2>	
-				<table>
+				<table class="no-tri">
 					<thead>
 						<tr>
-							<th width="47%">Enseignement</th>
+							<th width="50%">Enseignement</th>
 							<th width="10%">Annee</th>
 							<th width="10%">Réf</th>
-							<th width="33%">Conflits</th>
+							<th width="30%">Conflits</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -72,7 +72,7 @@
 												if($filiereEnseignement['nbr_h_cours'] > 0 && isset($c['cours']) && isset($c['cours_conflit'])) {
 												?>
 													<div style="display: block;overflow: hidden;margin: 2px 0;">
-														<span style="width: 75%; display: inline-block; margin-top: 2px;">Cours
+														<span style="width: 65%; display: inline-block; margin-top: 2px;">Cours
 														
 														<?php
 															if(!$c['cours_conflit']) {
@@ -80,10 +80,7 @@
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
-																	</div>
-																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																</div>
 															<?php
@@ -92,10 +89,7 @@
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
-																	</div>
-																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																</div>
 															<?php
@@ -111,14 +105,11 @@
 											if($filiereEnseignement['nbr_h_cours'] > 0 && !$c_cours && !$j) {
 											?>
 												<div style="display: block;overflow: hidden;margin: 2px 0;">
-													<span style="width: 75%; display: inline-block; margin-top: 2px;">Cours</span>
+													<span style="width: 65%; display: inline-block; margin-top: 2px;">Cours</span>
 													
 													<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
-														</div>
-														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 0px); transform: rotate(180deg);"></div>
 														</div>
 													</div>
 												</div>
@@ -136,7 +127,7 @@
 												if($filiereEnseignement['nbr_h_td'] > 0 && isset($c['td']) && isset($c['td_conflit'])) {
 												?>
 													<div style="display: block;overflow: hidden;margin: 2px 0;">
-														<span style="width: 75%; display: inline-block; margin-top: 2px;">TD
+														<span style="width: 65%; display: inline-block; margin-top: 2px;">TD
 														
 														<?php
 															if(!$c['td_conflit']) {
@@ -144,10 +135,7 @@
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
-																	</div>
-																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																</div>
 															<?php
@@ -156,10 +144,7 @@
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
-																	</div>
-																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																</div>
 															<?php
@@ -175,14 +160,11 @@
 											if($filiereEnseignement['nbr_h_td'] > 0 && !$c_td && !$j) {
 											?>
 												<div style="display: block;overflow: hidden;margin: 2px 0;">
-													<span style="width: 75%; display: inline-block; margin-top: 2px;">TD</span>
+													<span style="width: 65%; display: inline-block; margin-top: 2px;">TD</span>
 													
 													<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
-														</div>
-														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 0px); transform: rotate(180deg);"></div>
 														</div>
 													</div>
 												</div>
@@ -198,7 +180,7 @@
 												if($filiereEnseignement['nbr_h_tp'] > 0 && isset($c['tp']) && isset($c['tp_conflit'])) {
 												?>
 													<div style="display: block;overflow: hidden;margin: 2px 0;">
-														<span style="width: 75%; display: inline-block; margin-top: 2px;">TP
+														<span style="width: 65%; display: inline-block; margin-top: 2px;">TP
 														
 														<?php
 															if(!$c['tp_conflit']) {
@@ -206,10 +188,7 @@
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
-																	</div>
-																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #F89406; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																</div>
 															<?php
@@ -218,10 +197,7 @@
 															?>
 																<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
-																	</div>
-																	<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+																		<div style="background-color: #de3b36; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 0px); transform: rotate(180deg);"></div>
 																	</div>
 																</div>
 															<?php
@@ -237,14 +213,11 @@
 											if($filiereEnseignement['nbr_h_tp'] > 0 && !$c_tp && !$j) {
 											?>
 												<div style="display: block;overflow: hidden;margin: 2px 0;">
-													<span style="width: 75%; display: inline-block; margin-top: 2px;">TP</span>
+													<span style="width: 65%; display: inline-block; margin-top: 2px;">TP</span>
 													
 													<div style="width: 20px; height: 20px; position: relative; border-radius: 20px 20px 20px 20px; border: 2px #c1c1c1 solid; float: right;">
 														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, -40px); transform: rotate(0deg);">
-															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
-														</div>
-														<div style="position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 10px); transform: rotate(180deg);">
-															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 10px, 20px, 0px); transform: rotate(180deg);"></div>
+															<div style="background-color: #51A351; position: absolute; top: 0px; left: 0px; width: 20px; height: 20px; border-radius: 20px 20px 20px 20px; clip: rect(0px, 20px, 20px, 0px); transform: rotate(180deg);"></div>
 														</div>
 													</div>
 												</div>

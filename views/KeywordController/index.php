@@ -6,17 +6,17 @@
 	<div id="content">
 	
 		<div id="contentTitle">
-			<h2>Mots clés</h2>
+			<h2>Recherche</h2>
 		</div>
 		
 		<div id="breadcrumb" class="text">
-			<a href="<?php echo WEBROOT.'keyword/index'; ?>" title="">Mots clés</a>
+			<a href="<?php echo WEBROOT.'keyword/index'; ?>" title="">Recherche</a>
 		</div>
 		
 		<div class="text text-full">
 			<form id="form-search-keyword" action="#" method="post">
 				<fieldset>
-					<legend><span class="icon-heart"></span>Recherche par mots clés</legend>
+					<legend><span class="icon-search"></span>Recherche par mots clés</legend>
 						<div class="form-item">
 							<label for="intitule">Mot clé</label>
 							<input type="text" id="intitule" name="intitule" value="" class="input-large" />

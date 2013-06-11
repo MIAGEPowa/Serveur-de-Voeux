@@ -2,11 +2,11 @@
 	class KeywordController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Enseignement','Keyword','Utilisateur');
+		var $models = array('Enseignement', 'Keyword', 'Utilisateur');
 
 		function index() {
 			// Titre
-			$d['v_titreHTML'] = 'Mots clés';
+			$d['v_titreHTML'] = 'Recherche';
 			$d['v_menuActive'] = 'keywords';
 			
 			if($_POST['keyword_form_search']) {

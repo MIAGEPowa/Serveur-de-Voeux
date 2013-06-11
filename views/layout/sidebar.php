@@ -7,7 +7,8 @@
 			<!-- Sidebar Secrétaire -->
 			<li <?php if($v_menuActive == 'tableaudebord') echo 'class="active"'; ?>><a href="<?php echo WEBROOT; ?>" title="Tableau de bord"><span class="icon-home"></span>Tableau de bord</a></li>
 			<li <?php if($v_menuActive == 'annuaire') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'annuaire/index'; ?>" title="Annuaire"><span class="icon-annuaire"></span>Annuaire</a></li>
-		
+			<li <?php if($v_menuActive == 'keywords') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'keyword/index'; ?>" title="Recherche"><span class="icon-search"></span>Recherche</a></li>
+
 		<?php
 			} else if($_SESSION['v_droits'] == 2) {
 		?>
@@ -17,6 +18,7 @@
 			<li <?php if($v_menuActive == 'voeux') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'voeu/index'; ?>" title=""><span class="icon-heart"></span>Mes v&oelig;ux</a></li>
 			<li <?php if($v_menuActive == 'annuaire') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'annuaire/index'; ?>" title="Annuaire"><span class="icon-annuaire"></span>Annuaire</a></li>
 			<li <?php if($v_menuActive == 'delegations') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/delegations'; ?>" title="Gérer ses délégations"><span class="icon-delegations"></span>Délégations</a></li>
+			<li <?php if($v_menuActive == 'keywords') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'keyword/index'; ?>" title="Recherche"><span class="icon-search"></span>Recherche</a></li>
 
 		<?php
 			} else if($_SESSION['v_droits'] == 3) {
@@ -28,6 +30,7 @@
 			<li <?php if($v_menuActive == 'voeux') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'voeu/index'; ?>" title=""><span class="icon-heart"></span>Mes v&oelig;ux</a></li>
 			<li <?php if($v_menuActive == 'annuaire') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'annuaire/index'; ?>" title="Annuaire"><span class="icon-annuaire"></span>Annuaire</a></li>
 			<li <?php if($v_menuActive == 'delegations') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/delegations'; ?>" title="Gérer ses délégations"><span class="icon-delegations"></span>Délégations</a></li>
+			<li <?php if($v_menuActive == 'keywords') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'keyword/index'; ?>" title="Recherche"><span class="icon-search"></span>Recherche</a></li>
 
 		<?php
 			} else if($_SESSION['v_droits'] == 4) {
@@ -52,7 +55,7 @@
 			</ul>
 			<li <?php if($v_menuActive == 'roles') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'role/index'; ?>" title="Gérer les rôles"><span class="icon-roles"></span>Rôles</a></li>
 			<li <?php if($v_menuActive == 'delegations') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'utilisateur/delegations'; ?>" title="Gérer ses délégations"><span class="icon-delegations"></span>Délégations</a></li>
-			<li <?php if($v_menuActive == 'keywords') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'keyword/index'; ?>" title="Recherche"><span class="icon-keywords"></span>Recherche</a></li>
+			<li <?php if($v_menuActive == 'keywords') echo 'class="active"'; ?>><a href="<?php echo WEBROOT.'keyword/index'; ?>" title="Recherche"><span class="icon-search"></span>Recherche</a></li>
 	
 		<?php
 			}
