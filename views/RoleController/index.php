@@ -171,9 +171,9 @@
 							
 							// Role d'enseignant
 							if($r['role_enseignant'])
-								$re = 'Oui';
+								$re = '<img src="'.IMG_DIR.'y.png" title="Icône oui" />';
 							else
-								$re = 'Non';
+								$re = '<img src="'.IMG_DIR.'n.png" title="Icône non" />';
 								
 							// Droits
 							if($r['droits'] == 1)
@@ -185,15 +185,14 @@
 							else if($r['droits'] == 4)
 								$role_txt = 'Administrateur';
 								
-							echo '	<tr>
+							echo '<tr>
 										<td>'.$r['libelle'].'</td>
 										<td>'.$re.'</td>
 										<td>'.$role_txt.'</td>
 										<td>'.$r['utilisateurs'].'</td>
 										<td>'; 
-                    if ($r['libelle'] == 'Responsable de cours') echo ''; else echo '<a class="buttons-link" href="'.WEBROOT.'role/index/'.$r['id'].'" title="Supprimer"><span class="buttons button-red">Supprimer</span></a>';
-                    echo '  </td>';
-							echo '  </tr>';
+							if ($r['libelle'] == 'Responsable de cours') echo ''; else echo '<a class="buttons-link" href="'.WEBROOT.'role/index/'.$r['id'].'" title="Supprimer"><span class="buttons button-red">Supprimer</span></a>';
+							echo '</td></tr>';
 						}
 						
 					?>

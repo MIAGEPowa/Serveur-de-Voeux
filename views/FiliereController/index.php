@@ -81,7 +81,7 @@
 							<th width="5%">#</th>
 							<th width="10%">Niveau</th>
 							<th width="10%">Specialité</th>
-							<th width="15%">Apprentissage</th>
+							<th width="15%" align="center">Apprentissage</th>
 							<th width="20%">Responsable</th>
 							<th width="20%">Secrétaire</th>
 							<th width="20%">Actions</th>
@@ -96,7 +96,14 @@
 								<td><?php echo $filiere['id']; ?></td>
 								<td><?php echo $filiere['niveau']; ?></td>
 								<td><?php echo $filiere['specialite']; ?></td>
-								<td><?php echo $filiere['apprentissage_lib']; ?></td>
+								<td align="center">
+									<?php 
+										if($filiere['apprentissage_lib'] == 'Oui')
+											echo '<img src="'.IMG_DIR.'y.png" title="Icône oui" />'; 
+										else
+											echo '<img src="'.IMG_DIR.'n.png" title="Icône non" />'; 
+									?>
+								</td>
 								<td>
 									<?php 
 									foreach ($filiere['responsable'] as $resp) {
