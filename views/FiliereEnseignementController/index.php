@@ -245,7 +245,6 @@
 				
 				$i = $i + 1;
 			}
-			echo '</div>';
 		?>
 		</div>
 		
@@ -291,7 +290,6 @@
 								$c_cours = 0;
 								$c_td = 0;
 								$c_tp = 0;
-								$j = 0;
 								
 								// COURS
 								foreach($filiereEnseignement['conflits'] as $key_c => $c) {
@@ -336,19 +334,17 @@
 									<?php
 										$c_cours = 1;
 									}
-									
-									if($filiereEnseignement['nbr_h_cours'] > 0 && !$c_cours && !$j) {
-									?>
-										<span style="width: 20%; float: left;">Cours</span>
-										<div class="barreProgressionMin">
-											<span>100 %</span>
-											<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
-										</div>
-										<span class="feEtatPrevisionnelleHeuresMin"></span>
-									<?php
-										$j = 1;
-									}
-		
+								}
+								
+								if($filiereEnseignement['nbr_h_cours'] > 0 && !$c_cours) {
+								?>
+									<span style="width: 20%; float: left;">Cours</span>
+									<div class="barreProgressionMin">
+										<span>100 %</span>
+										<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
+									</div>
+									<span class="feEtatPrevisionnelleHeuresMin"></span>
+								<?php
 								}
 								
 								
@@ -395,19 +391,17 @@
 									<?php
 										$c_td = 1;
 									}
-									
-									if($filiereEnseignement['nbr_h_td'] > 0 && !$c_td && !$j) {
-									?>
-										<span style="width: 20%; float: left;">TD</span>
-										<div class="barreProgressionMin">
-											<span>100 %</span>
-											<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
-										</div>
-										<span class="feEtatPrevisionnelleHeuresMin"></span>
-									<?php
-										$j = 1;
-									}
-		
+								}
+								
+								if($filiereEnseignement['nbr_h_td'] > 0 && !$c_td) {
+								?>
+									<span style="width: 20%; float: left;">TD</span>
+									<div class="barreProgressionMin">
+										<span>100 %</span>
+										<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
+									</div>
+									<span class="feEtatPrevisionnelleHeuresMin"></span>
+								<?php
 								}
 								
 								
@@ -453,19 +447,17 @@
 									<?php
 										$c_tp = 1;
 									}
-									
-									if($filiereEnseignement['nbr_h_tp'] > 0 && !$c_tp && !$j) {
-									?>
-										<span style="width: 20%; float: left;">TP</span>
-										<div class="barreProgressionMin">
-											<span>100 %</span>
-											<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
-										</div>
-										<span class="feEtatPrevisionnelleHeuresMin"></span>
-									<?php
-										$j = 1;
-									}
-		
+								}
+								
+								if($filiereEnseignement['nbr_h_tp'] > 0 && !$c_tp) {
+								?>
+									<span style="width: 20%; float: left;">TP</span>
+									<div class="barreProgressionMin">
+										<span>100 %</span>
+										<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
+									</div>
+									<span class="feEtatPrevisionnelleHeuresMin"></span>
+								<?php
 								}
 								?>								
 							</td>
