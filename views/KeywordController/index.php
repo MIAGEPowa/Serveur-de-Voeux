@@ -103,7 +103,7 @@
 								
 								<tr>
 									<td><?php echo $utilisateur['id']; ?></td>
-									<td><?php echo $civilite.' '.$utilisateur['prenom'].' '.$utilisateur['nom']; ?></td>
+									<td><a title="<?php echo $civilite.' '.$utilisateur['prenom'].' '.$utilisateur['nom'];?>" href="<?php echo WEBROOT.'annuaire/visualiser/'.$utilisateur['id'];?>"><?php echo $civilite.' '.$utilisateur['prenom'].' '.$utilisateur['nom']; ?></a></td>
 									<td><?php echo $utilisateur['keyword']; ?></td>
 								</tr>
 							

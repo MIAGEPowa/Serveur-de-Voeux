@@ -22,7 +22,23 @@
 					<div>
 						<div class="form-item">
 							<label class="label-large" for="filiere">Filière</label>
-							<?php echo $filiereEnseignement['filiere']; ?>
+							<select name="filiere" id="filiere">
+								<?php
+								// On parcours le tableau des niveaux
+								foreach($arrayFilieres as $filiere) {
+									
+									if ($filiereEnseignement['id_filiere'] == $filiere['id']) 
+										echo '<option value="'.$filiere['id'].'" selected="selected">';
+									else
+										echo '<option value="'.$filiere['id'].'">';
+									echo $filiere['niveau'].' '.$filiere['specialite'].' '.$filiere['apprentissage_lib']; 
+									?>
+									</option>
+								<?php
+								}
+								?>
+							</select>
+
 						</div>
 						
 						<div class="form-item">
