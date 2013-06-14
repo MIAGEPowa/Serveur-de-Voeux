@@ -2,7 +2,7 @@
 	class DiplomeController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Diplome');
+		var $models = array('Diplome', 'Niveau');
 		
 		// Variables pour les vues
 		var $v_JS = array('diplome');
@@ -68,8 +68,22 @@
 			$d['v_needRights'] = 4;
 
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
-				$this->Diplome->del($id);
-				redirection("diplome", "index");
+				
+				$res = $this->Niveau->find(array ('conditions' => 'id_diplome = '.$id));
+				
+				if(count($res) == 0) {
+					$this->Diplome->del($id);
+					$d['v_success'] = "Le diplôme a bien été supprimé !";
+				}
+				else {
+					$d['v_errors'] = 'Oops ! Suppression impossible. Ce diplôme est rattaché un niveau.';
+				}
+				
+				$d['diplomes'] = $this->Diplome->getAll();
+				
+				$this->set($d);
+				$this->render('index');
+				
 			} else {
 				// Rediriger l'utilisateur sur une page d'erreur
 				redirection("notfound", "droits");

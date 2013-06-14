@@ -14,7 +14,7 @@
 		</div>
 		
 		<div class="text text-full">
-			<form id="form-create-voeu" action="#" method="post">
+			<form id="form-create-voeu" action="<?php echo WEBROOT.'voeu/index'; ?>" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-book"></span>Ajouter un voeu<span class="icon-arrow"></span></legend>
 					<div style="display:none">

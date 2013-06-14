@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="text text-full">
-			<form id="form-create-degree" action="#" method="post">
+			<form id="form-create-degree" action="<?php echo WEBROOT.'role/index';?>" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-roles"></span>Ajouter un rôle<span class="icon-arrow"></span></legend>
 					<div style="display: none;">

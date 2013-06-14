@@ -14,7 +14,7 @@
 		</div>
 		
 		<div class="text text-full">
-			<form id="form-create-teaching" action="#" method="post">
+			<form id="form-create-teaching" action="<?php echo WEBROOT.'enseignement/index'; ?>" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-book"></span>Ajouter un enseignement<span class="icon-arrow"></span></legend>
 					<div style="display:none">

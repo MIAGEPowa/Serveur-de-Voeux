@@ -14,7 +14,7 @@
 		</div>
 		
 		<div class="text text-full">
-			<form id="form-create-speciality" action="#" method="post">
+			<form id="form-create-speciality" action="<?php echo WEBROOT.'spécialite/index';?>" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-star"></span>Ajouter une spécialité<span class="icon-arrow"></span></legend>
 					<div style="display:none">
