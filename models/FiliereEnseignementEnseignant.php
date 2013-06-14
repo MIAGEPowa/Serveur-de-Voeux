@@ -20,6 +20,20 @@
 				AND U.id = '.$id_utilisateur);
 		}
 		
+		function getAllByUserEtatPrevi($id_utilisateur) {
+			return $this->query('
+				SELECT FE.id as id_filiere_enseignement, F.apprentissage as filiere_apprentissage, S.libelle as specialite_libelle, N.libelle as niveau_libelle, E.libelle as enseignement_libelle, CC.annee, FEE.nbr_h_cours as fee_nbr_h_cours, FEE.nbr_h_td as fee_nbr_h_td, FEE.nbr_h_tp as fee_nbr_h_tp
+				FROM '.DB_PREFIX.'filiere_enseignement_enseignant FEE, '.DB_PREFIX.'utilisateur U, '.DB_PREFIX.'filiere_enseignement FE, '.DB_PREFIX.'filiere F, '.DB_PREFIX.'enseignement E, '.DB_PREFIX.'niveau N, '.DB_PREFIX.'specialite S, '.DB_PREFIX.'config CC
+				WHERE FEE.id_utilisateur = U.id
+				AND FEE.id_filiere_enseignement	= FE.id
+				AND FE.id_enseignement = E.id
+				AND FE.id_filiere = F.id
+				AND F.id_niveau = N.id
+				AND F.id_specialite = S.id
+				AND FE.annee = CC.annee
+				AND U.id = '.$id_utilisateur);
+		}
+		
 		function getConflitsByFiliereEnseignement($id_filiere_enseignement) {
 			$req = $this->query('SELECT fe.id_filiere, fe.nbr_h_cours, fe.nbr_h_td, fe.nbr_h_tp, fe.nbr_groupes_cours, fe.nbr_groupes_td, fe.nbr_groupes_tp, fee.id_filiere_enseignement, SUM(fee.nbr_h_cours) as v_cours, SUM(fee.nbr_h_td) as v_td, SUM(fee.nbr_h_tp) as v_tp
 								 FROM '.DB_PREFIX.'filiere_enseignement fe, '.DB_PREFIX.'filiere_enseignement_enseignant fee

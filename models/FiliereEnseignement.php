@@ -8,8 +8,8 @@
 		}
 		
 		function getAllFiliereEnseignement($otherCondition="") {
-		  return $this->query('
-					SELECT FE.id as id_filiere_enseignement, id_filiere, N.libelle as libelle_niveau, S.libelle as libelle_specialite, apprentissage, E.libelle as libelle_enseignement, annee
+			return $this->query('
+					SELECT FE.id_enseignement, FE.id as id_filiere_enseignement, id_filiere, N.libelle as libelle_niveau, S.libelle as libelle_specialite, apprentissage, E.libelle as libelle_enseignement, annee
 					FROM '.DB_PREFIX.'filiere_enseignement FE, '.DB_PREFIX.'filiere F, '.DB_PREFIX.'niveau N, '.DB_PREFIX.'specialite S, '.DB_PREFIX.'enseignement E
 					WHERE FE.id_filiere = F.id
 					AND F.id_niveau = N.id

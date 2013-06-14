@@ -277,7 +277,7 @@
 			$d['v_needRights'] = 3;
 
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
-			
+				
 				// Traitement du formulaire
 				if($_POST['filiereEnseignement_form_update']) {
 					if(isset($_POST['dateDebut']) && !empty($_POST['dateDebut'])) {
@@ -304,6 +304,7 @@
 						
 							// on enregistre l'association filiere-enseignement
 							$dataFiliereEnseignement = array(	'id' => $id,
+																'id_filiere' => $_POST['filiere'],
 																'date_debut_enseignement' => dateNormalToBDD($_POST['dateDebut']),
 																'nbr_h_cours' => $t_minutes_cours,
 																'nbr_h_td' => $t_minutes_TD,
@@ -328,6 +329,24 @@
 					}
 				}
 				
+				/*====== On récupère toutes les filières ======*/
+				
+				$d['arrayFilieres'] = $this->Filiere->find();
+				$d['arrayEnseignements'] = $this->Enseignement->find();
+				
+				// Dans la liste des filières, on ajoute le nom de la spécialité, du niveau et de l'apprentissage
+				for($i=0; $i<count($d['arrayFilieres']); $i++) {
+					// Spécialité
+					$specialite = $this->Specialite->find(array('conditions' => 'id = '.$d['arrayFilieres'][$i]['id_specialite']));
+					$d['arrayFilieres'][$i]['specialite'] = $specialite[0]['libelle'];
+					// Niveau
+					$niveau = $this->Niveau->find(array('conditions' => 'id = '.$d['arrayFilieres'][$i]['id_niveau']));
+					$d['arrayFilieres'][$i]['niveau'] = $niveau[0]['libelle'];
+					// Apprentissage
+					if($d['arrayFilieres'][$i]['apprentissage'] == 0) {$d['arrayFilieres'][$i]['apprentissage_lib'] = 'Initial';}
+					else {$d['arrayFilieres'][$i]['apprentissage_lib'] = 'Apprentissage';}
+				}
+				
 				/*====== On sélectionne la filière-enseignement concernée ======*/
 				
 				$d['filiereEnseignement'] = $this->FiliereEnseignement->find(array('conditions' => 'id = '.$id));
@@ -345,7 +364,6 @@
 				else {$apprentissage = 'Apprentissage';}
 				// Filière
 				$d['filiereEnseignement']['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
-				
 				// Enseignement
 				$enseignement = $this->Enseignement->find(array('conditions' => 'id = '.$d['filiereEnseignement']['id_enseignement']));
 				$d['filiereEnseignement']['enseignement'] = $enseignement[0]['libelle'];

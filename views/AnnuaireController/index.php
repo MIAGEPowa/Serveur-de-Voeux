@@ -68,7 +68,7 @@
 										
 							// On affiche le CV de l'utilisateur que s'il en a un
 							if(file_exists(ROOT.'files/cv/'.$u['id'].'.pdf'))
-								echo '<td><a href="'.WEBROOT.'files/cv/'.$u['id'].'.pdf" title="CV" target="_blank"><span class="buttons button-grey">CV</span></a></td>';
+								echo '<td><a href="'.WEBROOT.'files/cv/'.$u['id'].'.pdf" title="CV" target="_blank" class="buttons-link"><span class="buttons button-grey">CV</span></a></td>';
 							else
 								echo '<td></td>';
 							

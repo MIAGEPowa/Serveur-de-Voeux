@@ -126,7 +126,7 @@
 							?>
 								<tr>
 									<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $voeu['id_filiere_enseignement']; ?>"><?php echo $voeu['niveau_libelle'].' '.$voeu['specialite_libelle'].' '.$apprentissage; ?></a></td>
-									<td><?php echo $voeu['enseignement_libelle']; ?></td>
+									<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $voeu['id_filiere_enseignement']; ?>"><?php echo $voeu['enseignement_libelle']; ?></a></td>
 									<td align="center"><?php echo $nbr_h_cours; ?></td>
 									<td align="center"><?php echo $nbr_h_td; ?></td>
 									<td align="center"><?php echo $nbr_h_tp; ?></td>
@@ -244,7 +244,59 @@
 			</div>
 		
 		</div>
-	
+		
+		<!-- Historique des voeux -->
+		<div class="text text-full">
+			<h2>Historique des voeux</h2>
+			<?php
+			// s'il existe des voeux
+			if(count($arrayDegrees) != 0) {
+			?>
+			
+			<table>
+				<thead>
+					<tr>
+						<th width="26%">Filière</th>
+						<th width="26%">Enseignement</th>
+						<th width="11%">Année</th>
+						<th width="8%" align="center">Cours</th>
+						<th width="8%" align="center">TD</th>
+						<th width="8%" align="center">TP</th>
+						<th width="13%" align="center">Total eq. TD</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					// On parcours le tableau des enseignements
+					foreach($arrayVoeuxHistorique as $vh) {
+						$apprentissage = ($vh['filiere_apprentissage'] == 1) ? 'Apprentissage' : 'Initial';
+						$nbr_h_cours = ($vh['fee_nbr_h_cours'] % 60 != 0) ? (floor( $vh['fee_nbr_h_cours'] / 60 )).','.round((($vh['fee_nbr_h_cours'] % 60) * 100 / 60), 0) : (floor( $vh['fee_nbr_h_cours'] / 60 ));
+						$nbr_h_td = ($vh['fee_nbr_h_td'] % 60 != 0) ? (floor( $vh['fee_nbr_h_td'] / 60 )).','.round((($vh['fee_nbr_h_td'] % 60) * 100 / 60), 0) : (floor( $vh['fee_nbr_h_td'] / 60 ));
+						$nbr_h_tp = ($vh['fee_nbr_h_tp'] % 60 != 0) ? (floor( $vh['fee_nbr_h_tp'] / 60 )).','.round((($vh['fee_nbr_h_tp'] % 60) * 100 / 60), 0) : (floor( $vh['fee_nbr_h_tp'] / 60 ));
+					?>
+						<tr>
+							<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $vh['id_filiere_enseignement']; ?>"><?php echo $vh['niveau_libelle'].' '.$vh['specialite_libelle'].' '.$apprentissage; ?></a></td>
+							<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $vh['id_filiere_enseignement']; ?>"><?php echo $vh['enseignement_libelle']; ?></a></td>
+							<td><?php echo $vh['annee']; ?></td>
+							<td align="center"><?php echo $nbr_h_cours; ?></td>
+							<td align="center"><?php echo $nbr_h_td; ?></td>
+							<td align="center"><?php echo $nbr_h_tp; ?></td>
+							<td align="right"><?php echo str_replace('.', ',', round($nbr_h_td + (($vh['fee_nbr_h_cours'] / 60) * $coeff_cours) + (($vh['fee_nbr_h_tp'] / 60) * $coeff_tp), 2)); ?></td>
+						</tr>
+					<?php 
+					} 
+					?>
+				</tbody>
+			</table>
+			<?php
+			} else {
+			?>
+				<p>Aucun voeux.</p>
+			<?php
+			}
+			?>
+		</div>
+		
 	</div>
 	
 </div>
