@@ -19,7 +19,7 @@
 		</div>
 		
 		<div class="text text-full div-mode-admin">
-			<form id="form-create-filiereEnseignement" action="#" method="POST">
+			<form id="form-create-filiereEnseignement" action="<?php echo WEBROOT; ?>filiereEnseignement/admin" method="POST">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-filieres-enseignement"></span>Associer un enseignement à une filière<span class="icon-arrow"></span></legend>
 					<div style="display:none">

@@ -14,7 +14,7 @@
 			$d['v_needRightsExporter'] = 4;
 			
 			// On récupère tous les utilisateurs
-			$d['utilisateurs'] = $this->Utilisateur->getUtilisateursAvecRoles();
+			$d['utilisateurs'] = $this->Utilisateur->getUtilisateursAvecRoles(1);
 			
 			$this->set($d);
 			$this->render('index');

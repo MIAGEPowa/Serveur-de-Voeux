@@ -14,7 +14,7 @@
 		</div>
 		
 		<div class="text text-full">
-			<form id="form-create-level" action="#" method="post">
+			<form id="form-create-level" action="<?php echo WEBROOT.'niveau/index';?>" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-podium"></span>Ajouter un niveau<span class="icon-arrow"></span></legend>
 					<div style="display:none">

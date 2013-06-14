@@ -21,7 +21,7 @@
 			<div class="clear"></div>
 		</div>		
 		
-		<!-- MODE AFFICHAGE ENSEINGNANT 1 -->
+		<!-- MODE AFFICHAGE ENSEINGNANT 1 (pastilles) -->
 		<div id="mode-enseignant-1" class="div-mode-enseignant" style="display: none;">
 		<?php
 			$i = 1;	
@@ -255,11 +255,11 @@
 				 <thead>
 					<tr>
 						<th width="18%">Filière</th>
-						<th width="18%">Enseignement</th>
+						<th width="14%">Enseignement</th>
 						<th width="9%">Année</th>
 						<th width="9%">Réf</th>
 						<th width="18%">Responsable</th>
-						<th width="18%">Conflits</th>
+						<th width="22%" style="min-width:246px">Conflits</th>
 					</tr>
 				</thead>
 				<tbody>

@@ -21,5 +21,15 @@
 	mysql_connect('mysql51-55.perso', 'aymericahk98', 'r338oKQoWwM1');
 	mysql_select_db('aymericahk98');
 	mysql_query("SET NAMES 'UTF8'");
+	
+	/* Afin d'obtenir l'année en cours */
+	$annee = mysql_query('SELECT * FROM '.DB_PREFIX.'config') or die(mysql_error()."<br/> => ".$sql);
+	$d = array();
+	while($data = mysql_fetch_assoc($annee)){
+		$d[] = $data;
+	}
+	$annee = $d[0]['annee']; 
+	
+	define('ANNEE', $annee);
 
 ?>

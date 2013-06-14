@@ -175,7 +175,7 @@
 			$this->render('admin');
 		}
 
-		function index() {
+		function index($id_filiere_enseignement = 0, $refFiltre = 0 /* filtre appelé à partir du tableau de bord (conflit de ref) */) {
    
 			// Titre
 			$d['v_titreHTML'] = 'Filières - Enseignements';

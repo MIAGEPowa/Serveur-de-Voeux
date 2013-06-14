@@ -14,7 +14,7 @@
 		</div>
 		
 		<div class="text text-full">
-			<form id="form-create-teaching" action="#" method="post">
+			<form id="form-create-teaching" action="<?php echo WEBROOT.'enseignement/index'; ?>" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-book"></span>Ajouter un enseignement<span class="icon-arrow"></span></legend>
 					<div style="display:none">
@@ -97,7 +97,7 @@
 								<td><?php echo $civilite.' '.$enseignement['auteur_nom'].' '. $enseignement['auteur_prenom']; ?></td>
 								<td><?php echo $etat; ?></td>
 								<td>
-									<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/view/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-green">Visualiser</span><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/update/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-red">Supprimer</span></a>
+									<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/view/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/update/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-red">Supprimer</span></a>
 								</td>
 							</tr>
 						

@@ -38,8 +38,11 @@
 		}
 		
 		// Retourne tous les utilisateurs avec leurs rôles
-		function getUtilisateursAvecRoles() {
-			$arrayUtilisateur = $this->getUtilisateurs(0);
+		function getUtilisateursAvecRoles($needActif = 0) {
+			if(!$needActif)
+				$arrayUtilisateur = $this->getUtilisateurs(0);
+			else
+				$arrayUtilisateur = $this->getUtilisateurs(1);
 			
 			$res = array();
 			foreach($arrayUtilisateur as $utilisateur) {

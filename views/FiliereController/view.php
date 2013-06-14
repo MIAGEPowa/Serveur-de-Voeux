@@ -98,7 +98,7 @@
 											<td><a href="<?php echo WEBROOT; ?>filiereEnseignement/view/<?php echo $v['id_filiere_enseignement']; ?>" title="<?php echo $niveau.' '.$specialite; if($apprentissage) echo ' Apprentissage'; else echo ' Initial'; echo ' - '.$enseignement['libelle']; ?>"><?php echo $enseignement['libelle']; ?></a></td>
 										<?php
 									}
-									$total = $total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
+									$total = $total + (($v['nbr_h_td'] / 60) + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
 							?>
 											<td>
 												<?php
@@ -112,17 +112,17 @@
 											<td align="center"><?php echo str_replace('.', ',', round($v['nbr_h_cours'] / 60, 2)); ?></td>
 											<td align="center"><?php echo str_replace('.', ',', round($v['nbr_h_td'] / 60, 2)); ?></td>
 											<td align="center"><?php echo str_replace('.', ',', round($v['nbr_h_tp'] / 60, 2)); ?></td>
-											<td align="right"><?php echo str_replace('.', ',', round($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2)); ?></td>
+											<td align="right"><?php echo str_replace('.', ',', round(($v['nbr_h_td'] / 60) + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2)); ?></td>
 											<td align="right">
 												<?php
 													if($enseignement['semestre'] == 1)
-														echo str_replace('.', ',', round($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2));
+														echo str_replace('.', ',', round(($v['nbr_h_td'] / 60) + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2));
 												?>
 											</td>
 											<td align="right">
 												<?php
 													if($enseignement['semestre'] == 2)
-														echo str_replace('.', ',', round($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2));
+														echo str_replace('.', ',', round(($v['nbr_h_td'] / 60) + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']), 2));
 												?>
 											</td>
 										</tr>
@@ -139,11 +139,11 @@
 					foreach($arrayEnseignements as $enseignement) {
 						if($enseignement['semestre'] == 1) {
 							foreach($enseignement['voeux'] as $v) {
-								$s1_total = $s1_total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
+								$s1_total = $s1_total + (($v['nbr_h_td'] / 60) + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
 							}
 						} else {
 							foreach($enseignement['voeux'] as $v) {
-								$s2_total = $s2_total + ($v['nbr_h_td'] + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
+								$s2_total = $s2_total + (($v['nbr_h_td'] / 60) + (($v['nbr_h_cours'] / 60) * $v['coeff_cours']) + (($v['nbr_h_tp'] / 60) * $v['coeff_tp']));
 							}
 						}
 					}

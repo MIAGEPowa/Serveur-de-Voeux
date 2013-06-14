@@ -1,7 +1,7 @@
 <?php
 
-	require('config.php');
 	require('functions.php');
+	require('config.php');
 	$error_404 = 0;
 	
 	if(isset($_GET['p']) && !empty($_GET['p']) && $_SESSION['v_connected']) {

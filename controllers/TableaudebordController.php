@@ -2,7 +2,8 @@
 	class TableaudebordController extends Controller {
 	
 		// Déclaration du modèle rattaché au controlleur
-		var $models = array('Filiere', 'Enseignement', 'FiliereEnseignement', 'FiliereEnseignementEnseignant', 'Configuration', 'UtilisateurRole');
+		var $models = array('Filiere', 'Enseignement', 'FiliereEnseignement', 'FiliereEnseignementEnseignant', 
+							'Configuration', 'UtilisateurRole', 'Utilisateur', 'Role');
 		
 		// Variables pour les vues
 		var $v_JS = array();
@@ -51,7 +52,31 @@
 				$d['arrayFilieres'][$keyF]['responsable'] = $this->UtilisateurRole->getFiliereResponsable($f['id']);
 				$d['arrayFilieres'][$keyF]['secretaire'] = $this->UtilisateurRole->getFiliereSecretaire($f['id']);
 			}	
-			// }
+			
+			$d['utilisateur'] = $this->Utilisateur->getUtilisateur($_SESSION['v_id_utilisateur']);
+			$d['utilisateur'] = $d['utilisateur'][0];
+      
+			$d['roles_utilisateur'] = $this->UtilisateurRole->getRoleUtilisateur($_SESSION['v_id_utilisateur']);
+
+			for($i=0; $i<count($d['roles_utilisateur']); $i++) {
+				$role = $this->Role->find(array('conditions' => 'id = '.$d['roles_utilisateur'][$i]['id_role'], 'order' => 'id'));
+				$d['roles_utilisateur'][$i]['libelle'] = $role[0]['libelle'];
+				if($role[0]['droits'] == 2) {
+					$d['coeff_cours'] = $role[0]['coeff_cours'];
+					$d['coeff_tp'] = $role[0]['coeff_tp'];
+					$d['quota_h'] = $role[0]['quota_h'];
+				}				
+			}
+      
+			$d['arrayVoeux'] = $this->FiliereEnseignementEnseignant->getAllByUser($_SESSION['v_id_utilisateur']);
+			
+			$total = 0;
+			foreach($d['arrayVoeux'] as $voeu) {
+				$d['heuresEffectuees'] += round($voeu['fee_nbr_h_cours'] / 60, 2) * $d['coeff_cours'];
+				$d['heuresEffectuees'] += round($voeu['fee_nbr_h_tp'] / 60, 2) * $d['coeff_tp'];
+				$d['heuresEffectuees'] += round($voeu['fee_nbr_h_td'] / 60, 2);
+			}
+			$d['total'] = $d['heuresEffectuees'] + $d['utilisateur']['nbr_h_delegation'];
 			
 			$this->set($d);
 			$this->render('index');

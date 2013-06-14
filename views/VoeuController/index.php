@@ -14,7 +14,7 @@
 		</div>
 		
 		<div class="text text-full">
-			<form id="form-create-voeu" action="#" method="post">
+			<form id="form-create-voeu" action="<?php echo WEBROOT.'voeu/index'; ?>" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-book"></span>Ajouter un voeu<span class="icon-arrow"></span></legend>
 					<div style="display:none">
@@ -60,12 +60,12 @@
 				 <thead>
 					<tr>
 						<th width="21%">Filière</th>
-						<th width="21%">Enseignement</th>
+						<th width="15%">Enseignement</th>
 						<th width="8%" align="center">Année</th>
 						<th width="8%" align="center">Cours</th>
 						<th width="8%" align="center">TD</th>
 						<th width="8%" align="center">TP</th>
-						<th width="20%">Conflits</th>
+						<th width="26%" style="min-width:246px">Conflits</th>
 						<th width="6%">Actions</th> <!-- Visualiser et Supprimer -->
 					</tr>
 				</thead>
