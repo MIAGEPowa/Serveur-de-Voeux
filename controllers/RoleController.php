@@ -158,6 +158,71 @@
 				redirection("notfound", "droits");
 			}
 		}
+		
+		function update($id) {
+			// Titre
+			$d['v_titreHTML'] = 'Rôles';
+			$d['v_menuActive'] = 'roles';
+			$d['v_needRights'] = 4;
+
+			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+				
+				if($_POST['role_submit_update']) {
+
+					$role = $this->Role->find(array('conditions' => 'id = '.$id));
+					$adjoint = (isset($_POST['role_adjoint'])) ? $_POST['role_adjoint'] : $role[0]['adjoint'];
+					$quota_h = (isset($_POST['role_quota_h'])) ? $_POST['role_quota_h'] : $role[0]['quota_h'];
+					$id_filiere = ((isset($_POST['role_filiere'])) && ($_POST['role_filiere'] != 0)) ? $_POST['role_filiere'] : 0;
+					$id_diplome = ((isset($_POST['role_diplome'])) && ($_POST['role_diplome'] != 0)) ? $_POST['role_diplome'] : 0;
+					$coeff_cours = (isset($_POST['role_coeff_cours'])) ? $_POST['role_coeff_cours'] : $role[0]['coeff_cours'];
+					$coeff_tp = (isset($_POST['role_coeff_tp'])) ? $_POST['role_coeff_tp'] : $role[0]['coeff_tp'];
+					
+					if (($role[0]['droits'] == 2) || ($role[0]['droits'] == 4))
+						$libelle = (isset($_POST['role_libelle'])) ? $_POST['role_libelle'] : $role[0]['libelle'];
+					else if ($role[0]['droits'] == 1) {
+						$filiere_libelle = $this->Filiere->getFiliereName($id_filiere);
+						$libelle = 'Secrétaire '.$filiere_libelle;
+					} else if ($role[0]['droits'] == 3) {
+						$a = (isset($_POST['role_adjoint'])) ? $_POST['role_adjoint'] : $role[0]['adjoint'];
+						$l = ($id_filiere != 0) ? $this->Filiere->getFiliereName($id_filiere) : $this->Diplome->getDiplomeName($id_diplome);
+						$libelle = "Responsable";
+						if($adjoint)
+							$libelle .= " adjoint";
+						$libelle .= " ".$l;
+					}
+					
+					if (!$this->Role->checkRoleLibelleId($libelle, $id)) {
+						$dataRole = array(	'id' => $id,
+											'libelle' => $libelle,
+											'adjoint' => $adjoint,
+											'quota_h' => $quota_h,
+											'id_filiere' => $id_filiere,
+											'id_diplome' => $id_diplome,
+											'coeff_cours' => $coeff_cours,
+											'coeff_tp' => $coeff_tp);
+											
+						$this->Role->save($dataRole);	
+						
+						$d['v_success'] = 'Rôle mis à jour avec succès.';
+					} else {
+						$d['v_errors'] = 'Oops ! Ce rôle a déjà été crée.';
+					}
+				}
+				
+				$d['role'] = $this->Role->find(array('conditions' => 'id = '.$id));
+				$d['diplomes'] = $this->Diplome->getAll();
+				$d['arrayFilieres'] = $this->Filiere->find();
+				for($i=0; $i<count($d['arrayFilieres']); $i++) {
+					$d['arrayFilieres'][$i]['name'] = $this->Filiere->getFiliereName($d['arrayFilieres'][$i]['id']);
+				}
+				
+				$this->set($d);
+				$this->render('update');
+			} else {
+				// Rediriger l'utilisateur sur une page d'erreur
+				redirection("notfound", "droits");
+			}
+		}
 
 	}
 ?>

@@ -14,7 +14,7 @@
 		</div>
 
 		<div class="text text-full">
-			<form id="form-create-degree" action="#" method="post">
+			<form id="form-create-role" action="#" method="post">
 				<fieldset>
 					<legend class="button-slide"><span class="icon-roles"></span>Ajouter un rôle<span class="icon-arrow"></span></legend>
 					<div style="display: none;">
@@ -191,8 +191,10 @@
 										<td>'.$role_txt.'</td>
 										<td>'.$r['utilisateurs'].'</td>
 										<td>'; 
-							if ($r['libelle'] == 'Responsable de cours') echo ''; else echo '<a class="buttons-link" href="'.WEBROOT.'role/index/'.$r['id'].'" title="Supprimer"><span class="buttons button-red">Supprimer</span></a>';
-							echo '</td></tr>';
+										
+										if ($r['libelle'] == 'Responsable de cours') echo ''; else echo '<a class="buttons-link" href="'.WEBROOT.'role/update/'.$r['id'].'" title="Modifier"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="'.WEBROOT.'role/index/'.$r['id'].'" title="Supprimer"><span class="buttons button-red">Supprimer</span></a>';
+										echo '</td>';
+							echo '</tr>';
 						}
 						
 					?>

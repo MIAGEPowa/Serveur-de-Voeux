@@ -25,6 +25,12 @@
 			));
 		}
 		
+		function checkRoleLibelleId($libelle, $id) {
+			return $this->find(array(
+				'conditions' => 'libelle = "' . $libelle . '" AND id != ' . $id
+			));
+		}
+		
 		function checkRoleSecretaire($id_filiere) {
 			return $this->find(array(
 				'conditions' => 'id_filiere = '.$id_filiere.' AND droits = 1'

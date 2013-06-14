@@ -24,5 +24,15 @@
 				'conditions' => 'id='.$id
 			));
 		}
+		
+		function getDiplomeName($id) {
+			$req = $this->find(array(
+				'conditions' => 'id='.$id
+			));
+			
+			$name = $req[0]['libelle'];
+			
+			return $name;			
+		}
 	}
 ?>
