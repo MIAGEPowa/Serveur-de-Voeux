@@ -84,7 +84,7 @@
       
 			$d['arrayKeywords'] = $this->Keyword->find(array('conditions' => 'id_utilisateur = '.$id));
 			$d['arrayDegrees'] = $this->Enseignement->find(array('conditions' => 'auteur = '.$id));
-      
+			
 			$d['arrayVoeux'] = $this->FiliereEnseignementEnseignant->getAllByUser($id);
       
 			$this->set($d);
