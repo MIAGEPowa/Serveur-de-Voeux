@@ -94,10 +94,18 @@
 							<tr>
 								<td><?php echo $enseignement['id_enseignement']; ?></td>
 								<td><?php echo $enseignement['libelle']; ?></td>
-								<td><?php echo $civilite.' '.$enseignement['auteur_nom'].' '. $enseignement['auteur_prenom']; ?></td>
+								<td><a href="<?php echo WEBROOT; ?>annuaire/visualiser/<?php echo $enseignement['auteur_id']; ?>" title="<?php echo $civilite.' '.$enseignement['auteur_nom'].' '. $enseignement['auteur_prenom']; ?>"><?php echo $civilite.' '.$enseignement['auteur_nom'].' '. $enseignement['auteur_prenom']; ?></a></td>
 								<td><?php echo $etat; ?></td>
 								<td>
-									<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/view/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-green">Visualiser</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/update/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-orange">Modifier</span></a><a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-red">Supprimer</span></a>
+									<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/view/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-green">Visualiser</span></a>
+									<?php
+									if($_SESSION['v_droits'] > 1) {
+									?>
+										<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/update/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-orange">Modifier</span></a>
+										<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-red">Supprimer</span></a>
+									<?php
+									} 
+									?>
 								</td>
 							</tr>
 						

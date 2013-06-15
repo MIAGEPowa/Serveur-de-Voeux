@@ -341,12 +341,18 @@
 				
 							$checkRole = $this->UtilisateurRole->checkRoleUtilisateur($id, $_POST['ur_role'], 0);
 							if(!$checkRole) {
-								$checkExisteEnseignant = $this->UtilisateurRole->getRoleEnseignantUtilisateur($id);
-								if (!$checkExisteEnseignant) {
+								$getRole = $this->Role->getRoleLibelle($_POST['ur_role']);
+								if($getRole[0]['droits'] != 2) {
 									$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], 0);
-									$d['v_success'] = 'Le rôle a été associé correctement.';
+										$d['v_success'] = 'Le rôle a été associé correctement.';
 								} else {
-									$d['v_errors'] = 'Oops ! Un rôle "Enseignant" est déjà associé à cet utilisateur.';
+									$checkExisteEnseignant = $this->UtilisateurRole->getRoleEnseignantUtilisateur($id);
+									if (!$checkExisteEnseignant) {
+										$this->UtilisateurRole->addRoleUtilisateur($id, $_POST['ur_role'], 0);
+										$d['v_success'] = 'Le rôle a été associé correctement.';
+									} else {
+										$d['v_errors'] = 'Oops ! Un rôle "Enseignant" est déjà associé à cet utilisateur.';
+									}
 								}
 							} else {
 								$d['v_errors'] = 'Oops ! Ce rôle est déjà associé à cet utilisateur.';

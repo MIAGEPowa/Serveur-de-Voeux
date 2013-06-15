@@ -181,7 +181,7 @@
 			$d['v_titreHTML'] = 'Filières - Enseignements';
 			$d['v_menuActive'] = 'filieresEnseignements';
 			$this->v_JS = array('filiereEnseignement');
-			$d['v_needRights'] = 2;
+			$d['v_needRights'] = 1;
 
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {
 				
@@ -392,112 +392,106 @@
 			$d['v_titreHTML'] = 'Filières - Enseignements';
 			$d['v_menuActive'] = 'filieresEnseignements';
 			$this->v_JS = array('filiereEnseignementView');
-			$d['v_needRights'] = 1;
 			
 			// On traite le formulaire d'ajout de voeu
-			if($_SESSION['v_droits'] >= 2) {
 				if($_POST['filiereEnseignement_form_add_voeu']) {
-					$cours_h_voeu = ($_POST['heuresCours'] * 60) + $_POST['minutesCours'];
-					$td_h_voeu = ($_POST['heuresTD'] * 60) + $_POST['minutesTD'];
-					$tp_h_voeu = ($_POST['heuresTP'] * 60) + $_POST['minutesTP'];
+					if($_SESSION['v_droits'] >= 2) {
 					
-					$dataVoeu = array('id_filiere_enseignement' => $id,
-									  'id_utilisateur' => $_SESSION['v_id_utilisateur'],
-									  'nbr_h_cours' => $cours_h_voeu,
-									  'nbr_h_td' => $td_h_voeu,
-									  'nbr_h_tp' => $tp_h_voeu);
-					
-					$checkVoeu = $this->FiliereEnseignementEnseignant->getFiliereEnseignementEnseignant($id, $_SESSION['v_id_utilisateur']);
-					if (!$checkVoeu) {
-						// On ajoute le voeu
-						if(!empty($_POST['heuresCours']) || !empty($_POST['heuresTD']) || !empty($_POST['heuresTP']) || !empty($_POST['minutesCours']) || !empty($_POST['minutesTD']) || !empty($_POST['minutesTP'])) {
-							$this->FiliereEnseignementEnseignant->save($dataVoeu);
-							$d['v_success'] = 'Le voeu a bien été ajouté !';
+						$cours_h_voeu = ($_POST['heuresCours'] * 60) + $_POST['minutesCours'];
+						$td_h_voeu = ($_POST['heuresTD'] * 60) + $_POST['minutesTD'];
+						$tp_h_voeu = ($_POST['heuresTP'] * 60) + $_POST['minutesTP'];
+						
+						$dataVoeu = array('id_filiere_enseignement' => $id,
+										  'id_utilisateur' => $_SESSION['v_id_utilisateur'],
+										  'nbr_h_cours' => $cours_h_voeu,
+										  'nbr_h_td' => $td_h_voeu,
+										  'nbr_h_tp' => $tp_h_voeu);
+						
+						$checkVoeu = $this->FiliereEnseignementEnseignant->getFiliereEnseignementEnseignant($id, $_SESSION['v_id_utilisateur']);
+						if (!$checkVoeu) {
+							// On ajoute le voeu
+							if(!empty($_POST['heuresCours']) || !empty($_POST['heuresTD']) || !empty($_POST['heuresTP']) || !empty($_POST['minutesCours']) || !empty($_POST['minutesTD']) || !empty($_POST['minutesTP'])) {
+								$this->FiliereEnseignementEnseignant->save($dataVoeu);
+								$d['v_success'] = 'Le voeu a bien été ajouté !';
+							} else {
+								$d['v_errors'] = 'Oops ! Il faut saisir au minimum un nombre d\'heures de cours, de TD ou de TP.';
+							}
 						} else {
-							$d['v_errors'] = 'Oops ! Il faut saisir au minimum un nombre d\'heures de cours, de TD ou de TP.';
+							if(empty($_POST['heuresCours']) && empty($_POST['heuresTD']) && empty($_POST['heuresTP']) && empty($_POST['minutesCours']) && empty($_POST['minutesTD']) && empty($_POST['minutesTP'])) {
+								// On supprime le voeu si tout a 0
+								$this->FiliereEnseignementEnseignant->delete($id, $_SESSION['v_id_utilisateur']);
+								$d['v_success'] = 'Le voeu a bien été supprimé !';
+							} else {
+								// On modifie le voeu
+								$this->FiliereEnseignementEnseignant->update($dataVoeu, 'id_filiere_enseignement', 'id_utilisateur');
+								$d['v_success'] = 'Le voeu a bien été modifié !';
+							}
 						}
+					
 					} else {
-						if(empty($_POST['heuresCours']) && empty($_POST['heuresTD']) && empty($_POST['heuresTP']) && empty($_POST['minutesCours']) && empty($_POST['minutesTD']) && empty($_POST['minutesTP'])) {
-							// On supprime le voeu si tout a 0
-							$this->FiliereEnseignementEnseignant->delete($id, $_SESSION['v_id_utilisateur']);
-							$d['v_success'] = 'Le voeu a bien été supprimé !';
-						} else {
-							// On modifie le voeu
-							$this->FiliereEnseignementEnseignant->update($dataVoeu, 'id_filiere_enseignement', 'id_utilisateur');
-							$d['v_success'] = 'Le voeu a bien été modifié !';
-						}
+						// Rediriger l'utilisateur sur une page d'erreur
+						redirection("notfound", "droits");
 					}
 				}
-			} else {
-				// Rediriger l'utilisateur sur une page d'erreur
-				redirection("notfound", "droits");
-			}
 			
-			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+			/*====== On sélectionne la filière-enseignement concernée ======*/
 			
-				/*====== On sélectionne la filière-enseignement concernée ======*/
-				
-				$d['filiereEnseignement'] = $this->FiliereEnseignement->find(array('conditions' => 'id = '.$id));
-				$d['filiereEnseignement'] = $d['filiereEnseignement'][0];
-				
-				$filiere = $this->Filiere->find(array('conditions' => 'id = '.$d['filiereEnseignement']['id_filiere']));
-				// Niveau
-				$niveau = $this->Niveau->find(array('conditions' => 'id = '.$filiere[0]['id_niveau']));
-				$niveau = $niveau[0]['libelle'];
-				// Spécialité
-				$specialite = $this->Specialite->find(array('conditions' => 'id = '.$filiere[0]['id_specialite']));
-				$specialite = $specialite[0]['libelle'];
-				// Apprentissage
-				if($filiere[0]['apprentissage'] == 0) {$apprentissage = 'Initial';}
-				else {$apprentissage = 'Apprentissage';}
-				// Filière
-				$d['filiereEnseignement']['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
-				
-				// Enseignement
-				$enseignement = $this->Enseignement->find(array('conditions' => 'id = '.$d['filiereEnseignement']['id_enseignement']));
-				$d['filiereEnseignement']['enseignement'] = $enseignement[0]['libelle'];
-				
-				// Date de début de l'enseignement
-				$d['filiereEnseignement']['date_debut_enseignement'] = dateBDDToNormal($d['filiereEnseignement']['date_debut_enseignement']);
-				
-				// Voeux
-				$d['filiereEnseignementEnseignant'] = $this->FiliereEnseignementEnseignant->getAllByFiliereEnseignement($id);
-				
-				// Heures Cours, TD et TP
-				$d['filiereEnseignement']['h_cours'] = floor($d['filiereEnseignement']['nbr_h_cours'] / 60);
-				$d['filiereEnseignement']['m_cours'] = $d['filiereEnseignement']['nbr_h_cours'] % 60;
-				$d['filiereEnseignement']['h_cours_d'] = round($d['filiereEnseignement']['nbr_h_cours'] / 60, 2);
-				$d['filiereEnseignement']['h_td'] = floor($d['filiereEnseignement']['nbr_h_td'] / 60);
-				$d['filiereEnseignement']['m_td'] = $d['filiereEnseignement']['nbr_h_td'] % 60;
-				$d['filiereEnseignement']['h_td_d'] = round($d['filiereEnseignement']['nbr_h_td'] / 60, 2);
-				$d['filiereEnseignement']['h_tp'] = floor($d['filiereEnseignement']['nbr_h_tp'] / 60);
-				$d['filiereEnseignement']['m_tp'] = $d['filiereEnseignement']['nbr_h_tp'] % 60;
-				$d['filiereEnseignement']['h_tp_d'] = round($d['filiereEnseignement']['nbr_h_tp'] / 60, 2);
-								
-				// Responsables
-				$arrayResponsables = $this->UtilisateurRole->find(array('conditions' => 'id_filiere_enseignement = '.$id,
-																		'order' => 'id_filiere_enseignement'));
-				if(count($arrayResponsables) != 0) {
-					$d['filiereEnseignement']['responsable'] = array();
-					$i = 0;
-					foreach ($arrayResponsables as $responsable) {
-						$responsable = $this->Utilisateur->find(array('conditions' => 'id = '.$responsable['id_utilisateur']));
+			$d['filiereEnseignement'] = $this->FiliereEnseignement->find(array('conditions' => 'id = '.$id));
+			$d['filiereEnseignement'] = $d['filiereEnseignement'][0];
+			
+			$filiere = $this->Filiere->find(array('conditions' => 'id = '.$d['filiereEnseignement']['id_filiere']));
+			// Niveau
+			$niveau = $this->Niveau->find(array('conditions' => 'id = '.$filiere[0]['id_niveau']));
+			$niveau = $niveau[0]['libelle'];
+			// Spécialité
+			$specialite = $this->Specialite->find(array('conditions' => 'id = '.$filiere[0]['id_specialite']));
+			$specialite = $specialite[0]['libelle'];
+			// Apprentissage
+			if($filiere[0]['apprentissage'] == 0) {$apprentissage = 'Initial';}
+			else {$apprentissage = 'Apprentissage';}
+			// Filière
+			$d['filiereEnseignement']['filiere'] = $niveau.' '.$specialite.' '.$apprentissage;
+			
+			// Enseignement
+			$enseignement = $this->Enseignement->find(array('conditions' => 'id = '.$d['filiereEnseignement']['id_enseignement']));
+			$d['filiereEnseignement']['enseignement'] = $enseignement[0]['libelle'];
+			
+			// Date de début de l'enseignement
+			$d['filiereEnseignement']['date_debut_enseignement'] = dateBDDToNormal($d['filiereEnseignement']['date_debut_enseignement']);
+			
+			// Voeux
+			$d['filiereEnseignementEnseignant'] = $this->FiliereEnseignementEnseignant->getAllByFiliereEnseignement($id);
+			
+			// Heures Cours, TD et TP
+			$d['filiereEnseignement']['h_cours'] = floor($d['filiereEnseignement']['nbr_h_cours'] / 60);
+			$d['filiereEnseignement']['m_cours'] = $d['filiereEnseignement']['nbr_h_cours'] % 60;
+			$d['filiereEnseignement']['h_cours_d'] = round($d['filiereEnseignement']['nbr_h_cours'] / 60, 2);
+			$d['filiereEnseignement']['h_td'] = floor($d['filiereEnseignement']['nbr_h_td'] / 60);
+			$d['filiereEnseignement']['m_td'] = $d['filiereEnseignement']['nbr_h_td'] % 60;
+			$d['filiereEnseignement']['h_td_d'] = round($d['filiereEnseignement']['nbr_h_td'] / 60, 2);
+			$d['filiereEnseignement']['h_tp'] = floor($d['filiereEnseignement']['nbr_h_tp'] / 60);
+			$d['filiereEnseignement']['m_tp'] = $d['filiereEnseignement']['nbr_h_tp'] % 60;
+			$d['filiereEnseignement']['h_tp_d'] = round($d['filiereEnseignement']['nbr_h_tp'] / 60, 2);
+							
+			// Responsables
+			$arrayResponsables = $this->UtilisateurRole->find(array('conditions' => 'id_filiere_enseignement = '.$id,
+																	'order' => 'id_filiere_enseignement'));
+			if(count($arrayResponsables) != 0) {
+				$d['filiereEnseignement']['responsable'] = array();
+				$i = 0;
+				foreach ($arrayResponsables as $responsable) {
+					$responsable = $this->Utilisateur->find(array('conditions' => 'id = '.$responsable['id_utilisateur']));
 
-						$civilite = ($responsable[0]['civilite'] == 0) ? "Mme" : "M";
-						$d['filiereEnseignement']['responsable'][$i]['id'] = $responsable[0]['id'];
-						$d['filiereEnseignement']['responsable'][$i]['nom'] = $civilite.' '.$responsable[0]['prenom'].' '.$responsable[0]['nom'];
-						$d['filiereEnseignement']['responsable'][$i]['email'] = $responsable[0]['email'];
-						$i++;
-					}
+					$civilite = ($responsable[0]['civilite'] == 0) ? "Mme" : "M";
+					$d['filiereEnseignement']['responsable'][$i]['id'] = $responsable[0]['id'];
+					$d['filiereEnseignement']['responsable'][$i]['nom'] = $civilite.' '.$responsable[0]['prenom'].' '.$responsable[0]['nom'];
+					$d['filiereEnseignement']['responsable'][$i]['email'] = $responsable[0]['email'];
+					$i++;
 				}
-				
-				$this->set($d);
-				$this->render('view');
-			
-			} else {
-				// Rediriger l'utilisateur sur une page d'erreur
-				redirection("notfound", "droits");
 			}
+			
+			$this->set($d);
+			$this->render('view');
 		}
 	}
 ?>

@@ -58,7 +58,7 @@
 								
 								<tr>
 									<td><?php echo $enseignement['id']; ?></td>
-									<td><?php echo $enseignement['libelle']; ?></td>
+									<td><a href="<?php echo WEBROOT; ?>enseignement/view/<?php echo $enseignement['id']; ?>" title="<?php echo $enseignement['libelle']; ?>"><?php echo $enseignement['libelle']; ?></a></td>
 									<td><?php echo $enseignement['keyword']; ?></td>
 								</tr>
 							

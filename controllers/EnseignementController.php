@@ -10,7 +10,7 @@
 			$d['v_menuActive'] = 'enseignements';
 			$this->v_JS = array('enseignement');
 
-			if(isset($_POST) && count($_POST) != 0) {
+			if(isset($_POST) && count($_POST) != 0 && $_SESSION['v_droits'] >= 2) {
 				// enseignement
 				$dataEnseignement = array(	"libelle" => $_POST['intitule'],
 									"description" => $_POST['description'],

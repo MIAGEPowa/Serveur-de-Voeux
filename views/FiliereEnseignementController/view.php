@@ -318,6 +318,8 @@
 			
 			<div class="text-two-item">
 				<?php
+				if($_SESSION['v_droits'] > 1) {
+
 					// Voeu utilisateur, ajout ou modification
 					$add_voeu_utilisateur = 1;
 					foreach ($filiereEnseignementEnseignant as $fee) {
@@ -377,6 +379,9 @@
 					</fieldset>
 				</form>
 				<br />
+				<?php
+				}
+				?>
 				
 				<h2>Liste des badges</h2>
 				<?php

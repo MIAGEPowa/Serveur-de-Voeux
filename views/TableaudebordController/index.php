@@ -12,105 +12,116 @@
 			<a href="./" title="Tableau de bord">Tableau de bord</a>
 		</div>
 		
-		<div class="text text-two">
+		<?php
+			if($_SESSION['v_droits'] != 2) {
+		?>
 		
-			<div class="text-two-item text-two-item-first" style="clear: both;">
-				<h2>Etat prévisionnel des filières</h2>
-				
-				<table class="no-search">
-					<thead>
-						<tr>
-							<th width="40%">Filière</th>
-							<th width="30%">Responsable</th>
-							<th width="30%">Secrétaire</th>
-						</tr>
-					</thead>
-					<tbody>
-						<?php
-							foreach($arrayFilieres as $f) {
-							?>
-							<tr>
-								<td><a href="<?php echo WEBROOT; ?>filiere/view/<?php echo $f['id']; ?>" title="<?php echo $f['name']; ?>"><?php echo $f['name']; ?></a></td>
-								<td>
-									<?php 
-										foreach ($f['responsable'] as $resp) {
-											($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
-											$responsable = ($resp['adjoint'] == 0) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
-											if ($responsable != '')
-												echo $responsable.'<br />';
-										}
-									?>
-								</td>
-								<td>
-									<?php 
-										foreach ($f['secretaire'] as $secr) {
-											($secr['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
-											echo $civilite.' '.$secr['prenom'].' '.$secr['nom'].'<br />';
-										}
-									?>
-								</td>
-							</tr>
-							<?php
-							}
-						?>
-					</tbody>
-				</table>	
-			</div>
+			<div class="text text-two">
 			
-			<div class="text-two-item">
-				<h2>Filière-enseignements avec la même référence</h2>			
-
-				<?php
-				if(count($arrayFilieresEnseignementsSameRef) == 0) {
-				?>
-					<p>
-						Il n'y a pas de filière-enseignement avec la même référence
-					</p>
-				<?php
-				} else {
-				?>
+				<div class="text-two-item text-two-item-first" style="clear: both;">
+					<h2>Etat prévisionnel des filières</h2>
+					
 					<table class="no-search">
-						 <thead>
+						<thead>
 							<tr>
-								<th width="60%">Filière - Enseignement</th>
-								<th width="20%">Réf</th>
-								<th width="20%">Réf</th>
+								<th width="40%">Filière</th>
+								<th width="30%">Responsable</th>
+								<th width="30%">Secrétaire</th>
 							</tr>
 						</thead>
 						<tbody>
 							<?php
-							// On parcours le tableau des enseignements
-							foreach($arrayFilieresEnseignementsSameRef as $key/*=ref*/ => $arrayFilieresEnseignements) {
-							?>
+								foreach($arrayFilieres as $f) {
+								?>
 								<tr>
+									<td><a href="<?php echo WEBROOT; ?>filiere/view/<?php echo $f['id']; ?>" title="<?php echo $f['name']; ?>"><?php echo $f['name']; ?></a></td>
 									<td>
-										<?php
-											$i = 0;
-											foreach($arrayFilieresEnseignements as $fe) {
-												if($i != 0) {echo '<br/>';}
-												$apprentissage = ($fe['apprentissage'] == 0) ? "initial" : "apprentissage";
-												echo $fe['libelle_niveau'].' '.$fe['libelle_specialite'].' '.$apprentissage.' - '.$fe['libelle_enseignement'];
-												$i++;
+										<?php 
+											foreach ($f['responsable'] as $resp) {
+												($resp['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+												$responsable = ($resp['adjoint'] == 0) ? $civilite.' '.$resp['prenom'].' '.$resp['nom'] : '';
+												if ($responsable != '')
+													echo $responsable.'<br />';
 											}
 										?>
 									</td>
-									<td><strong><?php echo $key; ?></strong></td>
 									<td>
-										<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/index/0/<?php echo $key ?>"><span class="buttons button-orange">Modifier</span></a>
+										<?php 
+											foreach ($f['secretaire'] as $secr) {
+												($secr['civilite']) ? $civilite = 'M.' : $civilite = 'Mme';
+												echo $civilite.' '.$secr['prenom'].' '.$secr['nom'].'<br />';
+											}
+										?>
 									</td>
 								</tr>
-							
-							<?php 
-							} 
+								<?php
+								}
 							?>
 						</tbody>
-					</table>
-				<?php
-				}
-				?>
-			</div>      
-		</div>
-    
+					</table>	
+				</div>
+				
+				<div class="text-two-item">
+					<h2>Filière-enseignements avec la même référence</h2>			
+
+					<?php
+					if(count($arrayFilieresEnseignementsSameRef) == 0) {
+					?>
+						<p>
+							Il n'y a pas de filière-enseignement avec la même référence
+						</p>
+					<?php
+					} else {
+					?>
+						<table class="no-search">
+							 <thead>
+								<tr>
+									<th width="60%">Filière - Enseignement</th>
+									<th width="20%">Réf</th>
+									<th width="20%">Réf</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								// On parcours le tableau des enseignements
+								foreach($arrayFilieresEnseignementsSameRef as $key/*=ref*/ => $arrayFilieresEnseignements) {
+								?>
+									<tr>
+										<td>
+											<?php
+												$i = 0;
+												foreach($arrayFilieresEnseignements as $fe) {
+													if($i != 0) {echo '<br/>';}
+													$apprentissage = ($fe['apprentissage'] == 0) ? "initial" : "apprentissage";
+													echo $fe['libelle_niveau'].' '.$fe['libelle_specialite'].' '.$apprentissage.' - '.$fe['libelle_enseignement'];
+													$i++;
+												}
+											?>
+										</td>
+										<td><strong><?php echo $key; ?></strong></td>
+										<td>
+											<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/index/0/<?php echo $key ?>"><span class="buttons button-orange">Modifier</span></a>
+										</td>
+									</tr>
+								
+								<?php 
+								} 
+								?>
+							</tbody>
+						</table>
+					<?php
+					}
+					?>
+				</div>      
+			</div>
+   
+		<?php
+			}
+		?>
+	
+		<?php
+			if($_SESSION['v_droits'] >= 2) {
+		?>
 		<div class="text text-full">
 			<h2>Vos heures</h2>	
 			  <table class="no-tri">
@@ -164,6 +175,10 @@
 				</tbody>
 			</table> 
 		</div>
+		
+		<?php
+			}
+		?>
 	
 		<div class="text text-full">
 			<h2>Filière-enseignements ayant des conflits</h2>	

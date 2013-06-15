@@ -47,7 +47,7 @@
 		}
 		
 		function view($id) {
-			$d['v_needRights'] = 4;
+			$d['v_needRights'] = 1;
 
 			if($_SESSION['v_droits'] >= $d['v_needRights']) {	
 				// Titre

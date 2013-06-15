@@ -14,7 +14,9 @@
 		</div>
 		
 		<div class="text text-full">
-			<a href="<?php echo WEBROOT; ?>filiereEnseignement/admin" title="Mode administrateur"><span class="buttons button-orange" style="float: right;">Mode administrateur</span></a>
+			<?php if($_SESSION['v_droits'] >= 3) { ?>
+				<a href="<?php echo WEBROOT; ?>filiereEnseignement/admin" title="Mode administrateur"><span class="buttons button-orange" style="float: right;">Mode administrateur</span></a>
+			<?php } ?>
 			<span id="mode-enseignant" class="buttons button-green" style="float: right; display: none;">Mode enseignant</span>
 			<span id="mode-aff-1" class="buttons button-blue mode-aff" style="float: right;"><img src="<?php echo IMG_DIR; ?>mode_aff_1.png" title="Mode affichage" alt="Icône mode d'affichage" style="display: block;width: 17px;" /></span>
 			<span id="mode-aff-2" class="buttons button-blue mode-aff" style="float: right; display: none;"><img src="<?php echo IMG_DIR; ?>mode_aff_2.png" title="Mode affichage" alt="Icône mode d'affichage" style="display: block;width: 17px;margin: 3px 0;" /></span>
@@ -317,7 +319,7 @@
 										}
 										
 									?>
-										<span style="width: 20%; float: left;">Cours</span>
+										<span style="width: 25%; float: left;">Cours</span>
 										<div class="barreProgressionMin">
 											<span><?php echo round($cours_percent, 2); ?> %</span>
 											<div class="progressionMin <?php if($cours_percent > 100) echo 'barreProgressionRed'; else echo 'barreProgressionOrange'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
@@ -338,7 +340,7 @@
 								
 								if($filiereEnseignement['nbr_h_cours'] > 0 && !$c_cours) {
 								?>
-									<span style="width: 20%; float: left;">Cours</span>
+									<span style="width: 25%; float: left;">Cours</span>
 									<div class="barreProgressionMin">
 										<span>100 %</span>
 										<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
@@ -374,7 +376,7 @@
 										}
 										
 									?>
-										<span style="width: 20%; float: left;">TD</span>
+										<span style="width: 25%; float: left;">TD</span>
 										<div class="barreProgressionMin">
 											<span><?php echo round($td_percent, 2); ?> %</span>
 											<div class="progressionMin <?php if($td_percent > 100) echo 'barreProgressionRed'; else echo 'barreProgressionOrange'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
@@ -395,7 +397,7 @@
 								
 								if($filiereEnseignement['nbr_h_td'] > 0 && !$c_td) {
 								?>
-									<span style="width: 20%; float: left;">TD</span>
+									<span style="width: 25%; float: left;">TD</span>
 									<div class="barreProgressionMin">
 										<span>100 %</span>
 										<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
@@ -430,7 +432,7 @@
 												$width_progression = 125;
 										}
 									?>
-										<span style="width: 20%; float: left;">TP</span>
+										<span style="width: 25%; float: left;">TP</span>
 										<div class="barreProgressionMin">
 											<span><?php echo round($tp_percent, 2); ?> %</span>
 											<div class="progressionMin <?php if($tp_percent > 100) echo 'barreProgressionRed'; else echo 'barreProgressionOrange'; ?>" style="width: <?php echo $width_progression; ?>px;"></div>
@@ -451,7 +453,7 @@
 								
 								if($filiereEnseignement['nbr_h_tp'] > 0 && !$c_tp) {
 								?>
-									<span style="width: 20%; float: left;">TP</span>
+									<span style="width: 25%; float: left;">TP</span>
 									<div class="barreProgressionMin">
 										<span>100 %</span>
 										<div class="progressionMin barreProgressionGreen" style="width: 125px;"></div>
