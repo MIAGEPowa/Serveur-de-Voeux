@@ -16,7 +16,7 @@
 		<div class="text text-full">
 			<form id="form-create-voeu" action="<?php echo WEBROOT.'voeu/index'; ?>" method="post">
 				<fieldset>
-					<legend class="button-slide"><span class="icon-book"></span>Ajouter un voeu<span class="icon-arrow"></span></legend>
+					<legend class="button-slide"><span class="icon-heart"></span>Ajouter un voeu<span class="icon-arrow"></span></legend>
 					<div style="display:none">
 						<div class="form-item">
 							<label style="width: 250px;" for="filiereEnseignement">Filières - Enseignements</label>
