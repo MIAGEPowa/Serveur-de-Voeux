@@ -78,7 +78,7 @@
 								<tr>
 									<th width="60%">Filière - Enseignement</th>
 									<th width="20%">Réf</th>
-									<th width="20%">Réf</th>
+									<th width="20%">Actions</th>
 								</tr>
 							</thead>
 							<tbody>

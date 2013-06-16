@@ -102,13 +102,18 @@
 									if($_SESSION['v_droits'] > 1) {
 									?>
 										<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/update/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-orange">Modifier</span></a>
-										<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-red">Supprimer</span></a>
-									<?php
+										<?php
+										// suppression que pour l'admin et l'auteur
+										if($_SESSION['v_droits'] == 4 || $enseignement['auteur_id'] == $_SESSION['v_id_utilisateur']) {
+										?>
+											<a class="buttons-link" href="<?php echo WEBROOT; ?>enseignement/delete/<?php echo $enseignement['id_enseignement']; ?>"><span class="buttons button-red">Supprimer</span></a>
+										<?php
+										}
 									} 
 									?>
 								</td>
 							</tr>
-						
+							
 						<?php 
 						} 
 						?>

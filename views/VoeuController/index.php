@@ -66,7 +66,7 @@
 						<th width="8%" align="center">TD</th>
 						<th width="8%" align="center">TP</th>
 						<th width="26%" style="min-width:246px">Conflits</th>
-						<th width="6%">Actions</th> <!-- Visualiser et Supprimer -->
+						<th width="6%" style="min-width:100px">Actions</th> <!-- Visualiser et Supprimer -->
 					</tr>
 				</thead>
 				<tbody>

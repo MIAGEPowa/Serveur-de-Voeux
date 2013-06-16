@@ -37,6 +37,22 @@
 				?>
 					
 				<h2><?php echo $f['niveau'].' '.$f['specialite'].' '.$f['apprentissage_lib']?></h2>	
+				<?php
+				
+				$elementExist = false;
+				
+				foreach($arrayFiliereEnseignement as $filiereEnseignement) {
+					if($filiereEnseignement['id_filiere'] == $f['id']) {
+						$elementExist = true;
+						break;
+					}
+				}
+				
+				if(!$elementExist) {
+					echo "<p>Pas d'enseignement pour cette filière...</p>";
+				}
+				else {
+				?>
 				<table class="no-tri">
 					<thead>
 						<tr>
@@ -237,6 +253,9 @@
 						?>
 					</tbody>
 				</table>
+				<?php 
+				} 
+				?>
 				
 				<?php
 				if($i % 2) {

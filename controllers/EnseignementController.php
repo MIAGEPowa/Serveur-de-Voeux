@@ -119,9 +119,12 @@
 			$d['v_titreHTML'] = 'Enseignements';
 			$d['v_menuActive'] = 'enseignements';
 			$this->v_JS = array('enseignement');
-			$d['v_needRights'] = 2;
+			$d['v_needRights'] = 4;
 			
-			if($_SESSION['v_droits'] >= $d['v_needRights']) {
+			$enseignement = $this->Enseignement->find(array( 'conditions' => 'auteur = '.$_SESSION['v_id_utilisateur']));
+			
+			// suppression que pour l'admin et l'auteur							
+			if($_SESSION['v_droits'] >= $d['v_needRights'] || $enseignement[0]['auteur'] == $_SESSION['v_id_utilisateur']) {
 				$check = 0;
 				$allFiliereEnseignement = $this->FiliereEnseignement->getAllFiliereEnseignement(); 
 				foreach($allFiliereEnseignement as $fe) {
