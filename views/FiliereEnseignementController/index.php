@@ -278,7 +278,7 @@
 								<?php
 									if(is_array($filiereEnseignement['responsable'])) {
 										foreach($filiereEnseignement['responsable'] as $responsable) {
-											echo $responsable.'<br/>';
+											echo '<a href="'.WEBROOT.'annuaire/visualiser/'.$responsable['id'].'">'.$responsable['libelle'].'</a><br/>';
 										}
 									} else {
 										echo 'Pas de responsable';

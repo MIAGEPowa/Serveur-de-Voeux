@@ -75,8 +75,8 @@
 							<th width="12%">#</th>
 							<th width="22%">Intitulé</th>
 							<th width="22%">Créé par</th>
-							<th width="22%">Etat</th>
-							<th width="22%">Actions</th>
+							<th width="17%">Etat</th>
+							<th width="27%">Actions</th>
 						</tr>
 					</thead>
 					<tbody>
