@@ -100,7 +100,7 @@
 										</td>
 										<td><strong><?php echo $key; ?></strong></td>
 										<td>
-											<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/index/0/<?php echo $key ?>"><span class="buttons button-orange">Modifier</span></a>
+											<a class="buttons-link" href="<?php echo WEBROOT; ?>filiereEnseignement/index/0/<?php echo $key ?>"><?php if ($_SESSION['v_droits'] != 1) echo '<span class="buttons button-orange">Modifier</span></a>'; else echo '<span class="buttons button-green">Visualiser</span></a>';?>
 										</td>
 									</tr>
 								

@@ -16,7 +16,7 @@
 		<div class="text text-full">
 			<form id="form-create-filiere" action="#" method="post">
 				<fieldset>
-					<legend class="button-slide"><span class="icon-book"></span>Ajouter une filière<span class="icon-arrow"></span></legend>
+					<legend class="button-slide"><span class="icon-filieres"></span>Ajouter une filière<span class="icon-arrow"></span></legend>
 					<div style="display:none">
 						<div class="form-item">
 							<label for="niveau">Niveau</label>

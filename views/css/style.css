@@ -751,7 +751,10 @@ span.icon-user {
 span.icon-heart {
 	width: 17px;
 	height: 16px;
-	background: url(../img/heart.png);
+	background: url(../img/sprite.png) -133px -32px;
+}
+#col li.active span.icon-heart {
+	background: url(../img/sprite.png) -133px -48px;
 }
 span.icon-ok {
 	width: 17px;
