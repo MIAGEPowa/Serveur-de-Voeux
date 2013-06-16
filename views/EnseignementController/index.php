@@ -13,50 +13,55 @@
 			<a href="<?php echo WEBROOT.'enseignement/index'; ?>" title="">Enseignements</a>
 		</div>
 		
-		<div class="text text-full">
-			<form id="form-create-teaching" action="<?php echo WEBROOT.'enseignement/index'; ?>" method="post">
-				<fieldset>
-					<legend class="button-slide"><span class="icon-book"></span>Ajouter un enseignement<span class="icon-arrow"></span></legend>
-					<div style="display:none">
-						<div class="form-item">
-							<label for="intitule">Intitulé *</label>
-							<input type="text" id="intitule" name="intitule" value="" class="input-large" />
+		<?php
+		if($_SESSION['v_droits'] != 1) {
+		?>
+			<div class="text text-full">
+				<form id="form-create-teaching" action="<?php echo WEBROOT.'enseignement/index'; ?>" method="post">
+					<fieldset>
+						<legend class="button-slide"><span class="icon-book"></span>Ajouter un enseignement<span class="icon-arrow"></span></legend>
+						<div style="display:none">
+							<div class="form-item">
+								<label for="intitule">Intitulé *</label>
+								<input type="text" id="intitule" name="intitule" value="" class="input-large" />
+							</div>
+							
+							<div class="form-item">
+								<label class="label-top" for="description">Description *</label>
+								<textarea id="description" name="description"></textarea>
+							</div>
+							<span class="form-description">Plan de l'enseignement...</span>
+							
+							
+							<div class="form-item">
+								<label for="keyword">Ajouter mot clé</label>
+								<input type="text" id="keyword" value="" class="input-medium" />
+								<select id="keyword-type" name="keywordType">
+									<option value="1">Pré-requis</option>
+									<option value="2">Compétences acquises</option>
+								</select>
+								<span id="add-keyword" class="buttons button-blue">Ajouter</span>
+							</div>
+							<span class="form-description">Mot clé + type du mot clé</span>
+							
+							<div class="form-item">
+								<label for="">Liste des mots clés</label>
+								<ul id="list-keywords">
+									<li>Aucun mot clé...</li>
+								</ul>
+							</div>
+							
+							<div class="form-item">
+								<input type="submit" class="input-submit input-submit-green" value="Enregistrer" />
+							</div>
+							
 						</div>
-						
-						<div class="form-item">
-							<label class="label-top" for="description">Description *</label>
-							<textarea id="description" name="description"></textarea>
-						</div>
-						<span class="form-description">Plan de l'enseignement...</span>
-						
-						
-						<div class="form-item">
-							<label for="keyword">Ajouter mot clé</label>
-							<input type="text" id="keyword" value="" class="input-medium" />
-							<select id="keyword-type" name="keywordType">
-								<option value="1">Pré-requis</option>
-								<option value="2">Compétences acquises</option>
-							</select>
-							<span id="add-keyword" class="buttons button-blue">Ajouter</span>
-						</div>
-						<span class="form-description">Mot clé + type du mot clé</span>
-						
-						<div class="form-item">
-							<label for="">Liste des mots clés</label>
-							<ul id="list-keywords">
-								<li>Aucun mot clé...</li>
-							</ul>
-						</div>
-						
-						<div class="form-item">
-							<input type="submit" class="input-submit input-submit-green" value="Enregistrer" />
-						</div>
-						
-					</div>
-				</fieldset>
-			</form>
-		</div>
-		
+					</fieldset>
+				</form>
+			</div>
+		<?php
+		}
+		?>
 		<div class="text text-full">
 			<h2>Liste des enseignements</h2>
 
@@ -75,8 +80,8 @@
 							<th width="12%">#</th>
 							<th width="22%">Intitulé</th>
 							<th width="22%">Créé par</th>
-							<th width="22%">Etat</th>
-							<th width="22%">Actions</th>
+							<th width="17%">Etat</th>
+							<th width="27%">Actions</th>
 						</tr>
 					</thead>
 					<tbody>

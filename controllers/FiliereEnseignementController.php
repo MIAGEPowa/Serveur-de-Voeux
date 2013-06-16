@@ -149,10 +149,13 @@
 																			'order' => 'id_filiere_enseignement'));
 					if(count($arrayResponsables) != 0) {
 						$d['arrayFiliereEnseignement'][$i]['responsable'] = array();
+						$j = 0;
 						foreach ($arrayResponsables as $responsable) {
 							$responsable = $this->Utilisateur->find(array('conditions' => 'id = '.$responsable['id_utilisateur']));
-							$civilite = ($responsable['civilite'] == 0) ? "Mme" : "M";
-							$d['arrayFiliereEnseignement'][$i]['responsable'][] = $civilite.' '.$responsable[0]['prenom'].' '.$responsable[0]['nom'];
+							$civilite = ($responsable[0]['civilite'] == 0) ? "Mme" : "M";
+							$d['arrayFiliereEnseignement'][$i]['responsable'][$j]['id'] = $responsable[0]['id'];
+							$d['arrayFiliereEnseignement'][$i]['responsable'][$j]['libelle'] = $civilite.' '.$responsable[0]['prenom'].' '.$responsable[0]['nom'];
+							$j++;
 						}
 					}
 					// Filière
@@ -244,10 +247,13 @@
 																			'order' => 'id_filiere_enseignement'));
 					if(count($arrayResponsables) != 0) {
 						$d['arrayFiliereEnseignement'][$i]['responsable'] = array();
+						$j = 0;
 						foreach ($arrayResponsables as $responsable) {
 							$responsable = $this->Utilisateur->find(array('conditions' => 'id = '.$responsable['id_utilisateur']));
-							$civilite = ($responsable['civilite'] == 0) ? "Mme" : "M";
-							$d['arrayFiliereEnseignement'][$i]['responsable'][] = $civilite.' '.$responsable[0]['prenom'].' '.$responsable[0]['nom'];
+							$civilite = ($responsable[0]['civilite'] == 0) ? "Mme" : "M";
+							$d['arrayFiliereEnseignement'][$i]['responsable'][$j]['id'] = $responsable[0]['id'];
+							$d['arrayFiliereEnseignement'][$i]['responsable'][$j]['libelle'] = $civilite.' '.$responsable[0]['prenom'].' '.$responsable[0]['nom'];
+							$j++;
 						}
 					}
 					// Filière

@@ -156,8 +156,8 @@
 			<table>
 				<thead>
 					<tr>
-						<th width="45%">Libellé</th>
-						<th width="15%">Role d'enseignant</th>
+						<th width="40%">Libellé</th>
+						<th width="20%" align="center">Role d'enseignant</th>
 						<th width="15%">Droits</th>
 						<th width="15%">Utilisateurs</th>
 						<th width="10%">Actions</th>
@@ -187,7 +187,7 @@
 								
 							echo '<tr>
 										<td>'.$r['libelle'].'</td>
-										<td>'.$re.'</td>
+										<td align="center">'.$re.'</td>
 										<td>'.$role_txt.'</td>
 										<td>'.$r['utilisateurs'].'</td>
 										<td>'; 
